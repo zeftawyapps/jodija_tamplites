@@ -9,7 +9,7 @@ import '../../data_souce_bloc/base_state.dart';
          this.loading,
        required this.success,
        required this.failure,
-       required this.bloc,
+        this.bloc,
           this.onesle,
 
      });
@@ -17,7 +17,7 @@ import '../../data_souce_bloc/base_state.dart';
  Widget child;
  Function(T? data ) success;
   Function(dynamic error, Function() callback) failure;
-  DataSourceBloc<T> bloc;
+  DataSourceBloc<T>? bloc;
   Function()? onesle;
 
    @override

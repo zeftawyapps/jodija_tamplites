@@ -12,7 +12,11 @@ class DrobDaownValidation extends StatelessWidget implements InputValidationForm
   ValidationsForm form;
   String hintText;
   String keyData;
+  int index = 0;
+
   Map<String, dynamic>? mapValue;
+  // call back to get the value of the drop down
+  var onChange;
 
   DrobDaownValidation(
       {required this.decoration,
@@ -22,6 +26,8 @@ class DrobDaownValidation extends StatelessWidget implements InputValidationForm
       required this.baseValidation,
       required this.hintText,
       this.mapValue,
+this.onChange,
+        this.index = 0,
       required this.form});
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,13 @@ class DrobDaownValidation extends StatelessWidget implements InputValidationForm
       itemslsit: itemslsit,
       hintText: hintText,
       decoration: decoration,
+      val: itemslsit[index],
+      onChange: (v){
+        mapValue!["$keyData"] = v;
+        if(onChange != null){
+          onChange(v);
+        }
+      },
       validation: (v) {
         if (baseValidation != null) {
           return BaseValidator.validateValue(

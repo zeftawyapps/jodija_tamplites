@@ -14,15 +14,19 @@ class DropDownInputTextField extends StatefulWidget {
         this.textStyle ,
       required this.hintText,
       this.useicon = true,
+        this.onChange ,
       this.textFieldColor  , required this.decoration})
       : super(key: key);
 InputDecoration decoration ;
+ var onChange ;
   bool useicon = true;
   List<String> itemslsit;
   String? val;
+
   String hintText;
 TextStyle? textStyle ;
   var onsaved;
+
   Icon? icon;
   var validation;
   Color? textFieldColor;
@@ -44,8 +48,11 @@ class _DropDownInputTextFieldState extends State<DropDownInputTextField> {
             ));
       }).toList(),
       onChanged: (v){
+
         setState(() {
           widget.val = v;
+          widget.onChange(v);
+
         });
       },
       value: widget.val != null ? widget.val : widget.itemslsit[0],
