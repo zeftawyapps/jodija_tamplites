@@ -18,22 +18,24 @@ class TextFomrFildValidtion extends StatelessWidget
   FocusNode? node;
   int? mulitLine;
   List<BaseValidator>? baseValidation;
-  String hintText;
+  String? labalText = "";
   String keyData;
-   ValidationsForm form;
+
+  ValidationsForm form;
   Map<String, dynamic>? mapValue;
 
 
   TextFomrFildValidtion(
       {super.key,
-       required this.form,
+      required this.form,
       required this.baseValidation,
-      required this.hintText,
+      this.labalText = "",
       required this.keyData,
       this.mapValue,
       this.mulitLine,
       this.isReadOnly = false,
       this.node,
+
       this.padding,
       required this.decoration,
       required this.textStyle,
@@ -43,52 +45,45 @@ class TextFomrFildValidtion extends StatelessWidget
       this.controller});
   @override
   Widget build(BuildContext context) {
-   form.inputValidationForm .add(this);
+      form.inputValidationForm.add( this );
 
-    if (mapValue == null) {
-      mapValue = Map<String, dynamic>();
+    if ( mapValue == null) {
+        mapValue = Map<String, dynamic>();
     }
-    return  InputTextFormfield(
-            node: node,
-            maxLines: mulitLine,
-            readOnly: isReadOnly,
-            textInputType: textInputType,
-            controller: this.controller,
-            mainValue: this.controller != null ? initValue : null,
-            style: textStyle,
-            isPressed: this.isPssword,
-            decoration: decoration.copyWith(labelText: hintText),
-            validate: (v) {
-              if (baseValidation != null) {
-                return BaseValidator.validateValue(
-                    context, v.toString().trim(), baseValidation!);
-              } else {
-                return null;
-              }
-            },
-            saved: (v) {
-              if (textInputType == TextInputType.number)
-                mapValue!["$keyData"] = int.parse(v!);
-              else {
-                mapValue!["$keyData"] = v;
-              }
-            }) ;
-
-
+    return InputTextFormfield(
+        node: node,
+        maxLines:  mulitLine,
+        readOnly:  isReadOnly,
+        textInputType:  textInputType,
+        controller: this . controller,
+        mainValue: this. controller != null ?  initValue : null,
+        style:  textStyle,
+        isPressed: this. isPssword,
+        decoration:  labalText != ""
+            ?      decoration.copyWith(labelText:  labalText)
+            :  decoration,
+        validate: (v) {
+          if ( baseValidation != null) {
+            return BaseValidator.validateValue(
+                context, v.toString().trim(),  baseValidation!);
+          } else {
+            return null;
+          }
+        },
+        saved: (v) {
+          if ( textInputType == TextInputType.number) {
+            String value = v.toString().trim();
+            // if value have .0 then parse to double else to int
+            if (value.contains(".")) {
+              mapValue!["${ keyData}"] = double.parse(v!);
+            } else {
+              mapValue!["${ keyData}"] = int.parse(v!);
+            }
+           
+          }
+          else {
+            mapValue!["${ keyData}"] = v;
+          }
+        });
   }
-
-  @override
-  Widget getWedgetFormField(BuildContext context) {
-    // TODO: implement getWedgetFormField
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget getWedgetFormFieldAndAddTolist(
-      BuildContext context, List<InputValidationForm> list) {
-    // TODO: implement getWedgetFormFieldAndAddTolist
-    throw UnimplementedError();
-  }
-
-
 }

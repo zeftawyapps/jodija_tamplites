@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../view_data_model/base_data_model.dart';
- class GroupedMapWidget<parent , child > extends StatelessWidget {
+import '../../view_data_model/base_data_model.dart';
+  class GroupedMapWidget<parent , child > extends StatelessWidget {
   final List<BaseViewDataModel> data;
   ScrollPhysics physics;
  parent Function (  Map<String, dynamic >  data)  parentData;

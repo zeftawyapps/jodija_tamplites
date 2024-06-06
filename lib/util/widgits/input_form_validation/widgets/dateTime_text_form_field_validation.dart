@@ -12,11 +12,12 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   TextStyle textStyle;
   List<BaseValidator>? baseValidation;
   ValidationsForm form;
-  String hintText;
+  String? labalText;
   String keyData;
   DatePickerEntryMode entryMode = DatePickerEntryMode.calendar;
   Map<String, dynamic>? mapValue;
   DatePickerMode datePickerMode = DatePickerMode.day;
+  var onChange;
   DateTimeTextFieldValidaion(
       {this.initDate,
       this.firestDate,
@@ -26,9 +27,10 @@ class DateTimeTextFieldValidaion extends StatelessWidget
       required this.textStyle,
       required this.keyData,
       required this.baseValidation,
-      required this.hintText,
+      required this.labalText,
       this.mapValue,
       required this.form,
+        this.onChange,
       this.entryMode = DatePickerEntryMode.calendar});
 
   @override
@@ -47,7 +49,15 @@ class DateTimeTextFieldValidaion extends StatelessWidget
         lastDate: last,
         textStyle: textStyle,
         decoration: decoration,
-        hintText: hintText,
+        hintText: labalText,
+        onChange:  (v){
+          var sDate = v.toString() ;
+          if(onChange != null){
+            DateTime date = DateTime.parse(sDate);
+            onChange(date);
+          }
+
+        } ,
         onvlaidate: (v) {
           if (baseValidation != null) {
             return BaseValidator.validateValue(
@@ -57,7 +67,9 @@ class DateTimeTextFieldValidaion extends StatelessWidget
           }
         },
         onSave: (v) {
-          mapValue!["$keyData"] = v;
+          var sDate = v.toString() ;
+          DateTime date = DateTime.parse(sDate);
+          mapValue!["$keyData"] = date ;
         });
   }
 }

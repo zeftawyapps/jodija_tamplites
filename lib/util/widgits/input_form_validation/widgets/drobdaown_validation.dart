@@ -10,7 +10,7 @@ class DrobDaownValidation extends StatelessWidget implements InputValidationForm
   TextStyle textStyle;
   List<BaseValidator>? baseValidation;
   ValidationsForm form;
-  String hintText;
+  String? labalText;
   String keyData;
   int index = 0;
 
@@ -24,7 +24,7 @@ class DrobDaownValidation extends StatelessWidget implements InputValidationForm
       required this.itemslsit,
       required this.keyData,
       required this.baseValidation,
-      required this.hintText,
+        this.labalText,
       this.mapValue,
 this.onChange,
         this.index = 0,
@@ -37,7 +37,7 @@ this.onChange,
     return DropDownInputTextField(
       textStyle: textStyle,
       itemslsit: itemslsit,
-      hintText: hintText,
+      hintText: labalText!= null ? labalText! : "",
       decoration: decoration,
       val: itemslsit[index],
       onChange: (v){

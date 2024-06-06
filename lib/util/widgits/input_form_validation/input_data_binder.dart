@@ -1,14 +1,8 @@
-  class InputDataGenerator{
- String keyData ;
- dynamic value;
-InputTypeWidget  inputTypeWidget;
-  InputDataGenerator({required this.keyData, required this.value
-  , required this.inputTypeWidget
-  });
+class InputDataBinder {
+  String keyData;
+  dynamic value;
+  InputTypeWidget inputType;
+  InputDataBinder({required this.keyData, this.value, required this.inputType});
 }
 
-enum InputTypeWidget{
-   text ,
-    dropDown ,
-  dateTiem
-}
+enum InputTypeWidget { text, dropDown, dateTiem }

@@ -107,7 +107,7 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
       validator: widget.validate,
       onChanged: (value) {
         if (widget.controller != null) {
-          if (widget._textInputType == TextInputType.number) {
+          if (widget._textInputType == TextInputType.number  || widget._textInputType == TextInputType.phone) {
             // check of input is number not string
             if (value.isNotEmpty) {
               if (value.contains(RegExp(r'[a-zA-Z]'))) {

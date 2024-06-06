@@ -10,10 +10,10 @@ class DataSourceBlocBuilder<T> extends StatelessWidget {
     required this.loading,
     required this.success,
     required this.failure,
-    required this.bloc,
+      this.bloc,
       this.onesle,
   });
-  DataSourceBloc<T> bloc;
+  DataSourceBloc<T>? bloc;
   Widget Function() loading;
   Widget Function(T? data) success;
   Widget Function(dynamic error, Function() callback) failure;
@@ -22,7 +22,7 @@ class DataSourceBlocBuilder<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DataSourceBloc<T>, DataSourceState<T>>(
-      bloc: bloc,
+      bloc: bloc??context.read<DataSourceBloc<T>>(),
       builder: (context, state) {
         return state.maybeWhen(
           orElse: onesle??(){return Container();},

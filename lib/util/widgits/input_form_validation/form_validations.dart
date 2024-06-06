@@ -26,7 +26,9 @@ class ValidationsForm {
   Widget buildChildrenWithColumn(
       {required BuildContext context,
       required List<Widget> children,
-      MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center}) {
+      MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center ,
+      CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
+      }) {
     this.inputValidationForm = inputValidationForm;
 
     return Container(
@@ -35,6 +37,8 @@ class ValidationsForm {
         child: Container(
           child: Column(
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+
             children: children,
           ),
         ),

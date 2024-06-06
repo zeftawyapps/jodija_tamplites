@@ -10,7 +10,7 @@ class DataSourceBlocConsumer<T> extends StatelessWidget {
     required this.loading,
     required this.success,
     required this.failure,
-    required this.bloc,
+      this.bloc,
       this.onesle,
       this.loadingListener,
       this.successListener,
@@ -18,7 +18,7 @@ class DataSourceBlocConsumer<T> extends StatelessWidget {
       this.onesleListener,
 
   });
-  DataSourceBloc<T> bloc;
+  DataSourceBloc<T>? bloc;
   Widget Function() loading;
 
   Widget Function(T ? data) success;
@@ -36,7 +36,7 @@ class DataSourceBlocConsumer<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DataSourceBloc<T>, DataSourceState<T>>(
-      bloc: bloc,
+      bloc: bloc ?? context.read<DataSourceBloc<T>>(),
       listener: (context, state) {
         state.maybeWhen(
           orElse: onesleListener??(){},

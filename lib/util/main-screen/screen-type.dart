@@ -19,11 +19,11 @@ extension ScreenTypeExtension on ScreenType {
     } else if (shortestSide < 600) {
       return ScreenType.tablet;
     } else if (shortestSide < 720) {
-      return ScreenType.web;
+      return ScreenType.desktop;
     } else if (shortestSide < 1200) {
-      return ScreenType.desktop;
+      return ScreenType.web ;
     } else {
-      return ScreenType.desktop;
+      return ScreenType.web ;
     }
   }
 }

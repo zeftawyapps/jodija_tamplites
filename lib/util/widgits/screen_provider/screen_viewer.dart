@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'mvvm_module.dart';
+import 'screen_notfier.dart';
 
-class PageViews<T extends PageModule> extends StatelessWidget {
-  PageViews({Key? key, required this.tModule, required this.builder})
+class ScreenViews<T extends ScreenStateNotifier> extends StatelessWidget {
+  ScreenViews({Key? key, required this.notifier, required this.builder})
       : super(key: key);
-  T tModule;
+  T notifier;
   final Widget Function(
     BuildContext context,
     T value,
@@ -15,7 +15,7 @@ class PageViews<T extends PageModule> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(
-      create: (c) => tModule,
+      create: (c) => notifier,
       child: Consumer<T>(
         builder: (c, me, child) {
           me.createproviers(c);
