@@ -24,7 +24,6 @@ class TextFomrFildValidtion extends StatelessWidget
   ValidationsForm form;
   Map<String, dynamic>? mapValue;
 
-
   TextFomrFildValidtion(
       {super.key,
       required this.form,
@@ -35,7 +34,6 @@ class TextFomrFildValidtion extends StatelessWidget
       this.mulitLine,
       this.isReadOnly = false,
       this.node,
-
       this.padding,
       required this.decoration,
       required this.textStyle,
@@ -45,44 +43,46 @@ class TextFomrFildValidtion extends StatelessWidget
       this.controller});
   @override
   Widget build(BuildContext context) {
-      form.inputValidationForm.add( this );
+    form.inputValidationForm.add(this);
 
-    if ( mapValue == null) {
-        mapValue = Map<String, dynamic>();
+    if (mapValue == null) {
+      mapValue = Map<String, dynamic>();
     }
     return InputTextFormfield(
         node: node,
-        maxLines:  mulitLine,
-        readOnly:  isReadOnly,
-        textInputType:  textInputType,
-        controller: this . controller,
-        mainValue: this. controller != null ?  initValue : null,
-        style:  textStyle,
-        isPressed: this. isPssword,
-        decoration:  labalText != ""
-            ?      decoration.copyWith(labelText:  labalText)
-            :  decoration,
+        maxLines: mulitLine,
+        readOnly: isReadOnly,
+        textInputType: textInputType,
+        controller: this.controller,
+        mainValue: this.controller != null ? initValue : null,
+        style: textStyle,
+        isPressed: this.isPssword,
+        decoration: labalText != ""
+            ? decoration.copyWith(labelText: labalText)
+            : decoration,
+        onChange: (v) {
+          // if value not == mainValue then  set to mainValue
+
+        },
         validate: (v) {
-          if ( baseValidation != null) {
+          if (baseValidation != null) {
             return BaseValidator.validateValue(
-                context, v.toString().trim(),  baseValidation!);
+                context, v.toString().trim(), baseValidation!);
           } else {
             return null;
           }
         },
         saved: (v) {
-          if ( textInputType == TextInputType.number) {
+          if (textInputType == TextInputType.number) {
             String value = v.toString().trim();
             // if value have .0 then parse to double else to int
             if (value.contains(".")) {
-              mapValue!["${ keyData}"] = double.parse(v!);
+              mapValue!["${keyData}"] = double.parse(v!);
             } else {
-              mapValue!["${ keyData}"] = int.parse(v!);
+              mapValue!["${keyData}"] = int.parse(v!);
             }
-           
-          }
-          else {
-            mapValue!["${ keyData}"] = v;
+          } else {
+            mapValue!["${keyData}"] = v;
           }
         });
   }

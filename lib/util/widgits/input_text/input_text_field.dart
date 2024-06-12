@@ -76,14 +76,15 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
 
   @override
   void initState() {
+    if (widget.mainValue != null && widget.mainValue != "") {
+      widget.controller?.text = widget.mainValue!.toString();
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.mainValue != null && widget.mainValue != "") {
-      widget.controller?.text = widget.mainValue!.toString();
-    }
+
 
     return TextFormField(
       readOnly: widget.readOnly,
@@ -119,6 +120,7 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
             }
           }
         }
+
         if (widget.onChange != null) {
           widget.onChange!(value);
         }
