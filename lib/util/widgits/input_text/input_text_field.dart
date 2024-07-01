@@ -28,9 +28,11 @@ class InputTextFormfield extends StatefulWidget {
   int? characterLimit;
   var onTap;
   bool readOnly ;
+  bool addTools;
   InputDecoration decoration;
   InputTextFormfield({
     required this.decoration,
+    this.addTools = false,
     this.onTap,
     this.validate,
     required this.saved,
@@ -85,8 +87,13 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
   @override
   Widget build(BuildContext context) {
 
-
+  if (widget.addTools) {
+  if (widget.mainValue != null && widget.mainValue != "") {
+        widget.controller?.text = widget.mainValue!.toString();
+      }
+   }
     return TextFormField(
+
       readOnly: widget.readOnly,
       style: widget.style,
       onTap: widget.onTap,

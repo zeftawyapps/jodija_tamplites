@@ -1,3 +1,4 @@
+import 'package:JoDija_view/util/navigations/web_route.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'animation_types.dart';
@@ -73,3 +74,16 @@ class GenerateAnimatedPageRoute extends PageRouteBuilder {
 
 
 }
+
+class urlGeneratior extends Route{
+
+  void generateUrl(String path, Map<String, String>? pram, Map<String, dynamic>? query) {
+
+
+  }
+}
+
+
+
+
+

@@ -5,7 +5,7 @@ import "cell.dart";
 
 
 
- abstract class Model{
+ abstract class CellModel{
 
   List<Cell>? cells   ;
 

@@ -3,7 +3,7 @@ import 'cell.dart';
  import 'modulscreateor.dart';
 import 'row_cells.dart';
 
-class TableOfCells<T extends Model> {
+class TableOfCells<T extends CellModel> {
   late    List<Map<String , dynamic >>  mapList ;
   late    List<RowofCells>  listOfRows ;
 T? model ;

@@ -2,7 +2,7 @@
 import 'cell.dart';
 import 'modulscreateor.dart';
 
-class RowofCells<T extends Model >{
+class RowofCells<T extends CellModel >{
   List<Cell> cells = [];
   Map<String  , dynamic>  rowMap ={};
   T? modle;

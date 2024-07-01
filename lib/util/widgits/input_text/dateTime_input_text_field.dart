@@ -1,10 +1,10 @@
 import 'package:JoDija_view/util/functions/date_time.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 import 'input_text_field.dart';
 
-class DatePickerFormFieldValidation extends StatefulWidget {
-  DatePickerFormFieldValidation(
+class DatePickerFormField extends StatefulWidget {
+  DatePickerFormField(
       {Key? key,
       required this.decoration,
       this.initDate,
@@ -28,12 +28,12 @@ class DatePickerFormFieldValidation extends StatefulWidget {
   var onvlaidate, onSave , onChange;
   String formate = 'yyyy-MM-dd';
   @override
-  State<DatePickerFormFieldValidation> createState() =>
-      _DatePickerFormFieldValidationState();
+  State<DatePickerFormField> createState() =>
+      _DatePickerFormFieldState();
 }
 
-class _DatePickerFormFieldValidationState
-    extends State<DatePickerFormFieldValidation> {
+class _DatePickerFormFieldState
+    extends State<DatePickerFormField> {
   DateTime? value = null;
   TextEditingController controller = TextEditingController();
 
@@ -60,6 +60,7 @@ first = widget.firestDate ?? DateTime.now();
 last = widget.lastDate ?? first.add(Duration(days: 1));
 
     return InputTextFormfield(
+      addTools: true,
         style: widget.textStyle,
         readOnly: true,
         controller: controller,

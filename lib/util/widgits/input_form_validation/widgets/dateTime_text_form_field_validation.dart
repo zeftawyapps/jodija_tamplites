@@ -41,7 +41,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
     DatePickerMode mode =  datePickerMode;
     mapValue = Map<String, dynamic>();
     form.inputValidationForm.add(this);
-    return DatePickerFormFieldValidation(
+    return DatePickerFormField(
         entryMode: entryMode,
         initialDatePickerMode: mode,
         initDate: init,

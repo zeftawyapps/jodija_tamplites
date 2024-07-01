@@ -23,7 +23,7 @@ dependencies:
 
   dio: ^5.4.0
   intl: ^0.19.0
-  image_picker: ^0.8.4+4
+  image_picker: ^1.1.2
   servicestack: ^2.0.3
   flutter_svg: ^2.0.7
   freezed_annotation: ^1.1.0

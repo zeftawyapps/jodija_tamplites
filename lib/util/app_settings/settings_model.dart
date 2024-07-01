@@ -1,15 +1,21 @@
+import 'package:JoDija_view/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 
 class BaseSetting extends IBaseSetting {
   int? pageState;
   String? language;
   ThemeMode? theme;
+  ScreenType? screenType;
    // add sengle tone
   static final BaseSetting _singleton = BaseSetting._internal();
-  factory BaseSetting({int pageState = 0, String language = 'en', ThemeMode theme = ThemeMode.system}) {
+  factory BaseSetting({int pageState = 0, String language = 'en', ThemeMode theme = ThemeMode.system
+  , screenType = ScreenType.web}
+  ) {
     _singleton.pageState = pageState;
     _singleton.language = language;
     _singleton.theme = theme;
+    _singleton.screenType = screenType;
+
     return _singleton;
   }
     BaseSetting._internal();
@@ -25,7 +31,8 @@ class BaseSetting extends IBaseSetting {
           runtimeType == other.runtimeType &&
           pageState == other.pageState &&
           language == other.language &&
-          theme == other.theme;
+          theme == other.theme &&
+          ScreenType == other.screenType;
 
   @override
   int get hashCode => pageState.hashCode ^ language.hashCode ^ theme.hashCode;
