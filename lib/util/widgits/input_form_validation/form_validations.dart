@@ -58,4 +58,13 @@ class ValidationsForm {
 
     return dataMap!;
   }
+// clear all the data in the form
+  void clearData() {
+    inputValidationForm.map((e) {
+      if (e.mapValue != null) {
+        e.mapValue![e.keyData] = null;
+      }
+    }).toList();
+    dataMap = null;
+  }
 }

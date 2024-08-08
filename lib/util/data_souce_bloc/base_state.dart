@@ -5,9 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 @immutable
 @freezed
-class DataSourceState<T> with _$BaseState<T>{
-  const factory DataSourceState.init() = _Init;
-  const factory DataSourceState.loading() = _Loading;
-  const factory DataSourceState.success([T? model]) = _Success<T>;
-  const factory DataSourceState.failure(ErrorStateModel error, VoidCallback callback) = _Failure;
+class DataSourceBaseState<T> with _$BaseState<T>{
+  const factory DataSourceBaseState.init() = _Init;
+  const factory DataSourceBaseState.loading() = _Loading;
+  const factory DataSourceBaseState.success([T? model]) = _Success<T>;
+  const factory DataSourceBaseState.failure(ErrorStateModel error, VoidCallback callback) = _Failure;
 }

@@ -81,7 +81,7 @@ last = widget.lastDate ?? first.add(Duration(days: 1));
             });
           });
         },
-        decoration: widget.decoration.copyWith(labelText: widget.hintText),
+        decoration: widget.decoration ,
         validate: widget.onvlaidate,
         saved: widget.onSave,
         mainValue: this.value == null ? null : this.value!.toStringFormat(formate:   widget.formate));

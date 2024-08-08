@@ -24,21 +24,26 @@ class ShowInputFieldsDialogs<  T extends BaseViewDataModel >{
     BuildContext context, {
     // T? data,
     // show result of dialog
-    void Function( T data)? onResult,
+    void Function( T? data)? onResult,
   }) async {
     double h =    MediaQuery.of(context).size.height;
     double w =   MediaQuery.of(context).size.width;
 
     if (screenType == ScreenType.web) {
-      showDialog (
+      showDialog<T?> (
           context: context,
           builder: (_) {
             return FadeIn(
                 duration: Duration(milliseconds: 300),
-                child: Dialog(child: content));
-          }).then((value) => {onResult!(value)});
+                child: Dialog(child: Container(
+                    width:width ??  w * 0.9,
+                    height:  height ??   h * 0.4,
+
+                    child: content)));
+          }).then((value) =>
+      {onResult!(value)});
     } else {
-      showModalBottomSheet (
+      showModalBottomSheet<T?> (
           context: context,
           builder: (_) {
             bool iskeyboard = MediaQuery.of(context).viewInsets.bottom != 0;

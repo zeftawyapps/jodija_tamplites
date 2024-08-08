@@ -23,7 +23,7 @@ import '../../data_souce_bloc/base_state.dart';
    @override
    Widget build(BuildContext context) {
      return  BlocListener
-     <DataSourceBloc<T>, DataSourceState<T>>(
+     <DataSourceBloc<T>, DataSourceBaseState<T>>(
        bloc: bloc,
        listener: (context, state) {
           state.maybeWhen(

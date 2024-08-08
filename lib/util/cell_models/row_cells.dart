@@ -1,20 +1,23 @@
 
 import 'cell.dart';
-import 'modulscreateor.dart';
+import 'modul_screateor.dart';
 
 class RowofCells<T extends CellModel >{
   List<Cell> cells = [];
   Map<String  , dynamic>  rowMap ={};
   T? modle;
   RowofCells(this.cells) {
-    int _ling = cells.length;
-    for(int i = 0 ;i<_ling;i++){
-      rowMap.addAll(cells[i].toMap());
-    }
 
+    cells.map((e)=>{
+      rowMap.addAll({e.name: e.value})
+    }).toList();
   }
   RowofCells.model(T model){
-
+  this.   modle = model;
+    cells = model.cells !;
+     cells.map((e)=>{
+        rowMap.addAll({e.name: e.value})
+      }).toList();
   }
 
   void addMap(Map<String ,dynamic> map ){

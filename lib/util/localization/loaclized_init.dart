@@ -6,27 +6,36 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 class AppLocalizationsInit {
+// add sengle tone
+//   static final AppLocalizationsInit _singleton = AppLocalizationsInit._internal();
+//   factory AppLocalizationsInit( ) {
+//
+//     return _singleton;
+//   }
+//   AppLocalizationsInit._internal();
 
-  static const LocalizationsDelegate<AppLocalizationsInit> delegate =
-  _AppLocalizationsDelegate();
 
 
-  static Locale local = LocalizationConfig().locale;
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-  <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+    Locale local = LocalizationConfig().locale;
+  // static   List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+  // <LocalizationsDelegate<dynamic>>[
+  //    delegate,
+  //   GlobalMaterialLocalizations.delegate,
+  //       GlobalWidgetsLocalizations.delegate,
+  //   GlobalCupertinoLocalizations.delegate,
+  // ];
+  List<LocalizationsDelegate<dynamic>> get localizationsDelegates =>
+      LocalizationConfig().locliztionDelegates( LocalizationConfig().locale);
+
+
 
   /// A list of this localizations delegate's supported locales.
-  static List<Locale> supportedLocales = LocalizationConfig().supportedLocales;
+    List<Locale> supportedLocales = LocalizationConfig().supportedLocales;
 }
 
-class _AppLocalizationsDelegate
+class AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizationsInit> {
-  const _AppLocalizationsDelegate();
+  const AppLocalizationsDelegate();
 
   @override
   Future<AppLocalizationsInit> load(Locale locale) {
@@ -39,7 +48,7 @@ class _AppLocalizationsDelegate
       LocalizationConfig().localcode.contains(locale.languageCode);
 
   @override
-  bool shouldReload(_AppLocalizationsDelegate old) => false;
+  bool shouldReload(AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizationsInit _lookupAppLocalizations(Locale locale) {
@@ -65,6 +74,20 @@ class LocalizationConfig {
   // add a method to set the locale
   void setLocale(Locale locale) {
     _locale = locale;
+
+
+  }
+
+  List<LocalizationsDelegate<dynamic>> locliztionDelegates(Locale local ){
+    LocalizationsDelegate<AppLocalizationsInit> delegate = AppLocalizationsDelegate();
+   delegate.load(locale);
+
+    return  [
+      delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];;
   }
 
   List<String> _keys = [];

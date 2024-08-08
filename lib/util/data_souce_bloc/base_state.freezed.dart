@@ -5,6 +5,7 @@
 
 part of 'base_state.dart';
 
+
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
@@ -71,7 +72,7 @@ mixin _$BaseState<T> {
 /// @nodoc
 abstract class $BaseStateCopyWith<T, $Res> {
   factory $BaseStateCopyWith(
-          DataSourceState<T> value, $Res Function(DataSourceState<T>) then) =
+          DataSourceBaseState<T> value, $Res Function(DataSourceBaseState<T>) then) =
       _$BaseStateCopyWithImpl<T, $Res>;
 }
 
@@ -79,9 +80,9 @@ abstract class $BaseStateCopyWith<T, $Res> {
 class _$BaseStateCopyWithImpl<T, $Res> implements $BaseStateCopyWith<T, $Res> {
   _$BaseStateCopyWithImpl(this._value, this._then);
 
-  final DataSourceState<T> _value;
+  final DataSourceBaseState<T> _value;
   // ignore: unused_field
-  final $Res Function(DataSourceState<T>) _then;
+  final $Res Function(DataSourceBaseState<T>) _then;
 }
 
 /// @nodoc
@@ -194,7 +195,7 @@ class _$_Init<T> implements _Init<T> {
   }
 }
 
-abstract class _Init<T> implements DataSourceState<T> {
+abstract class _Init<T> implements DataSourceBaseState<T> {
   const factory _Init() = _$_Init<T>;
 }
 
@@ -310,7 +311,7 @@ class _$_Loading<T> implements _Loading<T> {
   }
 }
 
-abstract class _Loading<T> implements DataSourceState<T> {
+abstract class _Loading<T> implements DataSourceBaseState<T> {
   const factory _Loading() = _$_Loading<T>;
 }
 
@@ -450,7 +451,7 @@ class _$_Success<T> implements _Success<T> {
   }
 }
 
-abstract class _Success<T> implements DataSourceState<T> {
+abstract class _Success<T> implements DataSourceBaseState<T> {
   const factory _Success([final T? model]) = _$_Success<T>;
 
   T? get model => throw _privateConstructorUsedError;
@@ -604,7 +605,7 @@ class _$_Failure<T> implements _Failure<T> {
   }
 }
 
-abstract class _Failure<T> implements DataSourceState<T> {
+abstract class _Failure<T> implements DataSourceBaseState<T> {
   const factory _Failure(final ErrorStateModel error, final VoidCallback callback) =
       _$_Failure<T>;
 

@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'base_state.dart';
 
-class DataSourceBloc<T> extends Cubit<DataSourceState<T>> {
-  DataSourceBloc([T? data]) : super(data != null? DataSourceState.success(data): const DataSourceState.init());
+
+class DataSourceBloc<T> extends Cubit<DataSourceBaseState<T>> {
+  DataSourceBloc([T? data]) : super(data != null? DataSourceBaseState.success(data): const DataSourceBaseState.init());
   T? _data;
 
   T? get data => _data;
@@ -15,19 +16,19 @@ class DataSourceBloc<T> extends Cubit<DataSourceState<T>> {
   }
 
   void loadingState(){
-    emit(const DataSourceState.loading());
+    emit(const DataSourceBaseState.loading());
   }
 
   void successState([T? data]){
     if(_data != data){
       _data = data;
     }
-    emit(DataSourceState.success(data));
+    emit(DataSourceBaseState.success(data));
 
   }
 
   void failedState(ErrorStateModel error, VoidCallback callback){
-    emit(DataSourceState.failure(error, callback));
+    emit(DataSourceBaseState.failure(error, callback));
   }
 
 }

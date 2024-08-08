@@ -44,4 +44,13 @@ extension StringExtensionToDateTime on String {
   DateTime toDateTime() {
     return DateTime.parse(this);
   }
+
+}
+
+extension UrlExtension on int {
+
+  DateTime toDateTimeFromSeconds(int secontd) {
+    return DateTime.fromMillisecondsSinceEpoch(secontd * 1000);
+  }
+
 }

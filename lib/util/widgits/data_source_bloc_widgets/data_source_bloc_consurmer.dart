@@ -35,7 +35,7 @@ class DataSourceBlocConsumer<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DataSourceBloc<T>, DataSourceState<T>>(
+    return BlocConsumer<DataSourceBloc<T>, DataSourceBaseState<T>>(
       bloc: bloc ?? context.read<DataSourceBloc<T>>(),
       listener: (context, state) {
         state.maybeWhen(

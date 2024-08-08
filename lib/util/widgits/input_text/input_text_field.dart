@@ -94,6 +94,7 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
    }
     return TextFormField(
 
+
       readOnly: widget.readOnly,
       style: widget.style,
       onTap: widget.onTap,

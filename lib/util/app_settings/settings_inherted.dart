@@ -49,6 +49,10 @@ class SettingChangeLestner extends InheritedWidget {
       .stateWidget;
 
   @override
-  bool updateShouldNotify(covariant SettingChangeLestner oldWidget) =>
-      oldWidget.state != state;
+  bool updateShouldNotify(covariant SettingChangeLestner oldWidget) {
+
+    state ;
+    return oldWidget.state == state;
+  }
+
 }

@@ -52,7 +52,7 @@ if (widget.controller == null) {
         controller: widget.controller,
         onChange: widget.onChange,
         onTap:    widget.onTap,
-        decoration: widget.decoration.copyWith(labelText: widget.hintText),
+        decoration: widget.decoration ,
         validate: widget.onvlaidate,
         saved: widget.onSave,
         mainValue: this.value == null ? null : "");
