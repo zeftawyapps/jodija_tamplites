@@ -1,7 +1,7 @@
 abstract class AssetImages {
-    String logo() ;
-    String appLogo() ;
-    String empty() ;
-    String profile() ;
-    String background() ;
+    String logo ="" ;
+    String appLogo ="" ;
+    String empty = "" ;
+    String profile = "" ;
+    String background = "" ;
 }
