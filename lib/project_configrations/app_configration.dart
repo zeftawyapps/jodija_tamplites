@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../util/navigations/navigation_service.dart';
  abstract  class DataViewConfigraion {
 
     String _Version = " V:  1.0.0";
@@ -13,7 +15,10 @@ import 'package:flutter/material.dart';
     set AppNameID(String value) => _AppNameID = value;
 
       Widget launchScreen() ;
-      String baseRoute() ;
+      void  RouteInit() {
+        NavigationService().setRouters(getRouters());
+      }
+      Map<String ,Widget> getRouters() ;
       void setAppLocal(String localCode ) ;
 
 }
