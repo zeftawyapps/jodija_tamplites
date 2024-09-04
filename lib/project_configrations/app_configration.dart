@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-
-
  abstract  class DataViewConfigraion {
 
     String _Version = " V:  1.0.0";
