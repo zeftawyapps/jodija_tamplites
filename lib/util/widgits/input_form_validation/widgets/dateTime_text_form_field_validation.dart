@@ -53,7 +53,9 @@ class DateTimeTextFieldValidaion extends StatelessWidget
           firestDate: firestDate,
           lastDate: last,
           textStyle: textStyle,
-          decoration: decoration,
+          decoration:  labalText != ""
+              ? decoration.copyWith(labelText: labalText)
+              : decoration,
           hintText: labalText,
           onChange: (v) {
             var sDate = v.toString();
