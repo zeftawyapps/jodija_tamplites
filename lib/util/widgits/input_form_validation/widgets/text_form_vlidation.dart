@@ -19,7 +19,7 @@ class TextFomrFildValidtion extends StatelessWidget
   dynamic initValue;
   bool isReadOnly;
   final ValueChanged<String>? onFieldSubmitted;
-  ValueChanged<String>? onChage ;
+  Function(String)? onChange;
 
   TextEditingController? controller = TextEditingController();
   TextEditingController  controllerInit  = TextEditingController();
@@ -85,7 +85,8 @@ class TextFomrFildValidtion extends StatelessWidget
               ? decoration.copyWith(labelText: labalText)
               : decoration,
           onChange: (v) {
-onChage!(v);
+            onChange!(v);
+
             controller!.text = v;
             // if value not == mainValue then  set to mainValue
           },
@@ -134,7 +135,7 @@ onChage!(v);
                       onChange: (v) {
                         // if value not == mainValue then  set to mainValue
 
-                        onChage!(v);
+                        onChange!(v);
                         controller!.text = v;
                       },
                       validate: (v) {
@@ -181,7 +182,7 @@ onChage!(v);
                   decoration: decoration,
                   onChange: (v) {
                     // if value not == mainValue then  set to mainValue
-                    onChage!(v);
+                    onChange!(v);
                     controller!.text = v;
                   },
                   validate: (v) {
