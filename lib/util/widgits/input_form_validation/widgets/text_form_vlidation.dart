@@ -20,6 +20,7 @@ class TextFomrFildValidtion extends StatelessWidget
   final ValueChanged<String>? onFieldSubmitted;
 
   TextEditingController? controller = TextEditingController();
+  TextEditingController  controllerInit  = TextEditingController();
   FocusNode? node;
   int? mulitLine;
   List<BaseValidator>? baseValidation;
@@ -58,7 +59,7 @@ class TextFomrFildValidtion extends StatelessWidget
       mapValue = Map<String, dynamic>();
     }
     if (controller == null) {
-      controller =  TextEditingController();
+      controller = controllerInit ;
     }
 
 
