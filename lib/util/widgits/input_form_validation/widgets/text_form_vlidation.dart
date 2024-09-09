@@ -51,6 +51,7 @@ class TextFomrFildValidtion extends StatelessWidget
       this.isPssword = false,
       this.textInputType = TextInputType.text,
       this.initValue,
+        this.onChange ,
       this.controller});
 
   @override
