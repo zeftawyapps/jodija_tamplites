@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../validators/base_validator.dart';
@@ -18,6 +19,7 @@ class TextFomrFildValidtion extends StatelessWidget
   dynamic initValue;
   bool isReadOnly;
   final ValueChanged<String>? onFieldSubmitted;
+  ValueChanged<String>? onChage ;
 
   TextEditingController? controller = TextEditingController();
   TextEditingController  controllerInit  = TextEditingController();
@@ -83,7 +85,7 @@ class TextFomrFildValidtion extends StatelessWidget
               ? decoration.copyWith(labelText: labalText)
               : decoration,
           onChange: (v) {
-
+onChage!(v);
             controller!.text = v;
             // if value not == mainValue then  set to mainValue
           },
@@ -131,6 +133,9 @@ class TextFomrFildValidtion extends StatelessWidget
                       decoration: decoration,
                       onChange: (v) {
                         // if value not == mainValue then  set to mainValue
+
+                        onChage!(v);
+                        controller!.text = v;
                       },
                       validate: (v) {
                         if (baseValidation != null) {
@@ -176,6 +181,8 @@ class TextFomrFildValidtion extends StatelessWidget
                   decoration: decoration,
                   onChange: (v) {
                     // if value not == mainValue then  set to mainValue
+                    onChage!(v);
+                    controller!.text = v;
                   },
                   validate: (v) {
                     if (baseValidation != null) {
