@@ -83,6 +83,8 @@ class TextFomrFildValidtion extends StatelessWidget
               ? decoration.copyWith(labelText: labalText)
               : decoration,
           onChange: (v) {
+
+            controller!.text = v;
             // if value not == mainValue then  set to mainValue
           },
           validate: (v) {
