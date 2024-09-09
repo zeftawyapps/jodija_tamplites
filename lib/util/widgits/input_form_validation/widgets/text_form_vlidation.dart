@@ -19,7 +19,7 @@ class TextFomrFildValidtion extends StatelessWidget
   dynamic initValue;
   bool isReadOnly;
   final ValueChanged<String>? onFieldSubmitted;
-  Function(String)? onChange;
+  Function(String v )? onChange;
 
   TextEditingController? controller = TextEditingController();
   TextEditingController  controllerInit  = TextEditingController();
