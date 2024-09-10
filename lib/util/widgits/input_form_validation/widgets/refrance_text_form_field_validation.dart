@@ -57,7 +57,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                 ),
           hintText: labalText,
           onTap: () {
-            showInputDialoge.showCleintDialogs(context, onResult: (data) {
+            showInputDialoge.showDialogs(context, onResult: (data) {
               if (data != null) {
                 mapValue = data.map;
                 String text = mapValue![keyDesplay];
@@ -100,7 +100,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                   decoration: decoration,
                   hintText: labalText,
                   onTap: () {
-                    showInputDialoge.showCleintDialogs(context, onResult: (data) {
+                    showInputDialoge.showDialogs(context, onResult: (data) {
                       if (data != null) {
                         mapValue = data.map;
                         String text = mapValue![keyDesplay];
@@ -144,7 +144,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                 decoration: decoration,
                 hintText: labalText,
                 onTap: () {
-                  showInputDialoge.showCleintDialogs(context, onResult: (data) {
+                  showInputDialoge.showDialogs(context, onResult: (data) {
                     if (data != null) {
                       mapValue = data.map;
                       String text = mapValue![keyDesplay];

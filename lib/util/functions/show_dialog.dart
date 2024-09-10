@@ -20,7 +20,7 @@ class ShowInputFieldsDialogs<  T extends BaseViewDataModel >{
     , this.height , this.width
   });
 
-  Future<void> showCleintDialogs(
+  Future<void> showDialogs(
     BuildContext context, {
     // T? data,
     // show result of dialog
