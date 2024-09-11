@@ -1,4 +1,5 @@
 import 'package:JoDija_view/util/app_settings/settings_model.dart';
+import 'package:JoDija_view/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 
 
@@ -24,11 +25,19 @@ void  change( BaseSetting  NewStateChange){
   });
 }
   @override
-  Widget build(BuildContext context) => SettingChangeLestner(
+  Widget build(BuildContext context)   {
+
+
+return   SettingChangeLestner(
     state: state,
     stateWidget: this,
-    child: widget.child,
-  );
+    child: Builder(
+      builder: (context) {
+        state.screenType = ScreenTypeExtension.fromMediaQueryData(MediaQuery.of(context));
+        return widget.child;
+      }
+    ),
+  );}
 }
 
 class SettingChangeLestner extends InheritedWidget {
