@@ -18,10 +18,10 @@ class PopUpMenu extends StatelessWidget {
   int? iconSize ;
   Color? iconColor ;
   Alignment alignment = Alignment.topRight;
-
+  Map<int, Function> map = {};
   @override
   Widget build(BuildContext context) {
-
+map = actions();
     if (iconSize == null) {
       iconSize = textStyle!.fontSize!.toInt();
     }
@@ -51,13 +51,13 @@ class PopUpMenu extends StatelessWidget {
                 .toList();
           },
           onSelected: (value) {
-            actions()[value]!();
+            map[value]!();
           }),
      );
   }
 
   Map<int, Function> actions() {
-    var maps = items.map((e) => {e.value: e.onTap});
+    Map<int, Function> maps =  items.asMap().map((key, value) => MapEntry(value.value, value.onTap));
     return maps as Map<int, Function>;
   }
 }
