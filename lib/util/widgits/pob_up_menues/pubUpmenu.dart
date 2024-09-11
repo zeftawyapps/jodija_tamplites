@@ -31,6 +31,8 @@ class PopUpMenu extends StatelessWidget {
      return Align(
         alignment: alignment,
        child: PopupMenuButton(
+         iconColor: iconColor,
+
           iconSize:  iconSize!.toDouble() ,
           itemBuilder: (context) {
             return items
