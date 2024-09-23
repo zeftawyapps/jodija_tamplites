@@ -51,7 +51,7 @@ class TextFomrFildValidtion extends StatelessWidget
       this.isPssword = false,
       this.textInputType = TextInputType.text,
       this.initValue,
-        this.onChange ,
+        this.onChange     ,
       this.controller});
 
   @override
@@ -86,7 +86,9 @@ class TextFomrFildValidtion extends StatelessWidget
               ? decoration.copyWith(labelText: labalText)
               : decoration,
           onChange: (v) {
-            onChange!(v);
+            if (onChange != null) {
+              onChange!(v);
+            }
 
             controller!.text = v;
             // if value not == mainValue then  set to mainValue
