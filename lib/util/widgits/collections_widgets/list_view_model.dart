@@ -9,18 +9,22 @@ class ListViewModel<T extends BaseViewDataModel> extends StatelessWidget {
       required this.data,
       required this.listItem,
       this.canAdd = false,
+      this.scrollDirection = Axis.vertical,
       this.onAdd,
       this.addWidget = null});
   List<T> data;
   bool canAdd = false;
   Widget? addWidget = Container();
+  Axis scrollDirection = Axis.horizontal;
   void Function()? onAdd;
+
 
   Widget Function(int i, T data) listItem;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      scrollDirection:  scrollDirection,
       itemCount: canAdd ? data.length + 1 :   data.length,
       itemBuilder: (context, index) {
         if (canAdd && index == data.length) {
