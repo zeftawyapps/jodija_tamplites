@@ -15,6 +15,7 @@ class GridViewModel<T extends BaseViewDataModel> extends StatelessWidget {
       ,this.onAdd
         ,this .scrollController
         ,this.physics
+        ,this.shrinkWrap= false
 
       }) ;
 
@@ -22,6 +23,7 @@ class GridViewModel<T extends BaseViewDataModel> extends StatelessWidget {
 
   List<T> data;
   bool canAdd = false;
+  bool shrinkWrap = false;
   ScrollPhysics? physics = AlwaysScrollableScrollPhysics();
   SliverGridDelegateWithFixedCrossAxisCount? gridDelegate;
   Widget? addWidget = Container();
@@ -34,6 +36,7 @@ void Function()? onAdd;
 
 
     return GridView .builder(
+        shrinkWrap: shrinkWrap,
       physics: physics?? AlwaysScrollableScrollPhysics(),
           controller: scrollController??ScrollController(),
         gridDelegate:gridDelegate??  SliverGridDelegateWithFixedCrossAxisCount(
