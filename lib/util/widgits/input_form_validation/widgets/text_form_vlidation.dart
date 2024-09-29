@@ -88,9 +88,10 @@ class TextFomrFildValidtion extends StatelessWidget
           onChange: (v) {
             if (onChange != null) {
               onChange!(v);
+              controller!.text = v;
             }
 
-            controller!.text = v;
+
             // if value not == mainValue then  set to mainValue
           },
           validate: (v) {
