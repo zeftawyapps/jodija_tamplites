@@ -35,20 +35,31 @@ map = actions();
 
           iconSize:  iconSize!.toDouble() ,
           itemBuilder: (context) {
-            return items
-                .map((e) => PopupMenuItem(
-                      value: e.value,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(e.icon,
-                              color: iconColor, size: iconSize!.toDouble()),
+            List<PopupMenuItem> items = [];
 
-                          Text(e.title, style: textStyle!),
-                        ],
-                      ),
-                    ))
-                .toList();
+           for (var e in this.items) {
+             if (e.isvisale) {
+               items.add(
+                   PopupMenuItem(
+                     enabled: e.isEnable,
+                     value: e.value,
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Icon(e.icon,
+                             color: iconColor, size: iconSize!.toDouble()),
+
+                         Text(e.title, style: textStyle!),
+                       ],
+                     ),
+                   )
+
+
+               );
+             }
+            }
+            return items;
+
           },
           onSelected: (value) {
             map[value]!();

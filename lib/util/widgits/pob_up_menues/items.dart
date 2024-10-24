@@ -5,6 +5,10 @@ class pubMenuItems  {
   final IconData icon;
   final Function onTap;
   int value;
-  pubMenuItems({required this.title, required this.icon, required this.onTap , required this.value});
+  bool isEnable = true;
+  bool isvisale = true;
+  pubMenuItems({required this.title, required this.icon, required this.onTap , required this.value
+  ,this.isEnable = true , this.isvisale = true
+  });
 
 }
