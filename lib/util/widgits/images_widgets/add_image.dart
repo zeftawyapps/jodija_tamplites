@@ -26,6 +26,7 @@ class ImagePecker extends StatefulWidget {
         this.iconPossiontTop  ,
         this.iconPossiontRight = 0,
         this.iconPossiontBottom = 0,
+        this.imageColor = Colors.white,
       this.iconColor = Colors.white,
         this.icon = Icons.add_a_photo,
         this.iconContainerColor = Colors.black,
@@ -50,6 +51,7 @@ class ImagePecker extends StatefulWidget {
   double iconSize = 30;
   BoxShape shape = BoxShape.circle;
   Color iconColor = Colors.red ;
+  Color imageColor = Colors.white ;
   Color iconContainerColor = Colors.white;
   List<BoxShadow> iconShaw = [];
   List<BoxShadow> shapeShaw = [];
@@ -129,6 +131,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                                 shape: widget.shape,
                                 border: widget.border  ,
                                 boxShadow: widget.shapeShaw,
+                                color: widget.imageColor,
                               ),
                               child: addimagep.networkImage != ""
                                   ? Image(
