@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart%20';
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +22,17 @@ class ImagePecker extends StatefulWidget {
       this.iconSize = 30,
       this.hight = 100,
       this.width = 100,
-
+        this.iconPossiontLeft  ,
+        this.iconPossiontTop  ,
+        this.iconPossiontRight = 0,
+        this.iconPossiontBottom = 0,
       this.iconColor = Colors.white,
+        this.icon = Icons.add_a_photo,
+        this.iconContainerColor = Colors.black,
+        this.iconShaw = const [],
+        this.shapeShaw = const [],
+        this.border,
+        this.iconBorder,
       this.shape = BoxShape.circle})
       : super(key: key);
   ImagePickerModele? addimagep;
@@ -30,9 +42,21 @@ class ImagePecker extends StatefulWidget {
   int fileNom = 0;
   double hight;
   double width;
+  double? iconPossiontLeft ;
+  double? iconPossiontTop ;
+  double? iconPossiontRight ;
+  double? iconPossiontBottom ;
+  IconData icon;
   double iconSize = 30;
   BoxShape shape = BoxShape.circle;
-  Color iconColor = Colors.white;
+  Color iconColor = Colors.red ;
+  Color iconContainerColor = Colors.white;
+  List<BoxShadow> iconShaw = [];
+  List<BoxShadow> shapeShaw = [];
+  BoxBorder? border;
+  BoxBorder? iconBorder;
+
+
   @override
   _ImagePeckerState createState() => _ImagePeckerState();
 }
@@ -103,17 +127,8 @@ class _ImagePeckerState extends State<ImagePecker> {
                               height: widget.hight,
                               decoration: BoxDecoration(
                                 shape: widget.shape,
-                                border:
-                                    Border.all(color: Colors.white, width: 2),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
+                                border: widget.border  ,
+                                boxShadow: widget.shapeShaw,
                               ),
                               child: addimagep.networkImage != ""
                                   ? Image(
@@ -135,12 +150,23 @@ class _ImagePeckerState extends State<ImagePecker> {
                                     )),
                         ),
                         Positioned.fill(
-                          right: 0  ,
-                          bottom: 0 ,
-                          child: Icon(
-                            Icons.add_a_photo,
-                            size: widget.iconSize,
-                            color: widget.iconColor,
+                          right:  widget.iconPossiontRight,
+                          bottom: widget.iconPossiontBottom,
+                          left: widget.iconPossiontLeft,
+                          top: widget.iconPossiontTop,
+
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: widget.shape,
+                              color:  widget.iconContainerColor,
+                              boxShadow: widget.iconShaw,
+                              border: widget.iconBorder,
+                            ),
+                            child: Icon(
+                               widget.icon,
+                              size: widget.iconSize,
+                              color: widget.iconColor,
+                            ),
                           ),
                         ),
                       ],
@@ -161,10 +187,15 @@ class _ImagePeckerState extends State<ImagePecker> {
                                         addimagep.getImage(ImageSource.camera);
                                         imgshwo = false;
                                       },
-                                      child: Icon(
-                                        Icons.add_a_photo,
-                                        size: widget.iconSize,
-                                        color: widget.iconColor,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color:  widget.iconContainerColor,
+                                        ),
+                                        child: Icon(
+                                          Icons.add_a_photo,
+                                          size: widget.iconSize,
+                                          color: widget.iconColor,
+                                        ),
                                       ),
                                     )),
                               Expanded(
@@ -176,7 +207,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                                   },
 
                                 child: Container(
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: widget.iconContainerColor,
                                   child: Icon(
                                     Icons.add_photo_alternate_sharp,
                                     size: widget.iconSize,
