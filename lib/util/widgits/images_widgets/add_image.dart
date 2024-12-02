@@ -19,6 +19,7 @@ class ImagePecker extends StatefulWidget {
       this.iconSize = 30,
       this.hight = 100,
       this.width = 100,
+
       this.iconColor = Colors.white,
       this.shape = BoxShape.circle})
       : super(key: key);
@@ -134,8 +135,8 @@ class _ImagePeckerState extends State<ImagePecker> {
                                     )),
                         ),
                         Positioned.fill(
-                          right: -widget.width / 2 + 60,
-                          bottom: -widget.hight / 2 + 10,
+                          right: 0  ,
+                          bottom: 0 ,
                           child: Icon(
                             Icons.add_a_photo,
                             size: widget.iconSize,
