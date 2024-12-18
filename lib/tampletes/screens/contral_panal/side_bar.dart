@@ -20,7 +20,7 @@ class SideBar extends StatelessWidget {
 
     return Container(
       width: 200  ,
-      color: Theme.of(context).drawerTheme.backgroundColor,
+      color:   logic.sideBarColor ,
       child: Column(
         children: [
           Container(
@@ -28,7 +28,7 @@ class SideBar extends StatelessWidget {
               width: 200 ,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage( ""),
+                image: AssetImage(logic.logo),
                 fit: BoxFit.fill
               )
             ),

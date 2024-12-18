@@ -46,7 +46,7 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
 
               image: DecorationImage(
                 image: AssetImage(
-                  "AppAsset.backgroundbgc3",
+                   provider.logo,
                 ),
                 fit: BoxFit.fill,
               ),

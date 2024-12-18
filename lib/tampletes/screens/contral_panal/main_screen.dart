@@ -15,25 +15,17 @@ class DashboardMainScreen extends StatefulWidget {
 
 class _DashboardMainScreenState extends State<DashboardMainScreen> {
   DashboardMainServices logic = DashboardMainServices();
-
-
-
   @override
   void dispose() {
-
     super.dispose();
   }
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    logic.sideBar = [
+    logic.sideBar = [];
 
-    ];
-
-    logic.contents = [
-
-    ];
+    logic.contents = [];
   }
   @override
   Widget build(BuildContext context) {

@@ -22,8 +22,8 @@ class _MobCpState extends State<MobCp> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text( provider.getTittle()),
-          backgroundColor:  Theme.of(context).primaryColor,
+          title: Text( provider.getTittle() , style: TextStyle(color:provider.titleTextColor),),
+          backgroundColor: provider.headerColor   ,
         ),
         drawer: Drawer(
           width: 150,
@@ -36,7 +36,7 @@ class _MobCpState extends State<MobCp> {
 
               image: DecorationImage(
                 image: AssetImage(
-                 " AppAsset.backgroundbgc3",
+                 provider.logo,
                 ),
                 fit: BoxFit.fill,
               ),
