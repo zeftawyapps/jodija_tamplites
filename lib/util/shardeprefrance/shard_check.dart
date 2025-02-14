@@ -46,4 +46,16 @@ Future<String > getUid() async{
   }
 
 
+
+ Future clearDataInShardRefrace ( )async {
+   var data = await    SharedPreferences.getInstance();
+   await data.setBool(SharedPrefranceData.USER_ISREJESTED, false   );
+   await   data.setString(SharedPrefranceData.USER_EMAIL, ""   );
+   await   data.setString(SharedPrefranceData.USER_PASS,  ""  );
+   await   data.setString(SharedPrefranceData.USER_UID,  ""  );
+   await  data.setString(SharedPrefranceData.USER_TOKen,   "" );
+ }
+
+
+
 }

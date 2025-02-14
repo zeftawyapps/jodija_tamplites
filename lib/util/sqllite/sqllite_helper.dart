@@ -28,7 +28,7 @@ class SqlLiteHelper {
     return database!.isOpen;
   }
 
-  Future<int> loadDataBase({String? createSql}) async {
+  Future<int> loadDataBase() async {
     _dbPath = await getDatabasesPath();
     dbfile = File("$_dbPath/$dbname");
     bool fileExists = await dbfile!.exists();
