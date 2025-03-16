@@ -14,6 +14,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
     implements InputValidationForm, InputFeildBinder {
   InputDecoration decoration;
   TextStyle textStyle;
+  TextStyle labelStyle;
   List<BaseValidator>? baseValidation;
   ValidationsForm form;
   String? labalText;
@@ -32,6 +33,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
       required this.keyData,
       required this.keyDesplay,
       required this.baseValidation,
+        required this.labelStyle,
       required this.labalText,
       this.mapValue,
       required this.form,
@@ -89,7 +91,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
             Expanded(
               child: Text(
                 labalText!,
-                style: textStyle,
+                style: labelStyle,
               ),
             ),
             SizedBox(width: 5,),
@@ -136,7 +138,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
           children: [
             Text(
               labalText!,
-              style: textStyle,
+              style: labelStyle ,
             ),
             Container(child: RefranceFormField(
                 controller: controller,
