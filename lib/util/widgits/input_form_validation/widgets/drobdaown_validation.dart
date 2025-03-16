@@ -29,7 +29,7 @@ class DrobDaownValidation extends StatelessWidget
       required this.itemslsit,
       required this.keyData,
       required this.baseValidation,
-      required this.labelStyle,
+        this.labelStyle =  const  TextStyle(),
       this.labalText,
       this.lableDesplty = LabelDisplay.none,
       this.mapValue,

@@ -29,7 +29,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
       this.datePickerMode = DatePickerMode.day,
       required this.decoration,
       required this.textStyle,
-      required this.labelStyle,
+        this.labelStyle = const TextStyle(),
       required this.keyData,
       required this.baseValidation,
       required this.labalText,
