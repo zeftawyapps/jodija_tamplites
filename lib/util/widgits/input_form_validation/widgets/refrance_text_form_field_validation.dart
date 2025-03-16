@@ -33,7 +33,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
       required this.keyData,
       required this.keyDesplay,
       required this.baseValidation,
-
+this.labelStyle, 
       required this.labalText,
       this.mapValue,
       required this.form,

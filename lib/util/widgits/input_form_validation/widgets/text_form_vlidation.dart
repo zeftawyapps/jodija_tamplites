@@ -41,7 +41,7 @@ class TextFomrFildValidtion extends StatelessWidget
       required this.baseValidation,
       this.labalText = "",
       required this.keyData,
-
+this.labelStyle,
       this.mapValue,
       this.mulitLine,
       this.isReadOnly = false,
