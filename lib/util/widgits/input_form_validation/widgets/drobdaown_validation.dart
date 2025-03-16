@@ -11,6 +11,7 @@ class DrobDaownValidation extends StatelessWidget
   List<String> itemslsit;
   InputDecoration decoration;
   TextStyle textStyle;
+  TextStyle labelStyle;
   List<BaseValidator>? baseValidation;
   ValidationsForm form;
   String? labalText;
@@ -28,6 +29,7 @@ class DrobDaownValidation extends StatelessWidget
       required this.itemslsit,
       required this.keyData,
       required this.baseValidation,
+      required this.labelStyle,
       this.labalText,
       this.lableDesplty = LabelDisplay.none,
       this.mapValue,
@@ -72,7 +74,7 @@ class DrobDaownValidation extends StatelessWidget
           SizedBox(width: 5,),
           Expanded(flex:  10 ,
             child: DropDownInputTextField(
-              textStyle: textStyle,
+              textStyle: labelStyle,
               itemslsit: itemslsit,
               hintText: labalText != null ? labalText! : "",
               decoration: decoration,
@@ -104,7 +106,7 @@ class DrobDaownValidation extends StatelessWidget
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(labalText! , style: textStyle,),
+          Text(labalText! , style: labelStyle,),
           Container(
             child: DropDownInputTextField(
               textStyle: textStyle,

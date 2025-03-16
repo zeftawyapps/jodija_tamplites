@@ -12,6 +12,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   InputDecoration decoration;
   DateTime? initDate, firestDate, lastDate;
   TextStyle textStyle;
+  TextStyle labelStyle;
   List<BaseValidator>? baseValidation;
   ValidationsForm form;
   String? labalText;
@@ -28,6 +29,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
       this.datePickerMode = DatePickerMode.day,
       required this.decoration,
       required this.textStyle,
+      required this.labelStyle,
       required this.keyData,
       required this.baseValidation,
       required this.labalText,
@@ -83,7 +85,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
           child: Row(
         children: [
           Expanded(
-              child: Text(labalText!, style: textStyle)),
+              child: Text(labalText!, style: labelStyle)),
             SizedBox(width: 5,),
             Expanded(flex:  10 ,
               child: DatePickerFormField(
@@ -124,7 +126,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(labalText!, style: textStyle),
+        Text(labalText!, style: labelStyle),
         Container(
           child: DatePickerFormField(
               entryMode: entryMode,
