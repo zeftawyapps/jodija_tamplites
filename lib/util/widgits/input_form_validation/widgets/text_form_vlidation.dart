@@ -12,7 +12,7 @@ class TextFomrFildValidtion extends StatelessWidget
     implements InputValidationForm, InputFeildBinder {
   InputDecoration decoration;
   TextStyle textStyle;
-  TextStyle labelStyle;
+  TextStyle? labelStyle;
   bool isPssword;
 
   TextInputType textInputType = TextInputType.text;
@@ -41,7 +41,7 @@ class TextFomrFildValidtion extends StatelessWidget
       required this.baseValidation,
       this.labalText = "",
       required this.keyData,
-          this.labelStyle = const TextStyle(),
+
       this.mapValue,
       this.mulitLine,
       this.isReadOnly = false,
@@ -117,7 +117,7 @@ class TextFomrFildValidtion extends StatelessWidget
                 Expanded(
                     child: Text(
                   labalText!,
-                  style: labelStyle,
+                  style: labelStyle?? textStyle ,
                 )),
                 SizedBox(
                   width: 5,
@@ -169,7 +169,7 @@ class TextFomrFildValidtion extends StatelessWidget
           children: [
             Text(
               labalText!,
-              style: labelStyle,
+              style: labelStyle?? textStyle,
             ),
             Container(
               child: InputTextFormfield(
