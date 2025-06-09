@@ -1,7 +1,6 @@
-import 'package:JoDija_view/util/app_settings/settings_model.dart';
-import 'package:JoDija_view/util/main-screen/screen-type.dart';
+import 'package:JoDija_tamplites/util/app_settings/settings_model.dart';
+import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
-
 
 class SettingChanger extends StatefulWidget {
   final Widget child;
@@ -19,25 +18,24 @@ class _SettingChangerState extends State<SettingChanger> {
   var state = BaseSetting();
 // add call backe function type BaseState
 
-void  change( BaseSetting  NewStateChange){
-  setState(() {
-    state = NewStateChange ;
-  });
-}
+  void change(BaseSetting NewStateChange) {
+    setState(() {
+      state = NewStateChange;
+    });
+  }
+
   @override
-  Widget build(BuildContext context)   {
-
-
-return   SettingChangeLestner(
-    state: state,
-    stateWidget: this,
-    child: Builder(
-      builder: (context) {
-        state.screenType = ScreenTypeExtension.fromMediaQueryData(MediaQuery.of(context));
+  Widget build(BuildContext context) {
+    return SettingChangeLestner(
+      state: state,
+      stateWidget: this,
+      child: Builder(builder: (context) {
+        state.screenType =
+            ScreenTypeExtension.fromMediaQueryData(MediaQuery.of(context));
         return widget.child;
-      }
-    ),
-  );}
+      }),
+    );
+  }
 }
 
 class SettingChangeLestner extends InheritedWidget {
@@ -50,8 +48,8 @@ class SettingChangeLestner extends InheritedWidget {
     required this.state,
     required this.stateWidget,
   }) : super(
-    key: key,
-  );
+          key: key,
+        );
 
   static _SettingChangerState of(BuildContext context) => context
       .dependOnInheritedWidgetOfExactType<SettingChangeLestner>()!
@@ -59,9 +57,7 @@ class SettingChangeLestner extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant SettingChangeLestner oldWidget) {
-
-    state ;
+    state;
     return oldWidget.state == state;
   }
-
 }

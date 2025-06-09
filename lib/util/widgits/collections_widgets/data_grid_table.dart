@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:JoDija_view/util/view_data_model/base_data_model.dart';
-import 'package:JoDija_view/util/widgits/input_text/input_text_field.dart';
+import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:JoDija_tamplites/util/widgits/input_text/input_text_field.dart';
 import 'package:flutter/material.dart';
 
 class DataTableGridView extends StatefulWidget {
@@ -23,10 +23,8 @@ class DataTableGridView extends StatefulWidget {
   List<String> header = [];
   double? width = 80;
 
-   // add call back to add rows
+  // add call back to add rows
   List<DataCell> Function(int) rowWidgets;
-
-
 
   List<double> columnWidth = [];
   TextStyle headerStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
@@ -74,7 +72,8 @@ class _DataTableGridViewState extends State<DataTableGridView> {
             columns: List<DataColumn>.generate(
               widget.header.length,
               (index) {
-                if (widget.columnWidth.length == 0 || widget.columnWidth.length < widget.header.length) {
+                if (widget.columnWidth.length == 0 ||
+                    widget.columnWidth.length < widget.header.length) {
                   widget.columnWidth.add(widget.width!);
                 }
 
@@ -99,9 +98,8 @@ class _DataTableGridViewState extends State<DataTableGridView> {
                   });
                 },
                 selected: rowSelected[index],
-                cells:
-                    List<DataCell>.generate( widget.header.length , (hindex) {
-                  return  cells[hindex];
+                cells: List<DataCell>.generate(widget.header.length, (hindex) {
+                  return cells[hindex];
                 }),
               );
             }),

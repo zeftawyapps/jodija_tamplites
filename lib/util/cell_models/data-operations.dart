@@ -1,13 +1,13 @@
-import 'package:JoDija_view/util/view_data_model/base_data_model.dart';
+import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
 
 import 'cell.dart';
 import 'modul_screateor.dart';
 import 'row_cells.dart';
 
 class DataTableOfCellModels<T extends CellModel> {
-    List<Map<String, dynamic>> mapList = [];
-    List<RowofCells> listOfRows = [];
-    List<T> listCellsModle = [];
+  List<Map<String, dynamic>> mapList = [];
+  List<RowofCells> listOfRows = [];
+  List<T> listCellsModle = [];
 
   DataTableOfCellModels(this.listCellsModle) {
     listCellsModle.map((T model) {
@@ -76,7 +76,7 @@ class DataTableOfCellModels<T extends CellModel> {
   }
 
   List<Map<dynamic, double>> sumBy(
- List<Map<String, dynamic>> data, Cell keycell, Cell sumed) {
+      List<Map<String, dynamic>> data, Cell keycell, Cell sumed) {
     List<Map<dynamic, double>> newdata = <Map<dynamic, double>>[];
 
     List<dynamic> d = unicGrubs(data, keycell);

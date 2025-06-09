@@ -1,4 +1,4 @@
-import 'package:JoDija_view/util/widgits/input_form_validation/lable_desplty.dart';
+import 'package:JoDija_tamplites/util/widgits/input_form_validation/lable_desplty.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../util/validators/base_validator.dart';
@@ -33,7 +33,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
       required this.keyData,
       required this.keyDesplay,
       required this.baseValidation,
-this.labelStyle, 
+      this.labelStyle,
       required this.labalText,
       this.mapValue,
       required this.form,
@@ -94,9 +94,12 @@ this.labelStyle,
                 style: labelStyle ?? textStyle,
               ),
             ),
-            SizedBox(width: 5,),
-            Expanded(flex:  10 ,
-              child:  RefranceFormField(
+            SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              flex: 10,
+              child: RefranceFormField(
                   controller: controller,
                   textStyle: textStyle,
                   decoration: decoration,
@@ -130,7 +133,7 @@ this.labelStyle,
           ],
         ),
       );
-    }else {
+    } else {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
         child: Column(
@@ -140,36 +143,37 @@ this.labelStyle,
               labalText!,
               style: labelStyle ?? textStyle,
             ),
-            Container(child: RefranceFormField(
-                controller: controller,
-                textStyle: textStyle,
-                decoration: decoration,
-                hintText: labalText,
-                onTap: () {
-                  showInputDialoge.showDialogs(context, onResult: (data) {
-                    if (data != null) {
-                      mapValue = data.map;
-                      String text = mapValue![keyDesplay];
-                      controller!.text = text;
-                      onResult(data!);
-                      if (onChange != null) {
-                        onChange(data);
+            Container(
+                child: RefranceFormField(
+                    controller: controller,
+                    textStyle: textStyle,
+                    decoration: decoration,
+                    hintText: labalText,
+                    onTap: () {
+                      showInputDialoge.showDialogs(context, onResult: (data) {
+                        if (data != null) {
+                          mapValue = data.map;
+                          String text = mapValue![keyDesplay];
+                          controller!.text = text;
+                          onResult(data!);
+                          if (onChange != null) {
+                            onChange(data);
+                          }
+                        }
+                      });
+                    },
+                    onChange: (v) {},
+                    onvlaidate: (v) {
+                      if (baseValidation != null) {
+                        return BaseValidator.validateValue(
+                            context, v.toString().trim(), baseValidation!);
+                      } else {
+                        return null;
                       }
-                    }
-                  });
-                },
-                onChange: (v) {},
-                onvlaidate: (v) {
-                  if (baseValidation != null) {
-                    return BaseValidator.validateValue(
-                        context, v.toString().trim(), baseValidation!);
-                  } else {
-                    return null;
-                  }
-                },
-                onSave: (v) {
-                  mapValue![keyData] = mapValue;
-                }))
+                    },
+                    onSave: (v) {
+                      mapValue![keyData] = mapValue;
+                    }))
           ],
         ),
       );

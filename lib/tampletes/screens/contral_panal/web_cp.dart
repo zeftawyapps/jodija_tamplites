@@ -1,10 +1,10 @@
-import 'package:JoDija_view/theams/colors/colors.dart';
-import 'package:JoDija_view/util/app_settings/settings_inherted.dart';
-import 'package:JoDija_view/util/app_settings/settings_model.dart';
+import 'package:JoDija_tamplites/theams/colors/colors.dart';
+import 'package:JoDija_tamplites/util/app_settings/settings_inherted.dart';
+import 'package:JoDija_tamplites/util/app_settings/settings_model.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
- import 'package:provider/provider.dart';
- import 'main_logic.dart';
+import 'package:provider/provider.dart';
+import 'main_logic.dart';
 import 'side_bar.dart';
 
 class WebCp extends StatefulWidget {
@@ -43,10 +43,9 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
           child: Container(
             // reach text using q['name']
             decoration: BoxDecoration(
-
               image: DecorationImage(
                 image: AssetImage(
-                   provider.logo,
+                  provider.logo,
                 ),
                 fit: BoxFit.fill,
               ),
@@ -56,7 +55,6 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
                 Expanded(
                     child: Container(
                   decoration: BoxDecoration(
-
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black.withOpacity(0.7),
@@ -74,9 +72,9 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Container(
-                                height: 120 ,
+                                height: 120,
                                 decoration: BoxDecoration(
-                                  color:  Theme.of(context).primaryColor ,
+                                  color: Theme.of(context).primaryColor,
                                   boxShadow: [
                                     BoxShadow(
                                         color: Colors.black.withOpacity(0.7),
@@ -85,34 +83,28 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
                                   ],
                                 ),
                                 child: Container(
-
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       // add image logo
 
                                       SizedBox(
-                                        width: 5 ,
+                                        width: 5,
                                       ),
                                       Expanded(
                                         flex: 5,
-                                        child: Text(
-                                             provider.getTittle(),
+                                        child: Text(provider.getTittle(),
                                             style: TextStyle(
-                                             fontSize: 30,
+                                              fontSize: 30,
                                               color: Colors.white,
-
                                             )),
                                       ),
-
                                     ],
                                   ),
                                 )),
                             Expanded(
                               child: Container(
-                                child:   provider.getContent()
-
-                                ,
+                                child: provider.getContent(),
                               ),
                             ),
                           ],

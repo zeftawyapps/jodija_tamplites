@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:JoDija_view/util/main-screen/screen-type.dart';
-import 'package:JoDija_view/util/widgits/screen_provider/screen_notfier.dart';
+import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
+import 'package:JoDija_tamplites/util/widgits/screen_provider/screen_notfier.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -32,32 +32,44 @@ class DashboardMainServices extends ScreenStateNotifier {
   String get logo => _logo;
   String get backgroundImage => _backgroundImage;
   Color get backGroundColor => _backGroundColor;
-  Color get sideBarColor => Theme.of(context).drawerTheme.backgroundColor?? _sideBarColor;
+  Color get sideBarColor =>
+      Theme.of(context).drawerTheme.backgroundColor ?? _sideBarColor;
   Color get sideBarHoverColor => _sideBarHoverColor;
-  Color get headerColor => Theme.of(context).appBarTheme.backgroundColor??   _headerColor;
-  Color get titleTextColor => Theme.of(context).appBarTheme.titleTextStyle!.color?? _titleTextColor;
+  Color get headerColor =>
+      Theme.of(context).appBarTheme.backgroundColor ?? _headerColor;
+  Color get titleTextColor =>
+      Theme.of(context).appBarTheme.titleTextStyle!.color ?? _titleTextColor;
 
   // SETTER in one function
   void setTheme({
-      String tittle='Default Title',
-      String logo = "assets/images/logo.png",
-      String backgroundImage="assets/images/background.jpg",
-      Color? backGroundColor ,
-      Color? sideBarColor,
-      Color? sideBarHoverColor,
-      Color? headerColor,
-      Color? titleTextColor,
+    String tittle = 'Default Title',
+    String logo = "assets/images/logo.png",
+    String backgroundImage = "assets/images/background.jpg",
+    Color? backGroundColor,
+    Color? sideBarColor,
+    Color? sideBarHoverColor,
+    Color? headerColor,
+    Color? titleTextColor,
   }) {
     _tittle = tittle;
     _logo = logo;
     _backgroundImage = backgroundImage;
-        _backGroundColor = backGroundColor?? Theme.of(context).scaffoldBackgroundColor??   Colors.white;
-    _sideBarColor = sideBarColor?? Theme.of(context).drawerTheme.backgroundColor?? Colors.grey;
-    _sideBarHoverColor = sideBarHoverColor?? Colors.blueGrey;
-    _headerColor = headerColor?? Theme.of(context).appBarTheme.backgroundColor?? Colors.black;
-    _titleTextColor = titleTextColor?? Theme.of(context).appBarTheme.titleTextStyle!.color?? Colors.black;
+    _backGroundColor = backGroundColor ??
+        Theme.of(context).scaffoldBackgroundColor ??
+        Colors.white;
+    _sideBarColor = sideBarColor ??
+        Theme.of(context).drawerTheme.backgroundColor ??
+        Colors.grey;
+    _sideBarHoverColor = sideBarHoverColor ?? Colors.blueGrey;
+    _headerColor = headerColor ??
+        Theme.of(context).appBarTheme.backgroundColor ??
+        Colors.black;
+    _titleTextColor = titleTextColor ??
+        Theme.of(context).appBarTheme.titleTextStyle!.color ??
+        Colors.black;
     notifyListeners();
   }
+
   List<IContent> contents = [];
   List<ISideBare> sideBar = [];
   int selectedIndex = 0;

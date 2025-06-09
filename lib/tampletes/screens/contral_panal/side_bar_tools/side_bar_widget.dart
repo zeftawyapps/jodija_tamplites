@@ -1,5 +1,5 @@
-import 'package:JoDija_view/util/app_settings/settings_inherted.dart';
-import 'package:JoDija_view/util/main-screen/screen-type.dart';
+import 'package:JoDija_tamplites/util/app_settings/settings_inherted.dart';
+import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,22 +7,21 @@ import 'package:provider/provider.dart';
 import '../main_logic.dart';
 import 'sid_bar_interface.dart';
 
-class SideListItme extends StatelessWidget  with  ISideBare {
-  SideListItme(
-      {super.key,
-        required this.title,
-     this.clickColor  ,
-        this.color,
-        this.textColor = Colors.white,
-        this.textColoronclick = Colors.black,
-        this.textColoronHover = Colors.white,
-        this.hoverColor,
-        this.fontSize = 5,
-
-         });
+class SideListItme extends StatelessWidget with ISideBare {
+  SideListItme({
+    super.key,
+    required this.title,
+    this.clickColor,
+    this.color,
+    this.textColor = Colors.white,
+    this.textColoronclick = Colors.black,
+    this.textColoronHover = Colors.white,
+    this.hoverColor,
+    this.fontSize = 5,
+  });
   String title;
- int fontSize = 6;
-  Color? color = Colors.green ;
+  int fontSize = 6;
+  Color? color = Colors.green;
   Color? textColor = Colors.black;
   Color? textColoronclick = Colors.black;
   Color? textColoronHover = Colors.black;
@@ -31,31 +30,28 @@ class SideListItme extends StatelessWidget  with  ISideBare {
   Color? clickColor = Color(0xff3e1ab5);
   int index = 0;
 
-
   bool isHover = false;
   bool isClick = false;
   bool isActioned = false;
-     DashboardMainServices?    mainLogic;
-
-
+  DashboardMainServices? mainLogic;
 
   @override
   Widget build(BuildContext context) {
-    ScreenType screenType = SettingChangeLestner .of(context).state.screenType !;
+    ScreenType screenType = SettingChangeLestner.of(context).state.screenType!;
 
     int ScreenfontSize = 0;
     if (screenType == ScreenType.mobile) {
-      ScreenfontSize =10 ;
+      ScreenfontSize = 10;
+    } else {
+      ScreenfontSize = fontSize;
+    }
 
-}else {ScreenfontSize = fontSize ; }
-
-   loadLogic(context);
+    loadLogic(context);
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-
       onHover: (e) {
-         onHover(index);
-        },
+        onHover(index);
+      },
       onExit: (e) {
         onExit(index);
       },
@@ -69,51 +65,50 @@ class SideListItme extends StatelessWidget  with  ISideBare {
                 duration: Duration(milliseconds: 500),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color:  colorsOpartion() ,
+                    color: colorsOpartion(),
                     boxShadow: [
                       BoxShadow(
-                          color: isHover ? Colors.black.withOpacity(0.2):Colors.transparent,
+                          color: isHover
+                              ? Colors.black.withOpacity(0.2)
+                              : Colors.transparent,
                           blurRadius: isHover ? 0 : 3,
                           offset: Offset(0, 5))
                     ],
                     borderRadius: BorderRadius.circular(2)),
                 child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(title,
-                                style: TextStyle(
-                                    fontSize: ScreenfontSize.toDouble(),
-                                    color: textcholor())),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color:  textcholor(),)
-                        ],
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(title,
+                            style: TextStyle(
+                                fontSize: ScreenfontSize.toDouble(),
+                                color: textcholor())),
                       ),
-                    )))),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: textcholor(),
+                      )
+                    ],
+                  ),
+                )))),
       ),
     );
   }
 
-Color textcholor(){
-    if (isClick){
+  Color textcholor() {
+    if (isClick) {
       return textColoronclick!;
-    }else if (isHover){
+    } else if (isHover) {
       return textColoronHover!;
-    }else {
+    } else {
       return textColor!;
     }
-
-}
-
-
-
+  }
 
   @override
-  int selectedIndex  = 0 ;
+  int selectedIndex = 0;
   int hoverIndex = 0;
 
   @override
@@ -123,16 +118,11 @@ Color textcholor(){
 
   @override
   void onExit(int index) {
-   mainLogic!.onSideBarExit(index);
-
+    mainLogic!.onSideBarExit(index);
   }
 
   @override
   void onHover(int index) {
     mainLogic!.onSideBarHover(index);
   }
-
-
-
-
 }

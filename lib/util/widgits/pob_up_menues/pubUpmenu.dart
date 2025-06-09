@@ -1,4 +1,4 @@
-import 'package:JoDija_view/util/main-screen/screen-type.dart';
+import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,65 +10,58 @@ class PopUpMenu extends StatelessWidget {
       required this.items,
       this.textStyle = const TextStyle(fontSize: 10),
       this.iconSize,
-      this.iconColor ,
-      this.alignment = Alignment.topRight
-      });
+      this.iconColor,
+      this.alignment = Alignment.topRight});
   List<pubMenuItems> items;
-  TextStyle? textStyle = TextStyle(fontSize: 10 , color: Colors.black);
-  int? iconSize ;
-  Color? iconColor ;
+  TextStyle? textStyle = TextStyle(fontSize: 10, color: Colors.black);
+  int? iconSize;
+  Color? iconColor;
   Alignment alignment = Alignment.topRight;
   Map<int, Function> map = {};
   @override
   Widget build(BuildContext context) {
-map = actions();
+    map = actions();
     if (iconSize == null) {
       iconSize = textStyle!.fontSize!.toInt();
     }
     if (iconColor == null) {
-      iconColor = textStyle!.color??Colors.black;
+      iconColor = textStyle!.color ?? Colors.black;
     }
-     return Align(
-        alignment: alignment,
-       child: PopupMenuButton(
-         iconColor: iconColor,
-
-          iconSize:  iconSize!.toDouble() ,
+    return Align(
+      alignment: alignment,
+      child: PopupMenuButton(
+          iconColor: iconColor,
+          iconSize: iconSize!.toDouble(),
           itemBuilder: (context) {
             List<PopupMenuItem> items = [];
 
-           for (var e in this.items) {
-             if (e.isvisale) {
-               items.add(
-                   PopupMenuItem(
-                     enabled: e.isEnable,
-                     value: e.value,
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Icon(e.icon,
-                             color: iconColor, size: iconSize!.toDouble()),
-
-                         Text(e.title, style: textStyle!),
-                       ],
-                     ),
-                   )
-
-
-               );
-             }
+            for (var e in this.items) {
+              if (e.isvisale) {
+                items.add(PopupMenuItem(
+                  enabled: e.isEnable,
+                  value: e.value,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(e.icon,
+                          color: iconColor, size: iconSize!.toDouble()),
+                      Text(e.title, style: textStyle!),
+                    ],
+                  ),
+                ));
+              }
             }
             return items;
-
           },
           onSelected: (value) {
             map[value]!();
           }),
-     );
+    );
   }
 
   Map<int, Function> actions() {
-    Map<int, Function> maps =  items.asMap().map((key, value) => MapEntry(value.value, value.onTap));
+    Map<int, Function> maps =
+        items.asMap().map((key, value) => MapEntry(value.value, value.onTap));
     return maps as Map<int, Function>;
   }
 }

@@ -1,8 +1,7 @@
-import 'package:JoDija_view/theams/colors/colors.dart';
+import 'package:JoDija_tamplites/theams/colors/colors.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
- import 'package:provider/provider.dart';
-
+import 'package:provider/provider.dart';
 
 import 'main_logic.dart';
 import 'side_bar.dart';
@@ -22,8 +21,11 @@ class _MobCpState extends State<MobCp> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text( provider.getTittle() , style: TextStyle(color:provider.titleTextColor),),
-          backgroundColor: provider.headerColor   ,
+          title: Text(
+            provider.getTittle(),
+            style: TextStyle(color: provider.titleTextColor),
+          ),
+          backgroundColor: provider.headerColor,
         ),
         drawer: Drawer(
           width: 150,
@@ -33,10 +35,9 @@ class _MobCpState extends State<MobCp> {
           child: Container(
             // reach text using q['name']
             decoration: BoxDecoration(
-
               image: DecorationImage(
                 image: AssetImage(
-                 provider.logo,
+                  provider.logo,
                 ),
                 fit: BoxFit.fill,
               ),
@@ -45,7 +46,7 @@ class _MobCpState extends State<MobCp> {
               children: [
                 Expanded(
                   child: Container(
-                    child:  provider.getContent(),
+                    child: provider.getContent(),
                   ),
                 )
               ],
