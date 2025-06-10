@@ -20,15 +20,15 @@ class SideBar extends StatelessWidget {
       color: logic.sideBarColor,
       child: Column(
         children: [
-          logic.logo == "null"
-              ? Container()
-              : Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(logic.logo), fit: BoxFit.fill)),
-                ),
+          // logic.logo == "null"
+          //     ? Container()
+          //     : Container(
+          //         height: 200,
+          //         width: 200,
+          //         decoration: BoxDecoration(
+          //             image: DecorationImage(
+          //                 image: AssetImage(logic.logo), fit: BoxFit.fill)),
+          //       ),
           ...logic.getSideBar()
         ],
       ),
