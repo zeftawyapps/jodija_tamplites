@@ -20,7 +20,7 @@ class SideBar extends StatelessWidget {
       color: logic.sideBarColor,
       child: Column(
         children: [
-          logic.logo == "Default Logo"
+          logic.logo == "null"
               ? Container()
               : Container(
                   height: 200,

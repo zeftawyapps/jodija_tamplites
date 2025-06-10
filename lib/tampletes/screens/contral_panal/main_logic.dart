@@ -18,8 +18,8 @@ class DashboardMainServices extends ScreenStateNotifier {
   DashboardMainServices._();
   DashboardMainServices(
       {String tittle = "JoDija",
-      String logo = "assets/logo.png",
-      String backgroundImage = "assets/image.png",
+      String logo = "null",
+      String backgroundImage = "null",
       Color? backGroundColor,
       Color? sideBarColor,
       Color? sideBarHoverColor,
