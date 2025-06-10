@@ -1,3 +1,5 @@
+import 'package:JoDija_tamplites/tampletes/screens/contral_panal/contents/content_interface.dart';
+import 'package:JoDija_tamplites/tampletes/screens/contral_panal/side_bar_tools/sid_bar_interface.dart';
 import 'package:JoDija_tamplites/util/main-screen/project-screen.dart';
 import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
 import 'package:JoDija_tamplites/util/widgits/screen_provider/screen_viewer.dart';
@@ -7,8 +9,11 @@ import 'moblie_cp.dart';
 import 'web_cp.dart';
 
 class DashboardMainScreen extends StatefulWidget {
-  const DashboardMainScreen({super.key});
+  DashboardMainScreen(
+      {super.key, required this.sideBar, required this.contents});
 
+  List<ISideBare> sideBar = [];
+  List<IContent> contents = [];
   @override
   State<DashboardMainScreen> createState() => _DashboardMainScreenState();
 }
