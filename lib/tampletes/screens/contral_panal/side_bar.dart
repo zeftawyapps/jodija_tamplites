@@ -18,7 +18,7 @@ class SideBar extends StatelessWidget {
 
 
 
-    return Container(
+    return logic.logo == "Default Logo" ?Container() : Container(
       width: 200  ,
       color:   logic.sideBarColor ,
       child: Column(
