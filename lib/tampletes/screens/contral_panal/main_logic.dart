@@ -16,7 +16,9 @@ class DashboardMainServices extends ScreenStateNotifier {
 // single ton object
   static DashboardMainServices? _instance;
   DashboardMainServices._();
-  DashboardMainServices() {}
+  DashboardMainServices() {
+    setTheme();
+  }
 
   String _tittle = 'Default Title';
   String _logo = 'Default Logo';
