@@ -29,7 +29,7 @@ class SideBar extends StatelessWidget {
                       image: DecorationImage(
                           image: AssetImage(logic.logo), fit: BoxFit.fill)),
                 ),
-          // ...logic.getSideBar()
+          ...logic.getSideBar()
         ],
       ),
     );
