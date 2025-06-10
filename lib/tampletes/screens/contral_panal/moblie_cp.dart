@@ -34,14 +34,16 @@ class _MobCpState extends State<MobCp> {
         body: FadeIn(
           child: Container(
             // reach text using q['name']
-            // decoration: BoxDecoration(
-            //   image: DecorationImage(
-            //     image: AssetImage(
-            //       provider.logo,
-            //     ),
-            //     fit: BoxFit.fill,
-            //   ),
-            // ),
+            decoration: provider.logo == "null"
+                ? BoxDecoration()
+                : BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        provider.logo,
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
             child: Column(
               children: [
                 Expanded(

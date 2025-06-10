@@ -42,14 +42,16 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
           duration: Duration(seconds: 1),
           child: Container(
             // reach text using q['name']
-            // decoration: BoxDecoration(
-            //   image: DecorationImage(
-            //     image: AssetImage(
-            //       provider.logo,
-            //     ),
-            //     fit: BoxFit.fill,
-            //   ),
-            // ),
+            decoration: provider.logo == "null"
+                ? BoxDecoration()
+                : BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        provider.logo,
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
             child: Column(
               children: [
                 Expanded(
