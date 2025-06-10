@@ -16,8 +16,31 @@ class DashboardMainServices extends ScreenStateNotifier {
 // single ton object
   static DashboardMainServices? _instance;
   DashboardMainServices._();
-  DashboardMainServices() {
-    setTheme();
+  DashboardMainServices(
+      {String tittle = "JoDija",
+      String logo = "AssetsImages.logo",
+      String backgroundImage = "AssetsImages.backgroundImage",
+      Color? backGroundColor,
+      Color? sideBarColor,
+      Color? sideBarHoverColor,
+      Color? headerColor,
+      Color? titleTextColor}) {
+    _tittle = tittle;
+    _logo = logo;
+    _backgroundImage = backgroundImage;
+    _backGroundColor = backGroundColor ??
+        Theme.of(context).scaffoldBackgroundColor ??
+        Colors.white;
+    _sideBarColor = sideBarColor ??
+        Theme.of(context).drawerTheme.backgroundColor ??
+        Colors.grey;
+    _sideBarHoverColor = sideBarHoverColor ?? Colors.blueGrey;
+    _headerColor = headerColor ??
+        Theme.of(context).appBarTheme.backgroundColor ??
+        Colors.black;
+    _titleTextColor = titleTextColor ??
+        Theme.of(context).appBarTheme.titleTextStyle!.color ??
+        Colors.black;
   }
 
   String _tittle = 'Default Title';
