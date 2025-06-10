@@ -29,9 +29,12 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    logic.sideBar = [];
+    logic.sideBar = widget.sideBar;
 
-    logic.contents = [];
+    logic.contents = widget.contents.map((e) {
+      e.sideBar = logic.sideBar.isNotEmpty ? logic.sideBar[0] : null;
+      return e;
+    }).toList();
   }
 
   @override
