@@ -28,19 +28,11 @@ class DashboardMainServices extends ScreenStateNotifier {
     _tittle = tittle;
     _logo = logo;
     _backgroundImage = backgroundImage;
-    _backGroundColor = backGroundColor ??
-        Theme.of(context).scaffoldBackgroundColor ??
-        Colors.white;
-    _sideBarColor = sideBarColor ??
-        Theme.of(context).drawerTheme.backgroundColor ??
-        Colors.grey;
+    _backGroundColor = backGroundColor ?? Colors.white;
+    _sideBarColor = sideBarColor ?? Colors.grey;
     _sideBarHoverColor = sideBarHoverColor ?? Colors.blueGrey;
-    _headerColor = headerColor ??
-        Theme.of(context).appBarTheme.backgroundColor ??
-        Colors.black;
-    _titleTextColor = titleTextColor ??
-        Theme.of(context).appBarTheme.titleTextStyle!.color ??
-        Colors.black;
+    _headerColor = headerColor ?? Colors.black;
+    _titleTextColor = titleTextColor ?? Colors.black;
   }
 
   String _tittle = 'Default Title';
