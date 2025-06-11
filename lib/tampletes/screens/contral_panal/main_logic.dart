@@ -49,13 +49,10 @@ class DashboardMainServices extends ScreenStateNotifier {
   String get logo => _logo;
   String get backgroundImage => _backgroundImage;
   Color get backGroundColor => _backGroundColor;
-  Color get sideBarColor =>
-      Theme.of(context).drawerTheme.backgroundColor ?? _sideBarColor;
+  Color get sideBarColor => _sideBarColor;
   Color get sideBarHoverColor => _sideBarHoverColor;
-  Color get headerColor =>
-      Theme.of(context).appBarTheme.backgroundColor ?? _headerColor;
-  Color get titleTextColor =>
-      Theme.of(context).appBarTheme.titleTextStyle!.color ?? _titleTextColor;
+  Color get headerColor => _headerColor;
+  Color get titleTextColor => _titleTextColor;
 
   // SETTER in one function
   void setTheme({
