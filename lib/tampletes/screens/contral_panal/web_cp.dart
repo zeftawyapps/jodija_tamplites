@@ -18,7 +18,7 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
   String oldlen = "ar";
   bool animation = true;
   late AnimationController _animatedContainer;
- late  DashboardMainServices provider;
+  late DashboardMainServices provider;
 
   @override
   void initState() {

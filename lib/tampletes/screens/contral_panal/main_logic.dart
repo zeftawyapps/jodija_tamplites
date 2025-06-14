@@ -145,11 +145,14 @@ class DashboardMainServices extends ScreenStateNotifier {
   }
 
   void initWebRouter() {
-    WebRouter.createUrlStrategyInMain();
     currentPath = WebRouter.getCurrentPath(currentPath);
     WebRouter.listenToPopState((path) {
       currentPath = path;
       selectedIndex = sideBar.indexWhere((element) => element.path() == path);
+      if (selectedIndex == -1) {
+        selectedIndex = 0; // Default to the first item if not found
+      }
+
       notifyListeners();
     });
   }
