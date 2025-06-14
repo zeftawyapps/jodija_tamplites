@@ -11,6 +11,7 @@ class SideListItme extends StatelessWidget with ISideBare {
   SideListItme({
     super.key,
     required this.title,
+    required this.pageRouteName,
     this.clickColor,
     this.color,
     this.textColor = Colors.white,
@@ -20,6 +21,7 @@ class SideListItme extends StatelessWidget with ISideBare {
     this.fontSize = 5,
   });
   String title;
+  String pageRouteName;
   int fontSize = 6;
   Color? color = Colors.green;
   Color? textColor = Colors.black;
@@ -124,5 +126,10 @@ class SideListItme extends StatelessWidget with ISideBare {
   @override
   void onHover(int index) {
     mainLogic!.onSideBarHover(index);
+  }
+
+  @override
+  String path() {
+    return pageRouteName;
   }
 }

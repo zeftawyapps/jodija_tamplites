@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
+import 'package:JoDija_tamplites/util/navigations/web_router.dart';
 import 'package:JoDija_tamplites/util/widgits/screen_provider/screen_notfier.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,9 @@ import 'side_bar_tools/sid_bar_interface.dart';
 
 class DashboardMainServices extends ScreenStateNotifier {
 // single ton object
+
   static DashboardMainServices? _instance;
+
   DashboardMainServices._();
   DashboardMainServices(
       {String tittle = "JoDija",
@@ -87,6 +90,7 @@ class DashboardMainServices extends ScreenStateNotifier {
   List<IContent> contents = [];
   List<ISideBare> sideBar = [];
   int selectedIndex = 0;
+  String currentPath = '/';
   int hoverIndex = 0;
   List<Widget> getSideBar() {
     List<Widget> list = [];
@@ -118,6 +122,8 @@ class DashboardMainServices extends ScreenStateNotifier {
   // on side bar item click
   void onSideBarClick(int index) {
     selectedIndex = index;
+    currentPath = sideBar[index].path();
+    WebRouter.updateUrl(currentPath);
     notifyListeners();
   }
 
@@ -136,6 +142,16 @@ class DashboardMainServices extends ScreenStateNotifier {
   @override
   void createproviers(BuildContext contxt) {
     context = contxt;
+  }
+
+  void initWebRouter() {
+    WebRouter.createUrlStrategyInMain();
+    currentPath = WebRouter.getCurrentPath(currentPath);
+    WebRouter.listenToPopState((path) {
+      currentPath = path;
+      selectedIndex = sideBar.indexWhere((element) => element.path() == path);
+      notifyListeners();
+    });
   }
 
   String getTittle() {

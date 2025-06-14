@@ -18,6 +18,8 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
   String oldlen = "ar";
   bool animation = true;
   late AnimationController _animatedContainer;
+  var provider;
+
   @override
   void initState() {
     _animatedContainer = AnimationController(
@@ -25,6 +27,8 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
       duration: Duration(seconds: 1),
     );
     // TODO: implement initState
+    provider = Provider.of<DashboardMainServices>(context, listen: false);
+    provider.initWebRouter();
     super.initState();
   }
 
@@ -32,7 +36,6 @@ class _WebCpState extends State<WebCp> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // var dd = SettingChangeLestner.of(context);
     // String lang = dd.state.language!;
-    var provider = Provider.of<DashboardMainServices>(context);
 
     return SafeArea(
       child: Scaffold(
