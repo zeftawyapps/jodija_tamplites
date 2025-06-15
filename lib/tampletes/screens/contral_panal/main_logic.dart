@@ -123,7 +123,7 @@ class DashboardMainServices extends ScreenStateNotifier {
   void onSideBarClick(int index) {
     selectedIndex = index;
     currentPath = sideBar[index].path();
-    // WebRouter.updateUrl(currentPath);
+    WebRouter.updateUrl(currentPath);
 
     notifyListeners();
   }
@@ -146,22 +146,22 @@ class DashboardMainServices extends ScreenStateNotifier {
   }
 
   void initWebRouter() {
-    // currentPath = WebRouter.getCurrentPath(currentPath);
+    currentPath = WebRouter.getCurrentPath(currentPath);
     selectedIndex =
         sideBar.indexWhere((element) => element.path() == currentPath);
     if (selectedIndex == -1) {
       selectedIndex = 0; // Default to the first item if not found
     }
 
-    // WebRouter.listenToPopState((path) {
-    //   currentPath = path;
-    //   selectedIndex = sideBar.indexWhere((element) => element.path() == path);
-    //   if (selectedIndex == -1) {
-    //     selectedIndex = 0; // Default to the first item if not found
-    //   }
+    WebRouter.listenToPopState((path) {
+      currentPath = path;
+      selectedIndex = sideBar.indexWhere((element) => element.path() == path);
+      if (selectedIndex == -1) {
+        selectedIndex = 0; // Default to the first item if not found
+      }
 
-    //   notifyListeners();
-    // });
+      notifyListeners();
+    });
     notifyListeners();
   }
 
