@@ -31,10 +31,10 @@ dependencies:
   
   sqflite_common_ffi: ^2.3.4+4
   get_it: ^7.2.0
-  go_router: ^2.0.0
-  url_strategy: ^0.2.0
-#  web: ^0.3.0  # Latest version for web platform APIs
-#  js_interop: ^0.0.1  # For JavaScript interop
+  
+  # url_strategy: ^0.2.0
+  # web: ^0.3.0  # Latest version for web platform APIs
+  # js_interop: ^0.0.1  # For JavaScript interop
 
 dev_dependencies:
   flutter_test:
