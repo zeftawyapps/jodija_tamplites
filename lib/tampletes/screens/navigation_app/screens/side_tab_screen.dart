@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import '../providers/navigation_provider.dart';
 
 /// شاشة تجمع بين الشريط الجانبي والتبويبات العلوية
-class SideTabScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   // final int tabIndex;
   final int sideIndex;
   final Widget bodyWidget;
 
-  const SideTabScreen({
+  const MainScreen({
     Key? key,
     // required this.tabIndex,
     required this.sideIndex,
@@ -17,11 +17,10 @@ class SideTabScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SideTabScreen> createState() => _SideTabScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _SideTabScreenState extends State<SideTabScreen>
-    with TickerProviderStateMixin {
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   // تغيير من SingleTickerProviderStateMixin إلى TickerProviderStateMixin
   TabController? _tabController;
   bool _isInitializing = false; // لمنع تهيئة مضاعفة للـ TabController
@@ -34,41 +33,6 @@ class _SideTabScreenState extends State<SideTabScreen>
       // _initTabController();
     });
   }
-
-  // void _initTabController() {
-  //   if (!mounted || _isInitializing) return;
-  //
-  //   _isInitializing = true;
-  //
-  //   // إلغاء المستمع القديم وتخليص الموارد
-  //   _disposeTabController();
-  //
-  //   final provider = Provider.of<NavigationProvider>(context, listen: false);
-  //
-  //   // التأكد من وجود عناصر تنقل
-  //   if (provider.navigationItems.isEmpty) {
-  //     _isInitializing = false;
-  //     return;
-  //   }
-  //
-  //   // إنشاء وتهيئة TabController
-  //   // _tabController = TabController(
-  //   //   length: provider.navigationItems.length,
-  //   //   vsync: this,
-  //   //   initialIndex:
-  //   //       widget.tabIndex < provider.navigationItems.length
-  //   //           ? widget.tabIndex
-  //   //           : 0,
-  //   // );
-  //   //
-  //   // // إضافة مستمع للتغييرات
-  //   // _tabController!.addListener(_handleTabChangeListener);
-  //
-  //   // تحديث واجهة المستخدم
-  //   if (mounted) setState(() {});
-  //
-  //   _isInitializing = false;
-  // }
 
   void _handleTabChangeListener() {
     // تحديث URL عند تغيير التبويب
@@ -103,29 +67,13 @@ class _SideTabScreenState extends State<SideTabScreen>
   }
 
   @override
-  void didUpdateWidget(SideTabScreen oldWidget) {
+  void didUpdateWidget(MainScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (!mounted) return;
 
     // إعادة تهيئة TabController عند تغيير عدد عناصر التنقل
     final provider = Provider.of<NavigationProvider>(context, listen: false);
-    // final currentTabCount = _tabController?.length ?? 0;
-    //
-    // if (currentTabCount != provider.navigationItems.length) {
-    //   // إذا تغير عدد العناصر، أعد تهيئة TabController بأمان
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     if (mounted && !_isInitializing) {
-    //       _initTabController();
-    //     }
-    //   });
-    // } else if (widget.tabIndex != oldWidget.tabIndex &&
-    //     _tabController != null) {
-    //   // إذا تغير فقط المؤشر المحدد، قم بتحديث المؤشر
-    //   if (widget.tabIndex < _tabController!.length) {
-    //     _tabController!.animateTo(widget.tabIndex);
-    //   }
-    // }
   }
 
   @override
@@ -148,21 +96,12 @@ class _SideTabScreenState extends State<SideTabScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('تطبيق متعدد التنقل'),
-        // bottom:
-              // TabBar(
-              //     controller: _tabController,
-              //     tabs:
-              //         navigationProvider.navigationItems.map((item) {
-              //           return Tab(icon: Icon(item.icon), text: item.label);
-              //         }).toList(),
-              //   ),
       ),
       body: Row(
         children: [
           // القائمة الجانبية
           NavigationRail(
-            extended:
-                MediaQuery.of(context).size.width >
+            extended: MediaQuery.of(context).size.width >
                 800, // توسيع القائمة إذا كانت الشاشة واسعة
             selectedIndex:
                 widget.sideIndex < navigationProvider.navigationItems.length
@@ -172,20 +111,19 @@ class _SideTabScreenState extends State<SideTabScreen>
               // التنقل عند النقر على عنصر في القائمة الجانبية
               _handleSideNavigation(index, context);
             },
-            destinations:
-                navigationProvider.navigationItems.isEmpty
-                    ? [
-                      const NavigationRailDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('الرئيسية'),
-                      ),
-                    ]
-                    : navigationProvider.navigationItems.map((item) {
-                      return NavigationRailDestination(
-                        icon: Icon(item.icon),
-                        label: Text(item.label),
-                      );
-                    }).toList(),
+            destinations: navigationProvider.navigationItems.isEmpty
+                ? [
+                    const NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('الرئيسية'),
+                    ),
+                  ]
+                : navigationProvider.navigationItems.map((item) {
+                    return NavigationRailDestination(
+                      icon: Icon(item.icon),
+                      label: Text(item.label),
+                    );
+                  }).toList(),
           ),
           // خط فاصل
           const VerticalDivider(thickness: 1, width: 1),

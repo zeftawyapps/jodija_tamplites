@@ -1,11 +1,10 @@
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/main_navigation_service.dart';
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/providers/main_navigation_service.dart';
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/providers/navigation_provider.dart';
 import 'package:JoDija_tamplites/util/app_settings/settings_inherted.dart';
 import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
- import 'interface/sid_bar_interface.dart';
+import '../interface/sid_bar_interface.dart';
 
 class SideListItme extends StatelessWidget with IRoutedSideBare {
   SideListItme({
@@ -23,6 +22,7 @@ class SideListItme extends StatelessWidget with IRoutedSideBare {
   String title;
   String pageRouteName;
   int fontSize = 6;
+  IconData? icon;
   Color? color = Colors.green;
   Color? textColor = Colors.black;
   Color? textColoronclick = Colors.black;
@@ -35,7 +35,7 @@ class SideListItme extends StatelessWidget with IRoutedSideBare {
   bool isHover = false;
   bool isClick = false;
   bool isActioned = false;
-  RoutedContralPanalServices? mainLogic;
+  NavigationProvider? mainLogic;
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +82,22 @@ class SideListItme extends StatelessWidget with IRoutedSideBare {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
+                      Icon(
+                        icon ?? Icons.menu,
+                        color: textcolor(),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: Text(title,
                             style: TextStyle(
                                 fontSize: ScreenfontSize.toDouble(),
-                                color: textcholor())),
+                                color: textcolor())),
                       ),
                       Icon(
                         Icons.arrow_forward_ios,
-                        color: textcholor(),
+                        color: textcolor(),
                       )
                     ],
                   ),
@@ -99,7 +106,7 @@ class SideListItme extends StatelessWidget with IRoutedSideBare {
     );
   }
 
-  Color textcholor() {
+  Color textcolor() {
     if (isClick) {
       return textColoronclick!;
     } else if (isHover) {
@@ -115,17 +122,17 @@ class SideListItme extends StatelessWidget with IRoutedSideBare {
 
   @override
   void onClick(int index) {
-    mainLogic!.onSideBarClick(index);
+    mainLogic!.onSideBarItemClick(index);
   }
 
   @override
   void onExit(int index) {
-    mainLogic!.onSideBarExit(index);
+    mainLogic!.onSideBarItemExit(index);
   }
 
   @override
   void onHover(int index) {
-    mainLogic!.onSideBarHover(index);
+    mainLogic!.onSideBarItemHover(index);
   }
 
   @override

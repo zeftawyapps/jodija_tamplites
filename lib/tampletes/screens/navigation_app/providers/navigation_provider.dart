@@ -13,41 +13,14 @@ class NavigationProvider extends ChangeNotifier {
   // متغير لتتبع العنصر الجانبي المحدد
   int _currentSideIndex = 0;
   int get currentSideIndex => _currentSideIndex;
-
+  NavigationProvider(List<NavigationItem> navigationItems) {
+    // تهيئة القائمة بعناصر التنقل الممررة
+    // تهيئة الراوتر عند إنشاء المزود
+    _navigationItems.addAll(navigationItems);
+  }
 
   // قائمة عناصر التنقل الديناميكية
-  final List<NavigationItem> _navigationItems = [
-    NavigationItem(
-      path: '/home',
-      label: 'الرئيسية',
-      icon: Icons.home,
-      content: const HomeContent(),
-    ),
-    NavigationItem(
-      path: '/profile',
-      label: 'الملف الشخصي',
-      icon: Icons.person,
-      content: const ProfileContent(),
-    ),
-    NavigationItem(
-      path: '/settings',
-      label: 'الإعدادات',
-      icon: Icons.settings,
-      content: const SettingsContent(),
-    ),
-    NavigationItem(
-      path: '/notifications',
-      label: 'الإشعارات',
-      icon: Icons.notifications,
-      content: const NotificationsContent(),
-    ),
-    NavigationItem(
-      path: '/messages',
-      label: 'الرسائل',
-      icon: Icons.message,
-      content: const MessagesContent(),
-    ),
-  ];
+  final List<NavigationItem> _navigationItems = [];
 
   // نسخة غير قابلة للتعديل من قائمة العناصر
   List<NavigationItem> get navigationItems =>
@@ -73,7 +46,7 @@ class NavigationProvider extends ChangeNotifier {
               _currentSideIndex = i;
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: SideTabScreen(
+                child: MainScreen(
                   // tabIndex: i,
                   sideIndex: i,
                   bodyWidget: _navigationItems[i].content,
@@ -93,4 +66,3 @@ class NavigationProvider extends ChangeNotifier {
     );
   }
 }
-
