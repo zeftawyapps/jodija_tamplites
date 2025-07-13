@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../models/sidebar_item.dart';
+import '../models/route_item.dart';
 import '../screens/main_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/splash_screen.dart';
+import 'auth_provider.dart';
 
 /// مزود حالة الشريط الجانبي
 class SidebarProvider extends ChangeNotifier {
@@ -9,7 +12,7 @@ class SidebarProvider extends ChangeNotifier {
     this.sidebarItems = sidebarItems;
   }
 
-  List<SidebarItem> sidebarItems;
+  List<RouteItem> sidebarItems;
 
   int selectedIndex = 0;
 
@@ -28,24 +31,85 @@ class SidebarProvider extends ChangeNotifier {
   // إيجاد فهرس العنصر بناء على المسار
   int _getIndexForPath(String path) {
     for (int i = 0; i < sidebarItems.length; i++) {
-      if (sidebarItems[i].path == path) {
+      if (sidebarItems[i].isSideBarRouted && sidebarItems[i].path == path) {
         return i;
       }
     }
     return 0; // العودة إلى عنصر لوحة التحكم في حال عدم وجود المسار
   }
 
-  // إنشاء GoRouter مع تحديث مستمر للمسارات
-  GoRouter createRouter() {
+  // التعامل مع النقر على عناصر الشريط الجانبي
+  void handleItemTap(BuildContext context, RouteItem item, int index) {
+    if (item.isSideBarRouted && item.path != null) {
+      // التعامل مع العناصر المسارة
+      setSelectedIndex(index);
+      context.go(item.path!);
+    } else {
+      // التعامل مع العناصر غير المسارة
+      if (item.onTap != null) {
+        item.onTap!();
+      } else {
+        // عرض المحتوى كنافذة منبثقة
+        _showNonRoutedContent(context, item);
+      }
+    }
+  }
+
+  // عرض المحتوى غير المسار
+  void _showNonRoutedContent(BuildContext context, RouteItem item) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(item.icon),
+            const SizedBox(width: 8),
+            Text(item.label),
+          ],
+        ),
+        content: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: item.content,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('إغلاق'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // // تسجيل الخروج
+  // void logout(BuildContext context, AuthProvider authProvider) {
+  //   authProvider.logout();
+  //   context.go('/login');
+  // }
+
+  GoRouter createRouter(String? initRouter) {
+    String initR;
+    if (initRouter != null) {
+      initR = initRouter;
+    } else {
+      initR = sidebarItems.isNotEmpty ? sidebarItems[0].path : '/';
+    }
+
     return GoRouter(
-      initialLocation: '/dashboard',
+      initialLocation: sidebarItems[selectedIndex].path ?? '/',
       routes: [
         // المسار الرئيسي - إعادة التوجيه إلى لوحة التحكم
-        GoRoute(path: '/', redirect: (_, __) => '/dashboard'),
+        GoRoute(
+            path: "/",
+            redirect: (context, state) {
+              return initR;
+            }),
+
         // إنشاء مسارات لكل عناصر الشريط الجانبي
         for (var i = 0; i < sidebarItems.length; i++)
           GoRoute(
-            path: sidebarItems[i].path,
+            path: sidebarItems[i].path!,
             pageBuilder: (context, state) {
               // تحديث المؤشر المحدد بناء على المسار
               final currentPath = state.matchedLocation;
@@ -55,6 +119,7 @@ class SidebarProvider extends ChangeNotifier {
                 key: state.pageKey,
                 child: MainScreen(
                   contentWidget: sidebarItems[selectedIndex].content,
+                  isRouteInsidebar: sidebarItems[selectedIndex].isSideBarRouted,
                 ),
                 transitionsBuilder: (
                   context,

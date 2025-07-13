@@ -47,7 +47,6 @@ class NavigationProvider extends ChangeNotifier {
               return CustomTransitionPage(
                 key: state.pageKey,
                 child: MainScreen(
-                  // tabIndex: i,
                   sideIndex: i,
                   bodyWidget: _navigationItems[i].content,
                 ),
