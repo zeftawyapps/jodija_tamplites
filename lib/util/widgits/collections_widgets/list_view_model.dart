@@ -1,7 +1,7 @@
 import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart%20';
+import 'package:flutter/material.dart';
 
 class ListViewModel<T extends BaseViewDataModel> extends StatelessWidget {
   ListViewModel(

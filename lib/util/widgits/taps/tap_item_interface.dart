@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart%20';
+import 'package:flutter/material.dart';
 
 abstract   class ITapItems {
  int index;
