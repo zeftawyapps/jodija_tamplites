@@ -1,4 +1,3 @@
-import 'dart:html' as html;
 
 class WebRouteUrlSplitter {
   Map<String, dynamic> query = {};
