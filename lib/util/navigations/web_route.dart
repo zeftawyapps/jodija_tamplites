@@ -5,3 +5,4 @@ class WebRouteUrlSplitter {
   String url = "";
   String routeName = "";
 }
+String data  = "" ; 
