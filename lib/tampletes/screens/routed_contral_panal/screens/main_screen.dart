@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/sidebar_provider.dart';
-import '../providers/auth_provider.dart';
+import '../theam/theam.dart';
+import '../utiles/side_bar_navigation_router.dart';
 import '../widgets/sidebar_widget.dart';
 import '../widgets/app_drawer_widget.dart';
 import '../laaunser.dart';
@@ -9,13 +10,23 @@ import '../models/app_bar_config.dart';
 
 /// الشاشة الرئيسية مع الشريط الجانبي
 class MainScreen extends StatefulWidget {
-  final Widget contentWidget;
+  final   Widget contentWidget;
   bool isRouteInsidebar = false;
+  bool isAppBar;
+  String appBarTitl;
+  bool isDrawerShow;
+  bool isAppBarLargeScreenShowTitle;
+  bool isAppBarSmallScreenShowTitle;
 
-
-    MainScreen({super.key, required this.contentWidget
-  , this.isRouteInsidebar = false
-  });
+  MainScreen(
+      {super.key,
+      required this.contentWidget,
+      this.isRouteInsidebar = false,
+      this.isAppBar = true,
+      this.appBarTitl = "dd",
+      this.isDrawerShow = false,
+      this.isAppBarLargeScreenShowTitle = false,
+      this.isAppBarSmallScreenShowTitle = false});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -24,7 +35,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
+  bool isScreenSmall = false;
+  AppBarConfig? smallScreenAppBarConfig;
+  AppBarConfig? largeScreenAppBarConfig;
+  bool showAppBarOnLargeScreen = false;
+  SideBarNavigationTheames? theme;
   @override
   void initState() {
     super.initState();
@@ -46,15 +61,12 @@ class _MainScreenState extends State<MainScreen>
     final items = sidebarProvider.sidebarItems;
     final selectedIndex = sidebarProvider.selectedIndex;
     final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen = screenWidth < 800;
-
+    final isScreen = screenWidth < 800;
+    this.isScreenSmall = isScreen;
     // Get theme from provider
-    final theme = SidebarNavigationControlPanale.getTheme(context);
+    this.theme = SidebarNavigationControlPanale.getTheme(context);
 
     // Get app bar configurations
-    AppBarConfig? smallScreenAppBarConfig;
-    AppBarConfig? largeScreenAppBarConfig;
-    bool showAppBarOnLargeScreen = false;
 
     // Try to access the controlPanel to get app bar configs
     try {
@@ -66,85 +78,104 @@ class _MainScreenState extends State<MainScreen>
     } catch (e) {
       // If not available, use defaults
       smallScreenAppBarConfig = AppBarConfig(
-        title: 'تطبيقي',
+        title: widget.appBarTitl,
         titleStyle: TextStyle(
-          fontSize: theme.fontSize * 1.4,
-          fontWeight: theme.selectedFontWeight,
-          color: theme.textColor,
+          fontSize: this.theme?.fontSize,
+          fontWeight: this.theme?.selectedFontWeight,
+          color: this.theme?.textColor,
         ),
-        backgroundColor: theme.backgroundColor,
-        foregroundColor: theme.textColor,
+        backgroundColor: this.theme?.backgroundColor,
+        foregroundColor: this.theme?.textColor,
       );
     }
 
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: this.theme?.backgroundColor,
 
       // Show app bar based on screen size and configuration
-      appBar: isSmallScreen
-          ? (smallScreenAppBarConfig?.buildAppBar(isSmallScreen: true) ??
-              _buildDefaultAppBar(theme, true))
-          : (showAppBarOnLargeScreen
-              ? (largeScreenAppBarConfig?.buildAppBar(isSmallScreen: false) ??
-                  _buildDefaultAppBar(theme, false))
-              : _buildDefaultAppBar(
-                  theme, false)), // Always show app bar for user info
+      appBar: _buildAppBar(context), // Always show app bar for user info
 
       // إضافة درج تنقل عندما تكون الشاشة صغيرة
-      drawer: isSmallScreen
-          ? AppDrawerWidget(
+      drawer: this.isScreenSmall
+          ? _buildDrawer(
               items: items,
               selectedIndex: selectedIndex,
-            )
+              isDrawerShow: widget.isDrawerShow,
+              isinSideBarRoute: widget.isRouteInsidebar)
           : null,
 
-      body:
-   ! widget.isRouteInsidebar? widget.contentWidget :
+      body: !widget.isRouteInsidebar
+          ? widget.contentWidget
+          : Row(
+              children: [
+                // إظهار الشريط الجانبي فقط إذا كانت الشاشة كبيرة
+                if (!this.isScreenSmall)
+                  SidebarWidget(
+                    items: items,
+                    selectedIndex: selectedIndex,
+                  ),
 
-      Row(
-        children: [
-          // إظهار الشريط الجانبي فقط إذا كانت الشاشة كبيرة
-          if (!isSmallScreen)
-            SidebarWidget(
-              items: items,
-              selectedIndex: selectedIndex,
-            ),
+                // إظهار الخط الفاصل فقط إذا كانت الشاشة كبيرة
+                if (!this.isScreenSmall)
+                  Container(
+                    width: 1,
+                    color: this.theme?.selectedBorderColor.withOpacity(0.3),
+                  ),
 
-          // إظهار الخط الفاصل فقط إذا كانت الشاشة كبيرة
-          if (!isSmallScreen)
-            Container(
-              width: 1,
-              color: theme.selectedBorderColor.withOpacity(0.3),
+                // المحتوى الرئيسي
+                Expanded(
+                  child: Container(
+                    color: theme?.backgroundColor,
+                    child: widget.contentWidget,
+                  ),
+                ),
+              ],
             ),
-
-          // المحتوى الرئيسي
-          Expanded(
-            child: Container(
-              color: theme.backgroundColor,
-              child: widget.contentWidget,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
-
-
   // Default app bar if configuration is not provided
-  AppBar _buildDefaultAppBar(dynamic theme, bool isSmallScreen) {
-    return AppBar(
-      backgroundColor: theme.backgroundColor,
-      foregroundColor: theme.textColor,
-      title: Text(
-        'تطبيق الشريط الجانبي',
-        style: TextStyle(
-          fontSize: theme.fontSize * 1.4,
-          fontWeight: theme.selectedFontWeight,
-          color: theme.textColor,
-        ),
-      ),
-      // No actions for large screens
-    );
+  AppBar? _buildDefaultAppBar(dynamic theme) {
+    return widget.isAppBar
+        ? AppBar(
+            backgroundColor: theme.backgroundColor,
+            foregroundColor: theme.textColor,
+            title: Text(
+              widget.appBarTitl,
+              style: TextStyle(
+                fontSize: theme.fontSize * 1.4,
+                fontWeight: theme.selectedFontWeight,
+                color: theme.textColor,
+              ),
+            ),
+            // No actions for large screens
+          )
+        : null;
+  }
+
+  Widget? _buildDrawer(
+      {required List<dynamic> items,
+      required int selectedIndex,
+      required bool isinSideBarRoute,
+      required bool isDrawerShow}) {
+    if (isDrawerShow == false && isinSideBarRoute == false) return null;
+
+    return AppDrawerWidget(items: items, selectedIndex: selectedIndex);
+  }
+
+  AppBar? _buildAppBar(BuildContext context) {
+    return isScreenSmall
+        ? (this.smallScreenAppBarConfig?.buildAppBar(
+                isAppBar: widget.isAppBar,
+                currentTilte: widget.appBarTitl,
+                isDesplayTitle: widget.isAppBarSmallScreenShowTitle) ??
+            _buildDefaultAppBar(theme))
+        : (showAppBarOnLargeScreen
+            ? (largeScreenAppBarConfig?.buildAppBar(
+                    isAppBar: widget.isAppBar,
+                    currentTilte: widget.appBarTitl,
+                    isDesplayTitle: widget.isAppBarLargeScreenShowTitle) ??
+                _buildDefaultAppBar(theme))
+            : null);
   }
 }

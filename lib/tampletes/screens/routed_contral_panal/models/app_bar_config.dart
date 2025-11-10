@@ -17,6 +17,7 @@ class AppBarConfig {
   final double? elevation;
   final double? toolbarHeight;
   final bool? centerTitle;
+
   final PreferredSizeWidget? bottom;
 
   AppBarConfig({
@@ -34,9 +35,14 @@ class AppBarConfig {
     this.bottom,
   });
 
-  AppBar buildAppBar({bool isSmallScreen = true}) {
-    return AppBar(
-      title: titleWidget ?? Text(title, style: titleStyle),
+  AppBar? buildAppBar({bool isAppBar = true ,  bool isDesplayTitle = false  ,
+ String  currentTilte ="",
+  }) {
+
+    String newTitels = isDesplayTitle ? currentTilte : title ;
+
+    return isAppBar ?  AppBar(
+      title: titleWidget ?? Text(newTitels, style: titleStyle),
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
@@ -46,6 +52,6 @@ class AppBarConfig {
       toolbarHeight: toolbarHeight,
       centerTitle: centerTitle,
       bottom: bottom,
-    );
+    ):null ;
   }
 }

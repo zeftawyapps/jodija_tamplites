@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'providers/sidebar_provider.dart';
-import 'providers/auth_provider.dart';
 import 'theam/theam.dart';
 import 'models/app_bar_config.dart';
 import 'models/sidebar_header_config.dart';
@@ -21,10 +20,10 @@ class SidebarNavigationControlPanale extends StatelessWidget {
   final bool isSidbarInCulomn;
   // final List<RouteBase>? routes;
   final String? initRouter;
-
+final bool? debugShowCheckedModeBanner;
   // Sidebar header configuration
   final SidebarHeaderConfig? sidebarHeader;
-
+  Widget? errorScreen;
   // Constructor with customizable theme properties
   SidebarNavigationControlPanale({
     super.key,
@@ -42,10 +41,12 @@ class SidebarNavigationControlPanale extends StatelessWidget {
     FontWeight? selectedFontWeight,
     double? itemHeight,
     double? itemWidth,
+    bool  debugShowCheckedModeBanner = false,
     EdgeInsetsGeometry? itemPadding,
     bool useDarkTheme = false,
     // List<RouteBase>? routes,
     String? initRouter,
+    this.  errorScreen,
 
     // App bar configuration
     this.showAppBarOnLargeScreen = false,
@@ -55,6 +56,8 @@ class SidebarNavigationControlPanale extends StatelessWidget {
     // Sidebar header configuration
     this.sidebarHeader,
   })  : isSidbarInCulomn = isSidebarInCulomn,
+        // this.
+         debugShowCheckedModeBanner = debugShowCheckedModeBanner,
         // routes = routes,
         initRouter = initRouter,
         theme = SideBarNavigationTheames().copyWith(
@@ -142,6 +145,7 @@ class SidebarNavigationControlPanale extends StatelessWidget {
                     isSideBarRouted: true,
                   ),
                 ],
+            errorConent: this.errorScreen
           ),
         ),
 
@@ -165,7 +169,7 @@ class SidebarNavigationControlPanale extends StatelessWidget {
                 // routes: routes,
                 // authProvider: authProvider,
                 ),
-            debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner:  this.debugShowCheckedModeBanner??false  ,
           );
         },
       ),

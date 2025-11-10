@@ -40,36 +40,39 @@ class _SidebarItemWidgetState extends State<SidebarItemWidget> {
         child: AnimatedContainer(
           duration: widget.theme.hoverTransitionDuration,
           curve: widget.theme.hoverTransitionCurve,
-          height: widget.theme.itemHeight,
+            height: isColumn? null:widget.theme.itemHeight ,
           decoration: widget.theme.getItemDecoration(
             isHovered: isHovered,
             isSelected: widget.isSelected,
           ),
           padding: widget.theme.itemPadding,
           child:
-           isColumn ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-              widget.isSelected ?  widget.selectedIcon ??
+           isColumn ? Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                widget.isSelected ?  widget.selectedIcon ??
 
-                widget.icon: widget.icon,
-                color: widget.theme.getIconColor(
-                  isHovered: isHovered,
-                  isSelected: widget.isSelected,
+                  widget.icon: widget.icon,
+                  color: widget.theme.getIconColor(
+                    isHovered: isHovered,
+                    isSelected: widget.isSelected,
+                  ),
+                  size: widget.theme.iconSize,
                 ),
-                size: widget.theme.iconSize,
-              ),
-              SizedBox(height: widget.theme.iconTextSpacing),
-              Text(
-                widget.label,
-                style: widget.theme.getTextStyle(
-                  isHovered: isHovered,
-                  isSelected: widget.isSelected,
+                SizedBox(height: widget.theme.iconTextSpacing),
+                Text(
+                  widget.label,
+                  style: widget.theme.getTextStyle(
+                    isHovered: isHovered,
+                    isSelected: widget.isSelected,
+                  ),
                 ),
-              ),
-            ],
-          ) :
+              ],
+                       ),
+           ) :
           Row(
             children: [
               Icon(

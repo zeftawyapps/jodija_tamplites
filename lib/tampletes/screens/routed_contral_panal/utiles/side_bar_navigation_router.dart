@@ -8,6 +8,7 @@ mixin SideBarNavigationRouterMixin {
     BuildContext context, String path, {bool replace = false}) {
   if (replace) {
     context.replace(path);
+
   } else {
     context.go(path);
   }
@@ -27,6 +28,16 @@ mixin SideBarNavigationRouterMixin {
 
   }
 
+Map<String , dynamic>? params ;
+Map<String  , dynamic>? query;
+Map<String , dynamic>? getQuery(){
+   return query ; ;
+ }
+
+
+ Map<String , dynamic>? getPrams(){
+   return params ; ;
+ }
 
 
 }

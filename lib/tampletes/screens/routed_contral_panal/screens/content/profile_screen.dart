@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../utiles/side_bar_navigation_router.dart';
+
 /// شاشة الملف الشخصي
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget
+with SideBarNavigationRouterMixin
+{
+    ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

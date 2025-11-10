@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// شاشة الإعدادات
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatelessWidget
+
+{
   const SettingsScreen({super.key});
 
   @override

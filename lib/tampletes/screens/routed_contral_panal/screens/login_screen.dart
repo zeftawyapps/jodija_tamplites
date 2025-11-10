@@ -1,219 +1,197 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:go_router/go_router.dart';
-// import '../providers/auth_provider.dart';
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/utiles/side_bar_navigation_router.dart';
+import 'package:flutter/material.dart';
 
-// /// شاشة تسجيل الدخول
-// class LoginScreen extends StatefulWidget {
-//   const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-//   @override
-//   State<LoginScreen> createState() => _LoginScreenState();
-// }
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
-// class _LoginScreenState extends State<LoginScreen> {
-//   final _formKey = GlobalKey<FormState>();
-//   final _usernameController = TextEditingController();
-//   final _passwordController = TextEditingController();
-//   bool _obscurePassword = true;
+class _LoginScreenState extends State<LoginScreen> with SideBarNavigationRouterMixin {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
-//   @override
-//   void dispose() {
-//     _usernameController.dispose();
-//     _passwordController.dispose();
-//     super.dispose();
-//   }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
-//   Future<void> _login() async {
-//     if (!_formKey.currentState!.validate()) return;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Logo or App Name
+                const Icon(
+                  Icons.admin_panel_settings,
+                  size: 80,
+                  color: Colors.blue,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Commerce Super Admin',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Sign in to continue',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 48),
 
-//     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-//     final success = await authProvider.login(
-//       _usernameController.text.trim(),
-//       _passwordController.text.trim(),
-//     );
+                // Email TextField
+                TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    prefixIcon: const Icon(Icons.email_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.blue, width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
 
-//     if (success && mounted) {
-//       context.go('/home');
-//     } else if (mounted) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text('فشل في تسجيل الدخول. تحقق من بيانات الاعتماد.'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
+                // Password TextField
+                TextField(
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Enter your password',
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.blue, width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey[100],
-//       body: Center(
-//         child: SingleChildScrollView(
-//           padding: const EdgeInsets.all(24),
-//           child: ConstrainedBox(
-//             constraints: const BoxConstraints(maxWidth: 400),
-//             child: Card(
-//               elevation: 8,
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(16),
-//               ),
-//               child: Padding(
-//                 padding: const EdgeInsets.all(32),
-//                 child: Form(
-//                   key: _formKey,
-//                   child: Column(
-//                     mainAxisSize: MainAxisSize.min,
-//                     crossAxisAlignment: CrossAxisAlignment.stretch,
-//                     children: [
-//                       // شعار التطبيق
-//                       const Icon(
-//                         Icons.lock_outline,
-//                         size: 80,
-//                         color: Colors.blue,
-//                       ),
-//                       const SizedBox(height: 24),
-//                       const Text(
-//                         'تسجيل الدخول',
-//                         style: TextStyle(
-//                           fontSize: 28,
-//                           fontWeight: FontWeight.bold,
-//                           color: Colors.black87,
-//                         ),
-//                         textAlign: TextAlign.center,
-//                       ),
-//                       const SizedBox(height: 8),
-//                       const Text(
-//                         'أدخل بيانات الاعتماد للوصول إلى التطبيق',
-//                         style: TextStyle(
-//                           fontSize: 16,
-//                           color: Colors.grey,
-//                         ),
-//                         textAlign: TextAlign.center,
-//                       ),
-//                       const SizedBox(height: 32),
+                // Forgot Password
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      // Forgot password logic
+                    },
+                    child: const Text('Forgot Password?'),
+                  ),
+                ),
+                const SizedBox(height: 24),
 
-//                       // حقل اسم المستخدم
-//                       TextFormField(
-//                         controller: _usernameController,
-//                         decoration: const InputDecoration(
-//                           labelText: 'اسم المستخدم',
-//                           prefixIcon: Icon(Icons.person),
-//                           border: OutlineInputBorder(),
-//                           filled: true,
-//                           fillColor: Colors.white,
-//                         ),
-//                         validator: (value) {
-//                           if (value == null || value.isEmpty) {
-//                             return 'يرجى إدخال اسم المستخدم';
-//                           }
-//                           return null;
-//                         },
-//                       ),
-//                       const SizedBox(height: 16),
+                // Login Button
+                ElevatedButton(
+                  onPressed: () {
+                    // Login logic
+                    goRoute(context, "/profile", replace: true);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
 
-//                       // حقل كلمة المرور
-//                       TextFormField(
-//                         controller: _passwordController,
-//                         obscureText: _obscurePassword,
-//                         decoration: InputDecoration(
-//                           labelText: 'كلمة المرور',
-//                           prefixIcon: const Icon(Icons.lock),
-//                           suffixIcon: IconButton(
-//                             icon: Icon(
-//                               _obscurePassword
-//                                   ? Icons.visibility_off
-//                                   : Icons.visibility,
-//                             ),
-//                             onPressed: () {
-//                               setState(
-//                                   () => _obscurePassword = !_obscurePassword);
-//                             },
-//                           ),
-//                           border: const OutlineInputBorder(),
-//                           filled: true,
-//                           fillColor: Colors.white,
-//                         ),
-//                         validator: (value) {
-//                           if (value == null || value.isEmpty) {
-//                             return 'يرجى إدخال كلمة المرور';
-//                           }
-//                           if (value.length < 6) {
-//                             return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
-//                           }
-//                           return null;
-//                         },
-//                       ),
-//                       const SizedBox(height: 24),
+                // Divider
+                Row(
+                  children: [
+                    Expanded(child: Divider(color: Colors.grey.shade400)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'OR',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                    ),
+                    Expanded(child: Divider(color: Colors.grey.shade400)),
+                  ],
+                ),
+                const SizedBox(height: 24),
 
-//                       // زر تسجيل الدخول
-//                       Consumer<AuthProvider>(
-//                         builder: (context, authProvider, child) {
-//                           return ElevatedButton(
-//                             onPressed: authProvider.isLoading ? null : _login,
-//                             style: ElevatedButton.styleFrom(
-//                               padding: const EdgeInsets.symmetric(vertical: 16),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8),
-//                               ),
-//                               backgroundColor: Colors.blue,
-//                               foregroundColor: Colors.white,
-//                             ),
-//                             child: authProvider.isLoading
-//                                 ? const SizedBox(
-//                                     height: 20,
-//                                     width: 20,
-//                                     child: CircularProgressIndicator(
-//                                       strokeWidth: 2,
-//                                       valueColor: AlwaysStoppedAnimation<Color>(
-//                                         Colors.white,
-//                                       ),
-//                                     ),
-//                                   )
-//                                 : const Text(
-//                                     'تسجيل الدخول',
-//                                     style: TextStyle(fontSize: 16),
-//                                   ),
-//                           );
-//                         },
-//                       ),
-//                       const SizedBox(height: 16),
-
-//                       // معلومات بيانات التجربة
-//                       Container(
-//                         padding: const EdgeInsets.all(16),
-//                         decoration: BoxDecoration(
-//                           color: Colors.blue.shade50,
-//                           borderRadius: BorderRadius.circular(8),
-//                           border: Border.all(color: Colors.blue.shade200),
-//                         ),
-//                         child: const Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Text(
-//                               'للتجربة:',
-//                               style: TextStyle(
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.blue,
-//                               ),
-//                             ),
-//                             SizedBox(height: 4),
-//                             Text(
-//                               'أدخل أي اسم مستخدم وكلمة مرور (6 أحرف على الأقل)',
-//                               style: TextStyle(fontSize: 14),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+                // Sign Up Link
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account? ",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to sign up
+                      },
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

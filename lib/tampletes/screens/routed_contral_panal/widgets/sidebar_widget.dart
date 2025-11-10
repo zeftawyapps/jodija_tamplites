@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../widgets/sidebar_item_widget.dart';
 import '../laaunser.dart';
 import '../providers/sidebar_provider.dart';
-import '../providers/auth_provider.dart';
 
 class SidebarWidget extends StatelessWidget {
   final List<dynamic> items;

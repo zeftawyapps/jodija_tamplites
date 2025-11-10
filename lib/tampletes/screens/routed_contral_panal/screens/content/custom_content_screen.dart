@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../utiles/side_bar_navigation_router.dart';
+
 /// شاشة مخصصة للعناصر المضافة
-class CustomContentScreen extends StatelessWidget {
+class CustomContentScreen extends StatelessWidget
+
+    with SideBarNavigationRouterMixin
+{
   final String title;
 
-  const CustomContentScreen({super.key, required this.title});
+    CustomContentScreen({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

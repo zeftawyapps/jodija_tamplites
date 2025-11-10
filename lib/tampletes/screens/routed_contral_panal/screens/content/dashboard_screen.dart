@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../utiles/side_bar_navigation_router.dart';
+
 /// شاشة لوحة التحكم
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class DashboardScreen extends StatelessWidget
+
+    with SideBarNavigationRouterMixin
+{
+    DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,13 @@
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/utiles/side_bar_navigation_router.dart';
 import 'package:flutter/material.dart';
 
 /// شاشة التحليلات
-class AnalyticsScreen extends StatelessWidget {
-  const AnalyticsScreen({super.key});
+class AnalyticsScreen extends StatelessWidget
+with SideBarNavigationRouterMixin
+{
+    AnalyticsScreen({super.key
+  
+  });
 
   @override
   Widget build(BuildContext context) {

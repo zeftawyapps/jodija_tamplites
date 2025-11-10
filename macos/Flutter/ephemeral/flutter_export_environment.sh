@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=G:\mobile1\flutter"
-export "FLUTTER_APPLICATION_PATH=F:\z_apps\tools\jodija-flutter\jodija_tamplites"
+export "FLUTTER_ROOT=/Users/moaz/Public/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/moaz/Desktop/delta/tools/jodija_tamplites"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"

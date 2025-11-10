@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../utiles/side_bar_navigation_router.dart';
+
 /// شاشة التحليلات
-class AnalyticsScreen extends StatelessWidget {
-  const AnalyticsScreen({super.key});
+class ErrorScreen extends StatelessWidget
+    with SideBarNavigationRouterMixin
+
+{
+    ErrorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +15,9 @@ class AnalyticsScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.analytics, size: 80, color: Colors.purple),
+          Icon(Icons.error, size: 80, color: Colors.red),
           const SizedBox(height: 16),
-          const Text('التحليلات', style: TextStyle(fontSize: 24)),
+          const Text('404', style: TextStyle(fontSize: 30)),
         ],
       ),
     );
