@@ -30,13 +30,19 @@ mixin SideBarNavigationRouterMixin {
 
 Map<String , dynamic>? params ;
 Map<String  , dynamic>? query;
+String? mainPath; // الرابط الرئيسي عند الاستدعاء من الـ sidebar
+
 Map<String , dynamic>? getQuery(){
-   return query ; ;
+   return query;
  }
 
 
  Map<String , dynamic>? getPrams(){
-   return params ; ;
+   return params;
+ }
+
+ String? getMainPath(){
+   return mainPath;
  }
 
 

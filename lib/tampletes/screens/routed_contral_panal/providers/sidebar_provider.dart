@@ -7,16 +7,14 @@ import '../screens/main_screen.dart';
 
 /// مزود حالة الشريط الجانبي
 class SidebarProvider extends ChangeNotifier {
-  SidebarProvider({required this.sidebarItems ,
-  this.errorConent
-  }) {
+  SidebarProvider({required this.sidebarItems, this.errorConent}) {
     this.sidebarItems = sidebarItems;
   }
 
   List<RouteItem> sidebarItems;
-Widget? errorConent ;
+  Widget? errorConent;
   int selectedIndex = 0;
-bool isAppInit = true  ;
+  bool isAppInit = true;
   void setSelectedIndex(int index) {
     if (selectedIndex == index) return;
     selectedIndex = index;
@@ -32,11 +30,10 @@ bool isAppInit = true  ;
   // إيجاد فهرس العنصر بناء على المسار
   int _getIndexForPath(String path) {
     for (int i = 0; i < sidebarItems.length; i++) {
-      if ( sidebarItems[i].path == path) {
+      if (sidebarItems[i].path == path) {
         return i;
       }
     }
-
 
     for (int i = 0; i < sidebarItems.length; i++) {
       String pathI = sidebarItems[i].path;
@@ -48,25 +45,19 @@ bool isAppInit = true  ;
         if (paramId > 0) {
           cutter = paramId < queryId ? paramId : queryId;
         }
-      } else
-
-      if (paramId > 0) {
+      } else if (paramId > 0) {
         cutter = paramId;
       }
       if (cutter > 0) {
         String baseUrl = pathI.substring(0, cutter);
-        if (path.contains(baseUrl)){
-
-
+        if (path.contains(baseUrl)) {
           return i;
         }
       }
     }
 
-
-
     for (int i = 0; i < sidebarItems.length; i++) {
-      if ( sidebarItems[i].path == "/error") {
+      if (sidebarItems[i].path == "/error") {
         return i;
       }
     }
@@ -76,11 +67,14 @@ bool isAppInit = true  ;
 
   // التعامل مع النقر على عناصر الشريط الجانبي
   void handleItemTap(BuildContext context, RouteItem item, int index) {
-    isAppInit = false ;
-    if (item.isSideBarRouted && item.path != null) {
+    isAppInit = false;
+
+    if (item.isSideBarRouted && item.resolvedPath != null) {
       // التعامل مع العناصر المسارة
+      print(item.resolvedPath);
+      context.go(item.resolvedPath);
       setSelectedIndex(index);
-      context.go(item.path!);
+      item.isCalledFromSideBar = true;
     } else {
       // التعامل مع العناصر غير المسارة
       if (item.onTap != null) {
@@ -125,45 +119,170 @@ bool isAppInit = true  ;
   //   context.go('/login');
   // }
 
-  GoRouter createRouter(String? initRouter) {
-
-
-
-
-    String initR;
+  /// تحديد المسار الابتدائي للراوتر
+  String _getInitialRoute(String? initRouter) {
     if (initRouter != null) {
-      initR = initRouter;
-    } else {
-      initR = sidebarItems.isNotEmpty ? sidebarItems[0].path : '/';
+      return initRouter;
     }
-    RouteItem  error =   RouteItem(
+    return sidebarItems.isNotEmpty ? sidebarItems[0].resolvedPath : '/';
+  }
+
+  /// إضافة صفحة الخطأ إلى قائمة العناصر
+  void _addErrorRoute() {
+    RouteItem error = RouteItem(
       path: '/error',
-      label:   'error',
+      label: 'error',
       icon: Icons.dashboard,
-      content:  errorConent ??  ErrorScreen(),
-      isSideBarRouted:  false ,
+      content: errorConent ?? ErrorScreen(),
+      isSideBarRouted: false,
     );
-
-
     sidebarItems.add(error);
+  }
 
+  /// تحديد موقع البداية للراوتر
+  String _getInitialLocation(String initRoute) {
+    if (!isAppInit) {
+      return sidebarItems[selectedIndex].path;
+    }
+    return sidebarItems[_getIndexForPath(initRoute)].path;
+  }
+
+  /// معالجة parameters من URL ووضعها في RouteItem
+  void _handlePathParameters(GoRouterState state) {
+    Map<String, dynamic>? params =
+        sidebarItems[selectedIndex].prams != null
+            ? Map<String, dynamic>.from(sidebarItems[selectedIndex].prams!)
+            : null;
+
+    if (params != null && params.isNotEmpty) {
+      params.forEach((key, value) {
+        if (state.pathParameters.containsKey(key)) {
+          params[key] = state.pathParameters[key];
+        }
+      });
+      
+      // تحديث prams بالقيم الجديدة
+      sidebarItems[selectedIndex].prams = params;
+      
+      // تمرير params إلى المحتوى إذا كان يدعم ذلك
+      if (sidebarItems[selectedIndex].content is SideBarNavigationRouterMixin) {
+        SideBarNavigationRouterMixin sidebarMixin =
+            sidebarItems[selectedIndex].content as SideBarNavigationRouterMixin;
+        sidebarMixin.params = params;
+      }
+    }
+  }
+
+  /// معالجة query parameters من URL ووضعها في RouteItem
+  void _handleQueryParameters(GoRouterState state) {
+    Map<String, dynamic>? query = sidebarItems[selectedIndex].queryParameters;
+    
+    if (query != null && query.isNotEmpty) {
+      query.forEach((key, value) {
+        if (state.uri.queryParameters[key] != null) {
+          query[key] = state.uri.queryParameters[key];
+        }
+      });
+      
+      // تمرير query إلى المحتوى إذا كان يدعم ذلك
+      if (sidebarItems[selectedIndex].content is SideBarNavigationRouterMixin) {
+        SideBarNavigationRouterMixin sidebarMixin =
+            sidebarItems[selectedIndex].content as SideBarNavigationRouterMixin;
+        sidebarMixin.query = query;
+      }
+    }
+  }
+
+  /// إنشاء صفحة بانتقال مخصص
+  CustomTransitionPage _buildPage(GoRouterState state) {
+    return CustomTransitionPage(
+      key: state.pageKey,
+      child: MainScreen(
+        contentWidget: sidebarItems[selectedIndex].content,
+        isRouteInsidebar: sidebarItems[selectedIndex].isSideBarRouted,
+        isAppBar: sidebarItems[selectedIndex].isAppBar,
+        appBarTitl: sidebarItems[selectedIndex].label,
+        isDrawerShow: sidebarItems[selectedIndex].isDrawerShow,
+        isAppBarLargeScreenShowTitle:
+            sidebarItems[selectedIndex].isDesplayTitleInLargScreen,
+        isAppBarSmallScreenShowTitle:
+            sidebarItems[selectedIndex].isDesplayTitleInSmallScreen,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    );
+  }
+
+  /// التحقق من تطابق المسار مع parameters
+  bool _matchPathWithParams(RouteItem item, String location) {
+    if (item.path == null) return false;
+    
+    final uri = Uri.parse(location);
+    final itemUri = Uri.parse(item.path!);
+    
+    if (uri.pathSegments.length != itemUri.pathSegments.length) {
+      return false;
+    }
+    
+    for (int i = 0; i < itemUri.pathSegments.length; i++) {
+      final itemSegment = itemUri.pathSegments[i];
+      final uriSegment = uri.pathSegments[i];
+      
+      // تخطي المعاملات (تبدأ بـ :)
+      if (itemSegment.startsWith(':')) {
+        continue;
+      }
+      
+      if (itemSegment != uriSegment) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+
+  /// معالجة إعادة التوجيه للمسارات غير الموجودة
+  String? _handleRedirect(BuildContext context, GoRouterState state) {
+    // التأكد من وجود المسار في العناصر
+    final matchedPath = sidebarItems.any(
+      (item) => item.path == state.matchedLocation,
+    );
+    
+    // التحقق من تطابق المسار مع params
+    final matchedPathWithParams = sidebarItems.any(
+      (item) => _matchPathWithParams(item, state.matchedLocation),
+    );
+    
+    if (matchedPathWithParams) {
+      return null;
+    }
+
+    // إذا كان المسار غير موجود، عد إلى صفحة الخطأ
+    if (!matchedPath && state.matchedLocation != '/') {
+      return '/error';
+    }
+    
+    return null;
+  }
+
+  /// إنشاء GoRouter بكامل الإعدادات
+  GoRouter createRouter(String? initRouter) {
+    // تحديد المسار الابتدائي
+    String initRoute = _getInitialRoute(initRouter);
+    
+    // إضافة صفحة الخطأ
+    _addErrorRoute();
 
     return GoRouter(
-       initialLocation: !isAppInit?  sidebarItems[selectedIndex].path :
-       sidebarItems[_getIndexForPath(initR)].path
-      ,
-
-
-
-
-      // initialLocation: initR,
+      initialLocation: _getInitialLocation(initRoute),
+      refreshListenable: this,
       routes: [
-        // المسار الرئيسي - إعادة التوجيه إلى لوحة التحكم
+        // المسار الرئيسي - إعادة التوجيه إلى المسار الابتدائي
         GoRoute(
-            path: "/",
-            redirect: (context, state) {
-              return initR;
-            }),
+          path: "/",
+          redirect: (context, state) => initRoute,
+        ),
 
         // إنشاء مسارات لكل عناصر الشريط الجانبي
         for (var i = 0; i < sidebarItems.length; i++)
@@ -171,96 +290,33 @@ bool isAppInit = true  ;
             path: sidebarItems[i].path!,
             pageBuilder: (context, state) {
               // تحديث المؤشر المحدد بناء على المسار
-              final currentPath = state.matchedLocation;
-              selectedIndex = _getIndexForPath(currentPath);
-            Map<String, dynamic>? params = sidebarItems[selectedIndex].prams;
-              if (params != null && params.isNotEmpty) {
-                params.forEach((key, value) {
-                  if (state.pathParameters.containsKey(key)) {
-                    params[key] = state.pathParameters[key];
-                  }
-                });
-                // query parameters
-                           SideBarNavigationRouterMixin sidebarMixin = sidebarItems[selectedIndex].content as SideBarNavigationRouterMixin ;   
-sidebarMixin.params = params ;
+              selectedIndex = _getIndexForPath(state.matchedLocation);
+              
+              // التحقق إذا تم الاستدعاء من الـ sidebar وتعيين الرابط الأساسي
+              if (sidebarItems[selectedIndex].isCalledFromSideBar) {
+                // إعادة تعيين الـ flag بعد الاستخدام
+                sidebarItems[selectedIndex].isCalledFromSideBar = false;
+                
+                // تمرير الرابط الرئيسي إلى المحتوى إذا كان يدعم ذلك
+                if (sidebarItems[selectedIndex].content is SideBarNavigationRouterMixin) {
+                  SideBarNavigationRouterMixin sidebarMixin =
+                      sidebarItems[selectedIndex].content as SideBarNavigationRouterMixin;
+                  sidebarMixin.mainPath = sidebarItems[selectedIndex].path;
+                }
               }
-                 Map<String, dynamic>? query = sidebarItems[selectedIndex].queryParameters;
-              if (query != null && query.isNotEmpty) {
-                query.forEach((key, value) {
-                  if (state.uri.queryParameters[key] != null) {
-                    query[key] = state.uri.queryParameters[key];
-                  }
-                });
-                                           SideBarNavigationRouterMixin sidebarMixin = sidebarItems[selectedIndex].content as SideBarNavigationRouterMixin ;   
-sidebarMixin.query = query ;
-              }
+              
+              // معالجة path parameters
+              _handlePathParameters(state);
+              
+              // معالجة query parameters
+              _handleQueryParameters(state);
 
-              return CustomTransitionPage(
-                key: state.pageKey,
-                child: MainScreen(
-                  contentWidget: sidebarItems[selectedIndex].content,
-                  isRouteInsidebar: sidebarItems[selectedIndex].isSideBarRouted,
-                  isAppBar: sidebarItems[selectedIndex].isAppBar,
-                  appBarTitl: sidebarItems[selectedIndex].label,
-                  isDrawerShow: sidebarItems[selectedIndex].isDrawerShow ,
-                  isAppBarLargeScreenShowTitle: sidebarItems[selectedIndex].isDesplayTitleInLargScreen ,
-                  isAppBarSmallScreenShowTitle: sidebarItems[selectedIndex].isDesplayTitleInSmallScreen ,
-
-
-
-                ),
-                transitionsBuilder: (
-                  context,
-                  animation,
-                  secondaryAnimation,
-                  child,
-                ) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-              );
+              // إنشاء الصفحة
+              return _buildPage(state);
             },
           ),
       ],
-      // تحديث المسارات عند تغيير العناصر
-      refreshListenable: this,
-      // استعادة المسار المفضل بناءً على الحالة
-      redirect: (context, state) {
-        // التأكد من وجود المسار في العناصر
-        final matchedPath = sidebarItems.any(
-          (item) => item.path == state.matchedLocation,
-        );
-        // match the path with params and query
-        final matchedPathWithParams = sidebarItems.any(
-              (item) {
-            if (item.path == null) return false;
-            final uri = Uri.parse(state.matchedLocation);
-            final itemUri = Uri.parse(item.path!);
-            if (uri.pathSegments.length != itemUri.pathSegments.length) {
-              return false;
-            }
-            for (int i = 0; i < itemUri.pathSegments.length; i++) {
-              final itemSegment = itemUri.pathSegments[i];
-              final uriSegment = uri.pathSegments[i];
-              if (itemSegment.startsWith(':')) {
-                continue; // هذا جزء من المعاملات
-              }
-              if (itemSegment != uriSegment) {
-                return false;
-              }
-            }
-            return true;
-          },
-        );
-        if (matchedPathWithParams) {
-          return null;
-        }
-
-        // إذا كان المسار غير موجود، عد إلى لوحة التحكم
-        if (!matchedPath && state.matchedLocation != '/') {
-          return '/error';
-        }
-        return null;
-      },
+      redirect: _handleRedirect,
     );
   }
 }
