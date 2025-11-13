@@ -4,7 +4,7 @@ import '../../utiles/side_bar_navigation_router.dart';
 
 /// شاشة التحليلات
 class ErrorScreen extends StatelessWidget
-    with SideBarNavigationRouterMixin
+    with AppShellRouterMixin
 
 {
     ErrorScreen({super.key});

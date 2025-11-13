@@ -4,7 +4,7 @@ import '../../utiles/side_bar_navigation_router.dart';
 
 /// شاشة الملف الشخصي
 class ProfileScreen extends StatelessWidget
-with SideBarNavigationRouterMixin
+with AppShellRouterMixin
 {
     ProfileScreen({super.key});
 

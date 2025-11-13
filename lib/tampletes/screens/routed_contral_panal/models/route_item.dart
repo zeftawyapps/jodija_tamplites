@@ -4,17 +4,23 @@ import '../utiles/side_bar_navigation_router.dart';
 
 /// نموذج عنصر الشريط الجانبي
 class RouteItem {
+  final String id;
   final String path; // Make path optional for non-routed items
   final String label;
   final IconData icon;
   final   Widget content;
-  final bool isAppBar ;
-  final bool isDrawerShow ;
-  final bool isSideBarRouted;
+  bool isAppBar ;
+  bool isDrawerShow ;
+   bool isSideBarRouted;
+   bool isUnViasibleInSideBarIfSmall = false ;
+    bool isInBottomNavBar = false ;
+  
+  bool isInTopNavBar = false ;
   bool isCalledFromSideBar = false;
-  final bool isDesplayTitleInLargScreen ;
-  final bool  isDesplayTitleInSmallScreen;// Add flag to indicate if item should be routed
-  final VoidCallback? onTap;
+  bool isDesplayTitleInLargScreen ;
+  bool isDesplayTitleInSmallScreen;// Add flag to indicate if item should be routed
+ 
+  bool isVisableInSideBar  = true  ;
  
   Map<String,dynamic>? prams;
   Map<String,dynamic>? constPrams;
@@ -23,16 +29,23 @@ class RouteItem {
   // Custom action for non-routed items
 
   RouteItem({
+    required this.id,
     required this.path,
     required this.label,
     required this.icon,
     required this.content,
+    this.isInBottomNavBar = false ,
+    this.isUnViasibleInSideBarIfSmall = false ,
+  
+    
+    
     this.isAppBar = true ,
+    this.isVisableInSideBar = true  ,
     this.isSideBarRouted = true,
     this.isDrawerShow= false ,
     this.isDesplayTitleInLargScreen = false  ,
     this.isDesplayTitleInSmallScreen = false, // Default to routed
-    this.onTap,
+  
     this.prams,
     this.constRoute,
     this.queryParameters,
@@ -40,7 +53,10 @@ class RouteItem {
     // عمل نسخة من prams وليس مرجع
     constPrams = prams != null ? Map<String, dynamic>.from(prams!) : null;
     print(prams);
-    
+    if (this.isSideBarRouted == false) {
+      // إذا لم يكن موجهًا، فلا حاجة إلى معلمات
+       isInBottomNavBar = false ;
+    }
   }
   
   /// إرجاع المسار مع استبدال المعاملات

@@ -1,15 +1,16 @@
-import 'package:JoDija_tamplites/tampletes/screens/navigation_app/screens/content_screens.dart';
 import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
+import 'package:JoDija_tamplites/util/localization/loaclized_init.dart';
+import 'package:JoDija_tamplites/util/localization/loclization/laoclization.inits.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'providers/sidebar_provider.dart';
+import 'providers/settings_provider.dart';
 import 'theam/theam.dart';
 import 'models/app_bar_config.dart';
 import 'models/sidebar_header_config.dart';
 
-/// تطبيق التنقل بالشريط الجانبي
-class SidebarNavigationControlPanale extends StatelessWidget {
+/// Adaptive Application Shell - يتكيف مع أحجام الشاشات المختلفة
+class AdaptiveAppShell extends StatelessWidget {
   final List<RouteItem>? sidebarItems;
   final SideBarNavigationTheames theme;
 
@@ -18,36 +19,30 @@ class SidebarNavigationControlPanale extends StatelessWidget {
   final AppBarConfig? smallScreenAppBar;
   final AppBarConfig? largeScreenAppBar;
   final bool isSidbarInCulomn;
-  // final List<RouteBase>? routes;
   final String? initRouter;
-final bool? debugShowCheckedModeBanner;
+  final bool isInBottomNavBar;
+  final bool debugShowCheckedModeBanner;
+  
   // Sidebar header configuration
   final SidebarHeaderConfig? sidebarHeader;
-  Widget? errorScreen;
-  // Constructor with customizable theme properties
-  SidebarNavigationControlPanale({
+  final Widget? errorScreen;
+  
+  final String languageCode;
+  final Map<String, AppLocalizationsInit> loclizationLangs;
+
+  // Constructor with theme parameter
+    AdaptiveAppShell({
     super.key,
     this.sidebarItems,
-    // Theme properties
-    Color? backgroundColor,
-    bool isSidebarInCulomn = false,
-    Color? selectedBackgroundColor,
-    Color? textColor,
-    Color? selectedTextColor,
-    Color? iconColor,
-    Color? selectedIconColor,
-    double? fontSize,
-    FontWeight? normalFontWeight,
-    FontWeight? selectedFontWeight,
-    double? itemHeight,
-    double? itemWidth,
-    bool  debugShowCheckedModeBanner = false,
-    EdgeInsetsGeometry? itemPadding,
-    bool useDarkTheme = false,
-    // List<RouteBase>? routes,
-    String? initRouter,
-    this.  errorScreen,
-
+    this.isInBottomNavBar = false,
+    this.languageCode = 'ar',
+    this.isSidbarInCulomn = false,
+    this.debugShowCheckedModeBanner = false,
+    this.initRouter,
+    this.errorScreen,
+    required this.loclizationLangs,
+    required this.theme, // Theme is now required
+    
     // App bar configuration
     this.showAppBarOnLargeScreen = false,
     this.smallScreenAppBar,
@@ -55,42 +50,26 @@ final bool? debugShowCheckedModeBanner;
 
     // Sidebar header configuration
     this.sidebarHeader,
-  })  : isSidbarInCulomn = isSidebarInCulomn,
-        // this.
-         debugShowCheckedModeBanner = debugShowCheckedModeBanner,
-        // routes = routes,
-        initRouter = initRouter,
-        theme = SideBarNavigationTheames().copyWith(
-          isSidebarInCulomn: isSidebarInCulomn,
-          itemWidth: itemWidth,
-          backgroundColor: backgroundColor,
-          selectedBackgroundColor: selectedBackgroundColor,
-          textColor: textColor,
-          selectedTextColor: selectedTextColor,
-          iconColor: iconColor,
-          selectedIconColor: selectedIconColor,
-          fontSize: fontSize,
-          normalFontWeight: normalFontWeight,
-          selectedFontWeight: selectedFontWeight,
-          itemHeight: itemHeight,
-          itemPadding: itemPadding,
-        ) {
-    // Apply dark theme if requested
-    if (useDarkTheme) {
-      theme.setDarkTheme();
-    }
-  }
+  });
+
+  // Factory constructor for light theme
+   
 
   // Method to provide the theme to child widgets
   static SideBarNavigationTheames getTheme(BuildContext context) {
     return Provider.of<SideBarNavigationTheames>(context, listen: false);
   }
 
+  // Method to get settings provider
+  static SettingsProvider getSettings(BuildContext context) {
+    return Provider.of<SettingsProvider>(context, listen: false);
+  }
+
   // Method to get app bar configuration
   static AppBarConfig? getAppBarConfig(
       BuildContext context, bool isSmallScreen) {
     final instance =
-        Provider.of<SidebarNavigationControlPanale>(context, listen: false);
+        Provider.of<AdaptiveAppShell>(context, listen: false);
     return isSmallScreen
         ? instance.smallScreenAppBar
         : instance.largeScreenAppBar;
@@ -99,14 +78,14 @@ final bool? debugShowCheckedModeBanner;
   // Method to get sidebar header configuration
   static SidebarHeaderConfig? getSidebarHeader(BuildContext context) {
     final instance =
-        Provider.of<SidebarNavigationControlPanale>(context, listen: false);
+        Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.sidebarHeader;
   }
 
   // Method to check if large screen should show app bar
   static bool shouldShowAppBarOnLargeScreen(BuildContext context) {
     final instance =
-        Provider.of<SidebarNavigationControlPanale>(context, listen: false);
+        Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.showAppBarOnLargeScreen;
   }
 
@@ -117,35 +96,21 @@ final bool? debugShowCheckedModeBanner;
         // Add AuthProvider first
         // ChangeNotifierProvider(create: (_) => AuthProvider()),
 
-        // SidebarProvider depends on AuthProvider
+        // AppShellRouterProvider manages routing
         ChangeNotifierProvider(
-          create: (_) => SidebarProvider(
+          create: (_) => AppShellRouterProvider(
             sidebarItems: sidebarItems ??
                 [
-                  // Default sidebar items
-                  RouteItem(
-                    path: '/dashboard',
-                    label: 'لوحة التحكم',
-                    icon: Icons.dashboard,
-                    content: HomeContent(),
-                    isSideBarRouted: true,
-                  ),
-                  RouteItem(
-                    path: '/profile',
-                    label: 'الملف الشخصي',
-                    icon: Icons.person,
-                    content: ProfileContent(),
-                    isSideBarRouted: true,
-                  ),
-                  RouteItem(
-                    path: '/settings',
-                    label: 'الإعدادات',
-                    icon: Icons.settings,
-                    content: SettingsContent(),
-                    isSideBarRouted: true,
-                  ),
-                ],
+ ],
             errorConent: this.errorScreen
+          ),
+        ),
+
+        // SettingsProvider manages app settings
+        ChangeNotifierProvider(
+          create: (_) => SettingsProvider(
+            languageCode: languageCode,
+            isDarkMode: theme == SideBarNavigationTheames.dark(),
           ),
         ),
 
@@ -153,26 +118,51 @@ final bool? debugShowCheckedModeBanner;
         Provider<SideBarNavigationTheames>.value(value: theme),
 
         // Provide the control panel instance
-        Provider<SidebarNavigationControlPanale>.value(value: this),
+        Provider<AdaptiveAppShell>.value(value: this),
       ],
-      child: Consumer<SidebarProvider>(
-        builder: (context, sidebarProvider, child) {
+      child: Consumer2<AppShellRouterProvider, SettingsProvider>(
+        builder: (context, appShellProvider, settingsProvider, child) {
+          // Update localization when language changes
+          LocalizationInit localizationInit = LocalizationInit(loclizationLangs);
+          localizationInit.setAppLocal(settingsProvider.languageCode);
+
           return MaterialApp.router(
+            supportedLocales: AppLocalizationsInit().supportedLocales,
+            locale: Locale(settingsProvider.languageCode),
+            localizationsDelegates: AppLocalizationsInit().localizationsDelegates,
             title: 'تطبيق مع شريط جانبي',
-            theme: ThemeData(
-              colorScheme:
-                  ColorScheme.fromSeed(seedColor: theme.selectedTextColor),
-              useMaterial3: true,
-            ),
-            routerConfig: sidebarProvider.createRouter(
-              initRouter
-                // routes: routes,
-                // authProvider: authProvider,
-                ),
-            debugShowCheckedModeBanner:  this.debugShowCheckedModeBanner??false  ,
+            theme: settingsProvider.isDarkMode
+                ? ThemeData.dark(useMaterial3: true).copyWith(
+                    colorScheme: ColorScheme.fromSeed(
+                      seedColor: theme.selectedTextColor,
+                      brightness: Brightness.dark,
+                    ),
+                  )
+                : ThemeData.light(useMaterial3: true).copyWith(
+                    colorScheme: ColorScheme.fromSeed(
+                      seedColor: theme.selectedTextColor,
+                      brightness: Brightness.light,
+                    ),
+                  ),
+            routerConfig: appShellProvider.createRouter(initRouter),
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
           );
         },
       ),
     );
   }
+  
+
+
+
+
+//  void setAppLocal(String localCode) {
+//     LocalizationConfig localizationConfig =
+//     LocalizationConfig(localizedValues:  {}
+//     );
+//     localizationConfig.setLocale(Locale(localCode));
+//     Translation().getlocal();
+
+//   }
+
 }

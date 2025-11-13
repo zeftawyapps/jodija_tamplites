@@ -1,8 +1,11 @@
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/providers/sidebar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-mixin SideBarNavigationRouterMixin {
+/// Mixin for adaptive app shell routing capabilities
+mixin AppShellRouterMixin {
 
  void goRoute(
     BuildContext context, String path, {bool replace = false}) {
@@ -44,6 +47,12 @@ Map<String , dynamic>? getQuery(){
  String? getMainPath(){
    return mainPath;
  }
+void goRouterInSidBar (BuildContext context , String path ) {
 
+  AppShellRouterProvider provider = context.read<AppShellRouterProvider>();
 
+  provider!.handleItemTapByPath(context, path);
+  }
 }
+
+ 

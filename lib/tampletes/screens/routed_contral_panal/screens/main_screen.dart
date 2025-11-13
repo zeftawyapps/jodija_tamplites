@@ -1,4 +1,6 @@
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../providers/sidebar_provider.dart';
 import '../theam/theam.dart';
@@ -10,23 +12,31 @@ import '../models/app_bar_config.dart';
 
 /// الشاشة الرئيسية مع الشريط الجانبي
 class MainScreen extends StatefulWidget {
-  final   Widget contentWidget;
+      Widget contentWidget =Container();
   bool isRouteInsidebar = false;
-  bool isAppBar;
-  String appBarTitl;
-  bool isDrawerShow;
-  bool isAppBarLargeScreenShowTitle;
-  bool isAppBarSmallScreenShowTitle;
-
+  bool isAppBar = true;
+  String appBarTitl = "";
+  bool isDrawerShow = false;
+  bool isAppBarLargeScreenShowTitle = false;
+  bool isAppBarSmallScreenShowTitle = false;
+  bool isInBottomNavBar = false;
+  RouteItem routeItem;
   MainScreen(
       {super.key,
-      required this.contentWidget,
-      this.isRouteInsidebar = false,
-      this.isAppBar = true,
-      this.appBarTitl = "dd",
-      this.isDrawerShow = false,
-      this.isAppBarLargeScreenShowTitle = false,
-      this.isAppBarSmallScreenShowTitle = false});
+      
+      required this.routeItem,
+ 
+      }) {
+    this.contentWidget = routeItem.content;
+    this.appBarTitl = routeItem.label;
+    this.isRouteInsidebar = routeItem.isSideBarRouted;
+    this.isAppBar = routeItem.isAppBar;
+    this.appBarTitl = routeItem.label;
+    this.isDrawerShow = routeItem.isDrawerShow;
+    this.isAppBarLargeScreenShowTitle = routeItem.isDesplayTitleInLargScreen;
+    this.isAppBarSmallScreenShowTitle = routeItem.isDesplayTitleInSmallScreen;
+    this.isInBottomNavBar = routeItem.isInBottomNavBar ;
+      }
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -57,21 +67,21 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final sidebarProvider = Provider.of<SidebarProvider>(context);
-    final items = sidebarProvider.sidebarItems;
-    final selectedIndex = sidebarProvider.selectedIndex;
+    final appShellProvider = Provider.of<AppShellRouterProvider>(context);
+    final items = appShellProvider.sidebarItems;
+    final selectedIndex = appShellProvider.selectedIndex;
     final screenWidth = MediaQuery.of(context).size.width;
     final isScreen = screenWidth < 800;
     this.isScreenSmall = isScreen;
     // Get theme from provider
-    this.theme = SidebarNavigationControlPanale.getTheme(context);
+    this.theme = AdaptiveAppShell.getTheme(context);
 
     // Get app bar configurations
 
     // Try to access the controlPanel to get app bar configs
     try {
       final controlPanel =
-          Provider.of<SidebarNavigationControlPanale>(context, listen: false);
+          Provider.of<AdaptiveAppShell>(context, listen: false);
       smallScreenAppBarConfig = controlPanel.smallScreenAppBar;
       largeScreenAppBarConfig = controlPanel.largeScreenAppBar;
       showAppBarOnLargeScreen = controlPanel.showAppBarOnLargeScreen;
@@ -88,13 +98,33 @@ class _MainScreenState extends State<MainScreen>
         foregroundColor: this.theme?.textColor,
       );
     }
-
+List<RouteItem> itemsInBottomNavBar = items.where((item) => item.isInBottomNavBar).toList();  
     return Scaffold(
       backgroundColor: this.theme?.backgroundColor,
 
       // Show app bar based on screen size and configuration
       appBar: _buildAppBar(context), // Always show app bar for user info
+      bottomNavigationBar:
+      isScreenSmall && itemsInBottomNavBar.length >= 2  && widget.isRouteInsidebar  ? 
+       BottomNavigationBar(
+        selectedItemColor:  this.theme?.selectedTextColor,
+        
+        items: itemsInBottomNavBar.map((item) 
+       
+       {
+        return   BottomNavigationBarItem(
+          
 
+          icon: Icon(item.icon , color: this.theme?.iconColor,),
+          label: item.label ,
+        ) ;
+      }).toList(),
+      currentIndex:  appShellProvider.selectBottomNavIndex,
+      onTap: (index) {
+
+        appShellProvider.setSelectBottomNavIndex(index);
+        appShellProvider.handleItemTapByPath(context, itemsInBottomNavBar[index].path!);
+      },):null ,
       // إضافة درج تنقل عندما تكون الشاشة صغيرة
       drawer: this.isScreenSmall
           ? _buildDrawer(
@@ -154,7 +184,7 @@ class _MainScreenState extends State<MainScreen>
   }
 
   Widget? _buildDrawer(
-      {required List<dynamic> items,
+      {required List<RouteItem> items,
       required int selectedIndex,
       required bool isinSideBarRoute,
       required bool isDrawerShow}) {

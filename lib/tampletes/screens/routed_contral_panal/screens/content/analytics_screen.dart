@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// شاشة التحليلات
 class AnalyticsScreen extends StatelessWidget
-with SideBarNavigationRouterMixin
+with AppShellRouterMixin
 {
     AnalyticsScreen({super.key
   

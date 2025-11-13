@@ -1,14 +1,15 @@
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/sidebar_item_widget.dart';
 import '../laaunser.dart';
 import '../providers/sidebar_provider.dart';
 
-class SidebarWidget extends StatelessWidget {
-  final List<dynamic> items;
+class DrawerbarWidget extends StatelessWidget {
+  final List<RouteItem> items;
   final int selectedIndex;
 
-  const SidebarWidget({
+  const DrawerbarWidget({
     super.key,
     required this.items,
     required this.selectedIndex,
@@ -16,6 +17,9 @@ class SidebarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+   List<RouteItem> filteredItems = this.items.where((item) => item.isSideBarRouted == true || item.isVisableInSideBar == true && item.isUnViasibleInSideBarIfSmall == false  ).toList();
+
     // Get the theme from the provider
     final theme = AdaptiveAppShell.getTheme(context);
     // Get sidebar header configuration
@@ -46,38 +50,23 @@ class SidebarWidget extends StatelessWidget {
               ),
             ),
 
-          // قائمة العناصر المتحركة
+          // قائمة العناصر
           Expanded(
             child: ListView.builder(
-              itemCount: items.length,
+              itemCount: filteredItems.length,
               itemBuilder: (context, index) {
                 final isSelected = selectedIndex == index;
-                if (items[index].isSideBarRouted == false || items[index].isVisableInSideBar == false) {
-                  // إذا كان العنصر ليس مسارًا جانبيًا، لا نعرضه
-                  return const SizedBox.shrink();
-                }
+                  if (filteredItems[index].isSideBarRouted == false || filteredItems[index].isVisableInSideBar == false
+                || filteredItems[index].isUnViasibleInSideBarIfSmall == true
+                  ) {
+                    // إذا كان العنصر ليس مسارًا جانبيًا، لا نعرضه
+                    return const SizedBox.shrink();
+                  }
 
-                // إضافة animation لكل عنصر
-                return TweenAnimationBuilder<double>(
-                  duration: Duration(milliseconds: 300 + (index * 50)),
-                  tween: Tween(begin: 0.0, end: 1.0),
-                  curve: Curves.easeOutCubic,
-                  builder: (context, value, child) {
-                    return Transform.translate(
-                      offset: Offset(-50 * (1 - value), 0),
-                      child: Opacity(
-                        opacity: value,
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                    child: SidebarItemWidget(
-                      icon: items[index].icon,
-                      label: items[index].label,
-                      isSelected: isSelected,
+                return SidebarItemWidget(
+                  icon: items[index].icon,
+                  label: items[index].label,
+                  isSelected: isSelected,
                   theme: theme, // Pass the theme to the item widget
                   onTap: () {
                     final appShellProvider =
@@ -89,13 +78,13 @@ class SidebarWidget extends StatelessWidget {
 
                     // Use the provider's handle method
                     // appShellProvider.handleItemTap(context, items[index], index);
-                    appShellProvider.handleItemTapByPath(context, items[index].path!);                        // إذا كان الـ Drawer مفتوحًا، أغلقه بعد النقر
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-                  ),
+                    appShellProvider.handleItemTapByPath(context, items[index].path!);
+
+                    // إذا كان الـ Drawer مفتوحًا، أغلقه بعد النقر
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
                 );
               },
             ),

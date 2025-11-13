@@ -5,7 +5,7 @@ import '../../utiles/side_bar_navigation_router.dart';
 /// شاشة مخصصة للعناصر المضافة
 class CustomContentScreen extends StatelessWidget
 
-    with SideBarNavigationRouterMixin
+    with AppShellRouterMixin
 {
   final String title;
 

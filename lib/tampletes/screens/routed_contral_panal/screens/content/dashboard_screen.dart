@@ -5,7 +5,7 @@ import '../../utiles/side_bar_navigation_router.dart';
 /// شاشة لوحة التحكم
 class DashboardScreen extends StatelessWidget
 
-    with SideBarNavigationRouterMixin
+    with AppShellRouterMixin
 {
     DashboardScreen({super.key});
 
