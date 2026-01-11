@@ -1,4 +1,4 @@
-enum AnimationType {
+enum NavigationAnimationType {
   slide,
   fade,
   scale,

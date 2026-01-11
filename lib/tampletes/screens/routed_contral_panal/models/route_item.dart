@@ -14,7 +14,9 @@ class RouteItem {
    bool isSideBarRouted;
    bool isUnViasibleInSideBarIfSmall = false ;
     bool isInBottomNavBar = false ;
-  
+  String parentName = "" ;
+  IconData? parentIcon ;
+  bool isChildItem = false ;
   bool isInTopNavBar = false ;
   bool isCalledFromSideBar = false;
   bool isDesplayTitleInLargScreen ;
@@ -34,6 +36,8 @@ class RouteItem {
     required this.label,
     required this.icon,
     required this.content,
+    this.parentName = "",
+    this.parentIcon ,
     this.isInBottomNavBar = false ,
     this.isUnViasibleInSideBarIfSmall = false ,
   
@@ -56,6 +60,13 @@ class RouteItem {
     if (this.isSideBarRouted == false) {
       // إذا لم يكن موجهًا، فلا حاجة إلى معلمات
        isInBottomNavBar = false ;
+    }
+    if (this.isInBottomNavBar == true) {
+      // إذا كان في شريط التنقل السفلي، يجب أن يكون موجهًا
+      this.isSideBarRouted = true;
+    }
+    if (this.parentName.isNotEmpty) {
+      this.isChildItem = true ;
     }
   }
   

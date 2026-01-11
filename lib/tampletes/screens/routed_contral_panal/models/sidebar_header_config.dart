@@ -8,7 +8,8 @@ class SidebarHeaderConfig {
   // Logo/image configuration
   final String? logoAssetPath;
   final String? logoNetworkUrl;
-  final double logoSize;
+  final double logoHight;
+  final double logoWidth  ;
   final BoxFit logoFit;
   final BorderRadius? logoRadius;
 
@@ -26,7 +27,8 @@ class SidebarHeaderConfig {
     this.titleStyle,
     this.logoAssetPath,
     this.logoNetworkUrl,
-    this.logoSize = 40,
+    this.logoHight = 60,
+    this.logoWidth = 60,
     this.logoFit = BoxFit.contain,
     this.logoRadius,
     this.height = 80,
@@ -52,10 +54,7 @@ class SidebarHeaderConfig {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (logoAssetPath != null || logoNetworkUrl != null) ...[
-            ClipRRect(
-              borderRadius: logoRadius ?? BorderRadius.circular(0),
-              child: _buildLogo(),
-            ),
+            _buildLogo(),
             SizedBox(height: title != null ? 8 : 0),
           ],
           if (title != null)
@@ -73,15 +72,15 @@ class SidebarHeaderConfig {
     if (logoAssetPath != null) {
       return Image.asset(
         logoAssetPath!,
-        height: logoSize,
-        width: logoSize,
+        height:  logoHight,
+        width:  logoWidth,
         fit: logoFit,
       );
     } else if (logoNetworkUrl != null) {
       return Image.network(
         logoNetworkUrl!,
-        height: logoSize,
-        width: logoSize,
+        height:  logoHight,
+        width:  logoWidth,
         fit: logoFit,
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
@@ -95,7 +94,7 @@ class SidebarHeaderConfig {
           );
         },
         errorBuilder: (context, error, stackTrace) =>
-            Icon(Icons.broken_image, size: logoSize),
+            Icon(Icons.broken_image, size:  logoHight  ),
       );
     }
     return SizedBox.shrink();

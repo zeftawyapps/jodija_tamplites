@@ -22,42 +22,41 @@ class ImagePecker extends StatefulWidget {
       this.iconSize = 30,
       this.hight = 100,
       this.width = 100,
-        this.iconPossiontLeft  ,
-        this.iconPossiontTop  ,
-        this.iconPossiontRight = 0,
-        this.iconPossiontBottom = 0,
-        this.imageColor = Colors.white,
+      this.iconPossiontLeft,
+      this.iconPossiontTop,
+      this.iconPossiontRight = 0,
+      this.iconPossiontBottom = 0,
+      this.imageColor = Colors.white,
       this.iconColor = Colors.white,
-        this.icon = Icons.add_a_photo,
-        this.iconContainerColor = Colors.black,
-        this.iconShaw = const [],
-        this.shapeShaw = const [],
-        this.border,
-        this.iconBorder,
+      this.icon = Icons.add_a_photo,
+      this.iconContainerColor = Colors.black,
+      this.iconShaw = const [],
+      this.shapeShaw = const [],
+      this.border,
+      this.iconBorder,
       this.shape = BoxShape.circle})
       : super(key: key);
-  ImagePickerModele? addimagep;
+  ImagePickerModele addimagep = ImagePickerModele();
   Function(FileModel file) onImage;
   String place;
   String networkImage = "";
   int fileNom = 0;
   double hight;
   double width;
-  double? iconPossiontLeft ;
-  double? iconPossiontTop ;
-  double? iconPossiontRight ;
-  double? iconPossiontBottom ;
+  double? iconPossiontLeft;
+  double? iconPossiontTop;
+  double? iconPossiontRight;
+  double? iconPossiontBottom;
   IconData icon;
   double iconSize = 30;
   BoxShape shape = BoxShape.circle;
-  Color iconColor = Colors.red ;
-  Color imageColor = Colors.white ;
+  Color iconColor = Colors.red;
+  Color imageColor = Colors.white;
   Color iconContainerColor = Colors.white;
   List<BoxShadow> iconShaw = [];
   List<BoxShadow> shapeShaw = [];
   BoxBorder? border;
   BoxBorder? iconBorder;
-
 
   @override
   _ImagePeckerState createState() => _ImagePeckerState();
@@ -66,19 +65,15 @@ class ImagePecker extends StatefulWidget {
 class _ImagePeckerState extends State<ImagePecker> {
   bool imgshwo = false;
   bool imgget = false;
-  late ImagePickerModele addimagep;
 
   @override
   void initState() {
-    if (widget.addimagep == null) {
-      addimagep = ImagePickerModele();
-    } else {
-      addimagep = widget.addimagep!;
-    }
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    ImagePickerModele addimagep = widget.addimagep;
     if (widget.networkImage != null || widget.networkImage != "") {
       addimagep.setwebimage(widget.networkImage);
     }
@@ -129,7 +124,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                               height: widget.hight,
                               decoration: BoxDecoration(
                                 shape: widget.shape,
-                                border: widget.border  ,
+                                border: widget.border,
                                 boxShadow: widget.shapeShaw,
                                 color: widget.imageColor,
                               ),
@@ -153,20 +148,19 @@ class _ImagePeckerState extends State<ImagePecker> {
                                     )),
                         ),
                         Positioned.fill(
-                          right:  widget.iconPossiontRight,
+                          right: widget.iconPossiontRight,
                           bottom: widget.iconPossiontBottom,
                           left: widget.iconPossiontLeft,
                           top: widget.iconPossiontTop,
-
                           child: Container(
                             decoration: BoxDecoration(
                               shape: widget.shape,
-                              color:  widget.iconContainerColor,
+                              color: widget.iconContainerColor,
                               boxShadow: widget.iconShaw,
                               border: widget.iconBorder,
                             ),
                             child: Icon(
-                               widget.icon,
+                              widget.icon,
                               size: widget.iconSize,
                               color: widget.iconColor,
                             ),
@@ -192,7 +186,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color:  widget.iconContainerColor,
+                                          color: widget.iconContainerColor,
                                         ),
                                         child: Icon(
                                           Icons.add_a_photo,
@@ -202,13 +196,12 @@ class _ImagePeckerState extends State<ImagePecker> {
                                       ),
                                     )),
                               Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    addimagep.setgetimage(false);
-                                    addimagep.getImage(ImageSource.gallery);
-                                    imgshwo = false;
-                                  },
-
+                                  child: MaterialButton(
+                                onPressed: () {
+                                  addimagep.setgetimage(false);
+                                  addimagep.getImage(ImageSource.gallery);
+                                  imgshwo = false;
+                                },
                                 child: Container(
                                   color: widget.iconContainerColor,
                                   child: Icon(

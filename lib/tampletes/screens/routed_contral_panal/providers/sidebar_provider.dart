@@ -28,15 +28,21 @@ class AppShellRouterProvider extends ChangeNotifier {
     selectedIndex = index;
     notifyListeners();
   }
-void setSelectBottomNavIndex(int index) {
-     
+
+  void setSelectBottomNavIndex(int index) {
     selectBottomNavIndex = index;
     notifyListeners();
   }
+
   // إعادة إنشاء الراوتر لإشعار المستمعين بالتغيير في العناصر
   void recreateRouter() {
     // مجرد إشعار بالتغييرات ليتم إعادة بناء الراوتر من خلال refreshListenable
     notifyListeners();
+  }
+
+// add current  sidebar items
+  RouteItem getCurrentSidebarItems() {
+    return sidebarItems[selectedIndex];
   }
 
   // إيجاد فهرس العنصر بناء على المسار
@@ -94,11 +100,11 @@ void setSelectBottomNavIndex(int index) {
       // }
     }
   }
-void handleItemTapByPath(BuildContext context, String path) {
-    isAppInit = false;
-int index = _getIndexForPath(path);
-    RouteItem item = sidebarItems[index];
 
+  void handleItemTapByPath(BuildContext context, String path) {
+    isAppInit = false;
+    int index = _getIndexForPath(path);
+    RouteItem item = sidebarItems[index];
 
     if (item.isSideBarRouted && item.path != null) {
       // التعامل مع العناصر المسارة
@@ -106,16 +112,14 @@ int index = _getIndexForPath(path);
       context.go(item.path!);
     } else {
       // التعامل مع العناصر غير المسارة
-      
-   
-  }
-  // if (item.onTap != null) {
-  //       item.onTap!();
-  //     } 
-  // if (item.openWithDailog) {
-  //       _showNonRoutedContent(context, item);       
+    }
+    // if (item.onTap != null) {
+    //       item.onTap!();
+    //     }
+    // if (item.openWithDailog) {
+    //       _showNonRoutedContent(context, item);
 
-  //     }
+    //     }
   }
 
   // عرض المحتوى غير المسار
@@ -140,8 +144,6 @@ int index = _getIndexForPath(path);
         );
       },
     );
-   
-
   }
 
   // // تسجيل الخروج
@@ -188,34 +190,34 @@ int index = _getIndexForPath(path);
           GoRoute(
             path: sidebarItems[i].path!,
             pageBuilder: (context, state) {
-              // تحديث المؤشر المحدد بناء على المسار
-              final currentPath = state.matchedLocation;
-              selectedIndex = _getIndexForPath(currentPath);
-              Map<String, dynamic>? params = sidebarItems[selectedIndex].prams;
-              if (params != null && params.isNotEmpty) {
-                params.forEach((key, value) {
+              final item = sidebarItems[i];
+
+              // 1. تحديث الفهرس المختار مباشرة (أداء أفضل من البحث بالمسار)
+              selectedIndex = i;
+
+              // 2. مزامنة بيانات المسار مع الـ Mixin
+              if (item.content is AppShellRouterMixin) {
+                final mixin = item.content as AppShellRouterMixin;
+
+                // تعيين المسار الرئيسي
+                mixin.mainPath = item.path;
+
+                // تحديث معاملات المسار (Params) - مثل :id
+                item.prams?.forEach((key, _) {
                   if (state.pathParameters.containsKey(key)) {
-                    params[key] = state.pathParameters[key];
+                    item.prams![key] = state.pathParameters[key];
                   }
                 });
-                // query parameters
-                AppShellRouterMixin sidebarMixin =
-                    sidebarItems[selectedIndex].content
-                        as AppShellRouterMixin;
-                sidebarMixin.params = params;
-              }
-              Map<String, dynamic>? query =
-                  sidebarItems[selectedIndex].queryParameters;
-              if (query != null && query.isNotEmpty) {
-                query.forEach((key, value) {
-                  if (state.uri.queryParameters[key] != null) {
-                    query[key] = state.uri.queryParameters[key];
+                mixin.params = item.prams;
+
+                // تحديث معاملات الاستعلام (Query) - مثل ?search=text
+                item.queryParameters?.forEach((key, _) {
+                  final queryVal = state.uri.queryParameters[key];
+                  if (queryVal != null) {
+                    item.queryParameters![key] = queryVal;
                   }
                 });
-                AppShellRouterMixin sidebarMixin =
-                    sidebarItems[selectedIndex].content
-                        as AppShellRouterMixin;
-                sidebarMixin.query = query;
+                mixin.query = item.queryParameters;
               }
 
               return CustomTransitionPage(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "animation_types.dart";
 
 abstract class INavigationService {
-  Route<dynamic>? generateRoute( RouteSettings settings , {AnimationType animatiionType = AnimationType.none});
+  Route<dynamic>? generateRoute( RouteSettings settings , {NavigationAnimationType animatiionType = NavigationAnimationType.none});
 
   Future<void> navigateToPage({required String path, Object? data});
   Future<void> navigateToPageWithUrl({required String path,Map<String , String >pram , Map<String , dynamic > query});

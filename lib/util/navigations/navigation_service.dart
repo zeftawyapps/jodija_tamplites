@@ -20,7 +20,7 @@ class NavigationService extends INavigationService {
   BuildContext get context => navigatorKey.currentContext!;
 
   final removeAllOldRoutes = (Route<dynamic> route) => false;
-  AnimationType animationType = AnimationType.none;
+  NavigationAnimationType animationType = NavigationAnimationType.none;
   @override
   Future<Object?> navigateToPage({required String path, Object? data}) async {
     await navigatorKey.currentState!.pushNamed(path, arguments: data);
@@ -100,7 +100,7 @@ class NavigationService extends INavigationService {
 
   @override
   Route<dynamic> generateRoute(RouteSettings settings,
-      {AnimationType animatiionType = AnimationType.none}) {
+      {NavigationAnimationType animatiionType = NavigationAnimationType.none}) {
     // Getting arguments passed in while calling Navigator.pushNamed
     String url = settings.name!;
 
@@ -128,7 +128,7 @@ class NavigationService extends INavigationService {
         screen: _router[routeName] ?? getWidgetError(),
         routeName: url,
         data: argumants,
-        animationType: AnimationType.slide);
+        animationType: NavigationAnimationType.slide);
   }
 
   _getRouteName(String url) {

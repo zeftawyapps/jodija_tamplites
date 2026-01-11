@@ -6,53 +6,48 @@ import 'package:provider/provider.dart';
 
 /// Mixin for adaptive app shell routing capabilities
 mixin AppShellRouterMixin {
-
- void goRoute(
-    BuildContext context, String path, {bool replace = false}) {
-  if (replace) {
-    context.replace(path);
-
-  } else {
-    context.go(path);
+  void goRoute(BuildContext context, String path, {bool replace = false}) {
+    if (replace) {
+      context.replace(path);
+    } else {
+      context.go(path);
+    }
   }
- }
   // set if the  use press back navigat pop
 
- void goPop(BuildContext context) {
-   // use goRouter to pop the current route
-    if (GoRouter.of(context).canPop()) {
-      GoRouter.of(context).pop();
+  void goPop(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
     } else {
-      // If no routes to pop, you can handle it here, e.g., show a message or navigate to home
+      // في حا لة عدم وجود routes للرجوع إليها، عرض رسالة للمستخدم
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No more routes to pop')),
+        const SnackBar(
+          content: Text('لا توجد صفحات للرجوع إليها'),
+          duration: Duration(seconds: 2),
+        ),
       );
     }
-
   }
 
-Map<String , dynamic>? params ;
-Map<String  , dynamic>? query;
-String? mainPath; // الرابط الرئيسي عند الاستدعاء من الـ sidebar
+  Map<String, dynamic>? params;
+  Map<String, dynamic>? query;
+  String? mainPath; // الرابط الرئيسي عند الاستدعاء من الـ sidebar
 
-Map<String , dynamic>? getQuery(){
-   return query;
- }
+  Map<String, dynamic>? getQuery() {
+    return query;
+  }
 
+  Map<String, dynamic>? getPrams() {
+    return params;
+  }
 
- Map<String , dynamic>? getPrams(){
-   return params;
- }
+  String? getMainPath() {
+    return mainPath;
+  }
 
- String? getMainPath(){
-   return mainPath;
- }
-void goRouterInSidBar (BuildContext context , String path ) {
+  void goRouterInSidBar(BuildContext context, String path) {
+    AppShellRouterProvider provider = context.read<AppShellRouterProvider>();
 
-  AppShellRouterProvider provider = context.read<AppShellRouterProvider>();
-
-  provider!.handleItemTapByPath(context, path);
+    provider!.handleItemTapByPath(context, path);
   }
 }
-
- 

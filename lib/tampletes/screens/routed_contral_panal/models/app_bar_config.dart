@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBarConfig {
   // Title configuration
@@ -35,23 +36,38 @@ class AppBarConfig {
     this.bottom,
   });
 
-  AppBar? buildAppBar({bool isAppBar = true ,  bool isDesplayTitle = false  ,
- String  currentTilte ="",
+  AppBar? buildAppBar({
+    required BuildContext context,
+    bool isAppBar = true,
+    bool isDesplayTitle = false,
+    String currentTilte = "",
   }) {
+    String newTitels = isDesplayTitle ? currentTilte : title;
 
-    String newTitels = isDesplayTitle ? currentTilte : title ;
+    // تحديد الـ leading: إذا كان محدداً مسبقاً استخدمه، وإلا تحقق من canPop
+    Widget? effectiveLeading = leading;
+    if (effectiveLeading == null && GoRouter.of(context).canPop()) {
+      effectiveLeading = IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          context.pop();
+        },
+      );
+    }
 
-    return isAppBar ?  AppBar(
-      title: titleWidget ?? Text(newTitels, style: titleStyle),
-      actions: actions,
-      leading: leading,
-      automaticallyImplyLeading: automaticallyImplyLeading,
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
-      elevation: elevation,
-      toolbarHeight: toolbarHeight,
-      centerTitle: centerTitle,
-      bottom: bottom,
-    ):null ;
+    return isAppBar
+        ? AppBar(
+            title: titleWidget ?? Text(newTitels, style: titleStyle),
+            actions: actions,
+            leading: effectiveLeading,
+            automaticallyImplyLeading: automaticallyImplyLeading,
+            backgroundColor: backgroundColor,
+            foregroundColor: foregroundColor,
+            elevation: elevation,
+            toolbarHeight: toolbarHeight,
+            centerTitle: centerTitle,
+            bottom: bottom,
+          )
+        : null;
   }
 }
