@@ -17,13 +17,14 @@ class AdaptiveAppShell extends StatelessWidget {
   static AdaptiveAppShell? _instance;
   static AdaptiveAppShell get instance {
     if (_instance == null) {
-      throw Exception('AdaptiveAppShell not initialized. Please create an instance first.');
+      throw Exception(
+          'AdaptiveAppShell not initialized. Please create an instance first.');
     }
     return _instance!;
   }
-  
+
   final List<RouteItem>? sidebarItems;
-  
+
   // Theme configuration
   final ThemeData? lightTheme;
   final ThemeData? darkTheme;
@@ -38,45 +39,46 @@ class AdaptiveAppShell extends StatelessWidget {
   final String? initRouter;
   final bool isInBottomNavBar;
   final bool debugShowCheckedModeBanner;
-  
+
   // Sidebar header configuration
   final SidebarHeaderConfig? sidebarHeader;
   final Widget? errorScreen;
-  
+
   final String languageCode;
   final Map<String, AppLocalizationsInit> loclizationLangs;
+  final List<LocalizationsDelegate<dynamic>>? extraLocalizationsDelegates;
 
   // Sidebar styling properties
   final Color? sidebarBackgroundColor;
   final Color? sidebarSelectedColor;
   final Color? sidebarHoverColor;
-  
+
   // Text colors for different states
   final Color? sidebarTextColor;
   final Color? sidebarSelectedTextColor;
   final Color? sidebarHoverTextColor;
-  
+
   // Icon colors for different states
   final Color? sidebarIconColor;
   final Color? sidebarSelectedIconColor;
   final Color? sidebarHoverIconColor;
-  
+
   // Expanded state colors for ExpansionTile
   final Color? sidebarExpandedBackgroundColor;
   final Color? sidebarExpandedTextColor;
   final Color? sidebarExpandedIconColor;
   final Color? sidebarExpandedArrowColor;
-  
+
   final double? sidebarItemHeight;
   final double? sidebarFontSize;
   final String titleApp;
-  
+
   // Animation properties
   final Duration animationDuration;
   final Curve animationCurve;
   final double animationSlideDistance;
   final SidBarAnimationType animationType;
-  
+
   // Internal layout direction (calculated from languageCode)
   late final TextDirection _layoutDirection;
 
@@ -92,12 +94,13 @@ class AdaptiveAppShell extends StatelessWidget {
     this.initRouter,
     this.errorScreen,
     required this.loclizationLangs,
-    
+    this.extraLocalizationsDelegates,
+
     // Theme configuration
     this.lightTheme,
     this.darkTheme,
     this.isDarkMode = false,
-    
+
     // App bar configuration
     this.showAppBarOnSmallScreen = true,
     this.showAppBarOnLargeScreen = false,
@@ -111,23 +114,22 @@ class AdaptiveAppShell extends StatelessWidget {
     this.sidebarBackgroundColor,
     this.sidebarSelectedColor,
     this.sidebarHoverColor,
-    
+
     // Text colors
     this.sidebarTextColor,
     this.sidebarSelectedTextColor,
     this.sidebarHoverTextColor,
-    
+
     // Icon colors
     this.sidebarIconColor,
     this.sidebarSelectedIconColor,
     this.sidebarHoverIconColor,
-    
+
     // Expanded colors
     this.sidebarExpandedBackgroundColor,
     this.sidebarExpandedTextColor,
     this.sidebarExpandedIconColor,
     this.sidebarExpandedArrowColor,
-    
     this.sidebarItemHeight,
     this.sidebarFontSize,
 
@@ -145,7 +147,8 @@ class AdaptiveAppShell extends StatelessWidget {
 
   // Method to get the current theme (light or dark)
   ThemeData getCurrentTheme(BuildContext context) {
-  bool   isDarkMode = Provider.of<SettingsProvider>(context, listen: false).isDarkMode;
+    bool isDarkMode =
+        Provider.of<SettingsProvider>(context, listen: false).isDarkMode;
     if (isDarkMode) {
       return darkTheme ?? ThemeData.dark(useMaterial3: true);
     } else {
@@ -219,8 +222,7 @@ class AdaptiveAppShell extends StatelessWidget {
   // Method to get app bar configuration
   static AppBarConfig? getAppBarConfig(
       BuildContext context, bool isSmallScreen) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return isSmallScreen
         ? instance.smallScreenAppBar
         : instance.largeScreenAppBar;
@@ -228,46 +230,39 @@ class AdaptiveAppShell extends StatelessWidget {
 
   // Method to get sidebar header configuration
   static SidebarHeaderConfig? getSidebarHeader(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.sidebarHeader;
   }
 
   // Method to check if large screen should show app bar
   static bool shouldShowAppBarOnLargeScreen(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.showAppBarOnLargeScreen;
   }
 
   // Method to get animation properties
   static TextDirection getLayoutDirection(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance._layoutDirection;
   }
 
   static Duration getAnimationDuration(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.animationDuration;
   }
 
   static Curve getAnimationCurve(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.animationCurve;
   }
 
   static double getAnimationSlideDistance(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.animationSlideDistance;
   }
 
   static SidBarAnimationType getAnimationType(BuildContext context) {
-    final instance =
-        Provider.of<AdaptiveAppShell>(context, listen: false);
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
     return instance.animationType;
   }
 
@@ -281,11 +276,9 @@ class AdaptiveAppShell extends StatelessWidget {
         // AppShellRouterProvider manages routing
         ChangeNotifierProvider(
           create: (_) => AppShellRouterProvider(
-            sidebarItems: sidebarItems ??
+              sidebarItems: sidebarItems ??
                 [
- ],
-            errorConent: this.errorScreen
-          ),
+ ], errorConent: this.errorScreen),
         ),
 
         // SettingsProvider manages app settings
@@ -306,22 +299,28 @@ class AdaptiveAppShell extends StatelessWidget {
         ),
 
         // Provide the control panel instance
-         Provider<AdaptiveAppShell>.value(value: this),
+        Provider<AdaptiveAppShell>.value(value: this),
       ],
       child: Consumer2<AppShellRouterProvider, SettingsProvider>(
         builder: (context, appShellProvider, settingsProvider, child) {
           // Update localization when language changes
-          LocalizationInit localizationInit = LocalizationInit(loclizationLangs);
+          LocalizationInit localizationInit =
+              LocalizationInit(loclizationLangs);
           localizationInit.setAppLocal(settingsProvider.languageCode);
 
           return MaterialApp.router(
             supportedLocales: AppLocalizationsInit().supportedLocales,
             locale: Locale(settingsProvider.languageCode),
-            localizationsDelegates: AppLocalizationsInit().localizationsDelegates,
-            title:  this.titleApp,
+            localizationsDelegates: [
+              ...AppLocalizationsInit().localizationsDelegates,
+              if (this.extraLocalizationsDelegates != null)
+                ...this.extraLocalizationsDelegates!,
+            ],
+            title: this.titleApp,
             theme: getCurrentTheme(context),
             darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
-            themeMode: settingsProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode:
+                settingsProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             routerConfig: appShellProvider.createRouter(initRouter),
             debugShowCheckedModeBanner: debugShowCheckedModeBanner,
           );
@@ -329,10 +328,6 @@ class AdaptiveAppShell extends StatelessWidget {
       ),
     );
   }
-  
-
-
-
 
 //  void setAppLocal(String localCode) {
 //     LocalizationConfig localizationConfig =
@@ -342,5 +337,4 @@ class AdaptiveAppShell extends StatelessWidget {
 //     Translation().getlocal();
 
 //   }
-
 }
