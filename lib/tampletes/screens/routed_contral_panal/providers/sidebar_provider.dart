@@ -152,7 +152,8 @@ class AppShellRouterProvider extends ChangeNotifier {
   //   context.go('/login');
   // }
   String? _initR;
-  GoRouter createRouter(String? initRouter) {
+  GoRouter createRouter(String? initRouter,
+      {List<NavigatorObserver>? observers}) {
     _initR = initRouter ?? '';
     String initR;
     if (initRouter != null) {
@@ -172,6 +173,7 @@ class AppShellRouterProvider extends ChangeNotifier {
     sidebarItems.add(error);
 
     return GoRouter(
+      observers: observers,
       initialLocation: !isAppInit
           ? sidebarItems[selectedIndex].path
           : sidebarItems[_getIndexForPath(initR)].path,

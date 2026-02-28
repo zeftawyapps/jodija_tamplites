@@ -4,6 +4,7 @@ import 'package:JoDija_tamplites/util/localization/loaclized_init.dart';
 import 'package:JoDija_tamplites/util/localization/loclization/laoclization.inits.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'providers/sidebar_provider.dart';
 import 'providers/settings_provider.dart';
 import 'theam/theam.dart';
@@ -78,6 +79,8 @@ class AdaptiveAppShell extends StatelessWidget {
   final Curve animationCurve;
   final double animationSlideDistance;
   final SidBarAnimationType animationType;
+  final List<NavigatorObserver>? navigatorObservers;
+  final List<SingleChildWidget>? extraProvidersAndBlocs;
 
   // Internal layout direction (calculated from languageCode)
   late final TextDirection _layoutDirection;
@@ -138,6 +141,8 @@ class AdaptiveAppShell extends StatelessWidget {
     this.animationCurve = Curves.easeOutCubic,
     this.animationSlideDistance = 50.0,
     this.animationType = SidBarAnimationType.slideAndFade,
+    this.navigatorObservers,
+    this.extraProvidersAndBlocs,
   }) {
     // Calculate layoutDirection from languageCode using utility
     _layoutDirection = AppShellUtils.getLayoutDirection(languageCode);
@@ -270,6 +275,7 @@ class AdaptiveAppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        if (extraProvidersAndBlocs != null) ...extraProvidersAndBlocs!,
         // Add AuthProvider first
         // ChangeNotifierProvider(create: (_) => AuthProvider()),
 
@@ -321,7 +327,10 @@ class AdaptiveAppShell extends StatelessWidget {
             darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
             themeMode:
                 settingsProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            routerConfig: appShellProvider.createRouter(initRouter),
+            routerConfig: appShellProvider.createRouter(
+              initRouter,
+              observers: this.navigatorObservers,
+            ),
             debugShowCheckedModeBanner: debugShowCheckedModeBanner,
           );
         },
