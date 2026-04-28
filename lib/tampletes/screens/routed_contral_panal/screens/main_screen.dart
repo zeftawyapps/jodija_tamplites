@@ -118,9 +118,9 @@ class _MainScreenState extends State<MainScreen>
               onTap: (index) {
                 appShellProvider.setSelectBottomNavIndex(index);
                 appShellProvider.handleItemTapByPath(
-                  context,
-                  itemsInBottomNavBar[index].path,
-                );
+                    context,
+                    itemsInBottomNavBar[index].path,
+                    itemsInBottomNavBar[index].resolvedPath);
               },
             )
           : null,

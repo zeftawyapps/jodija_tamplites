@@ -83,6 +83,28 @@ class AppShellRouterProvider extends ChangeNotifier {
     return 0; // العودة إلى عنصر لوحة التحكم في حال عدم وجود المسار
   }
 
+  // دالة لتفكيك الرابط الفعلي واستخراج الـ Params بناءً على الرابط الأصلي
+  Map<String, String> extractParamsFromPath(
+      String templatePath, String actualPath) {
+    Map<String, String> extractedParams = {};
+
+    final templateSegments = Uri.parse(templatePath).pathSegments;
+    final actualSegments = Uri.parse(actualPath).pathSegments;
+
+    if (templateSegments.length != actualSegments.length) {
+      return extractedParams;
+    }
+
+    for (int i = 0; i < templateSegments.length; i++) {
+      if (templateSegments[i].startsWith(':')) {
+        final key = templateSegments[i].substring(1);
+        extractedParams[key] = actualSegments[i];
+      }
+    }
+
+    return extractedParams;
+  }
+
   // التعامل مع النقر على عناصر الشريط الجانبي
   void handleItemTap(BuildContext context, RouteItem item, int index) {
     isAppInit = false;
@@ -101,7 +123,8 @@ class AppShellRouterProvider extends ChangeNotifier {
     }
   }
 
-  void handleItemTapByPath(BuildContext context, String path) {
+  void handleItemTapByPath(
+      BuildContext context, String path, String? resolvedPath) {
     isAppInit = false;
     int index = _getIndexForPath(path);
     RouteItem item = sidebarItems[index];
@@ -109,7 +132,15 @@ class AppShellRouterProvider extends ChangeNotifier {
     if (item.isSideBarRouted && item.path != null) {
       // التعامل مع العناصر المسارة
       setSelectedIndex(index);
-      context.go(item.path!);
+      if (item.prams != null) {
+        Map<String, String> finalParams = {};
+        finalParams = extractParamsFromPath(item.path!, resolvedPath!);
+
+        context.goNamed(item.path!,
+            pathParameters: extractParamsFromPath(item.path!, resolvedPath!));
+      } else {
+        context.go(item.path!);
+      }
     } else {
       // التعامل مع العناصر غير المسارة
     }

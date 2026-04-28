@@ -13,8 +13,7 @@ class ValidationsForm {
 
   Widget build(
       BuildContext context, { required  Widget child}) {
-
-
+    inputValidationForm.clear();
     return Container(
       child: Form(
         key: form,
@@ -29,8 +28,7 @@ class ValidationsForm {
       MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center ,
       CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
       }) {
-    this.inputValidationForm = inputValidationForm;
-
+    inputValidationForm.clear();
     return Container(
       child: Form(
         key: form,
@@ -54,9 +52,20 @@ class ValidationsForm {
           dataMap[e.keyData] = e.mapValue![e.keyData];
         }
       }).toList();
+    } else {
+      debugPrint("================ ValidationsForm Error ================");
+      debugPrint("Validation failed for the form.");
+      debugPrint("Checking fields state:");
+      for (var field in inputValidationForm) {
+        debugPrint("Field Key: ${field.keyData}");
+        debugPrint("Label: ${field.labalText}");
+        debugPrint("Current Value in map: ${field.mapValue?[field.keyData]}");
+        debugPrint("-------------------------------------------------------");
+      }
+      debugPrint("=======================================================");
     }
 
-    return dataMap!;
+    return dataMap;
   }
 // clear all the data in the form
   void clearData() {

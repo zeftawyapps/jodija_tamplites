@@ -4,11 +4,23 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+class AppShellRoutes {
+  void goRoute(BuildContext context, String path, {bool replace = false}) {
+    if (replace) {
+      context.replace(path);
+      context.go(path);
+    } else {
+      context.go(path);
+    }
+  }
+}
+
 /// Mixin for adaptive app shell routing capabilities
 mixin AppShellRouterMixin {
   void goRoute(BuildContext context, String path, {bool replace = false}) {
     if (replace) {
       context.replace(path);
+      context.go(path);
     } else {
       context.go(path);
     }
@@ -48,6 +60,6 @@ mixin AppShellRouterMixin {
   void goRouterInSidBar(BuildContext context, String path) {
     AppShellRouterProvider provider = context.read<AppShellRouterProvider>();
 
-    provider!.handleItemTapByPath(context, path);
+    provider!.handleItemTapByPath(context, path, null);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/sidebar_item_widget.dart';
@@ -227,7 +228,8 @@ class _SidebarWidgetState extends State<SidebarWidget> {
   /// Build animation wrapper for items
   /// If app is initialized, return child without animation
   /// If app is initializing, apply selected animation type based on layoutDirection
-  Widget _buildAnimatedItem(Widget child, int index, SideBarNavigationTheames theme) {
+  Widget _buildAnimatedItem(
+      Widget child, int index, SideBarNavigationTheames theme) {
     // Check if app initialization is complete
     final statusProvider = context.read<StatusProvider>();
     final isAppInitialized = statusProvider.isAppInit;
@@ -255,7 +257,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
   /// Build individual sidebar item
   Widget _buildSidebarItem(
     BuildContext context,
-    dynamic item,
+    RouteItem item,
     int index,
     SideBarNavigationTheames theme,
     bool isSelected,
@@ -272,21 +274,25 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           onTap: () {
             // Set navigation flag to prevent expansion tile closing
             _isNavigating = true;
-            
+
             final appShellProvider =
                 Provider.of<AppShellRouterProvider>(context, listen: false);
-            appShellProvider.handleItemTapByPath(context, item.path!);
-            
+
+            // 1. أغلق القائمة أولاً لو كانت مفتوحة (في حالة الموبايل مثلاً)
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+
+            // 2. اذهب للرابط الجديد
+            appShellProvider.handleItemTapByPath(
+                context, item.path!, item.resolvedPath);
+
             // Reset navigation flag after a short delay
             Future.delayed(const Duration(milliseconds: 300), () {
               if (mounted) {
                 _isNavigating = false;
               }
             });
-            
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
           },
         ),
       ),
@@ -314,8 +320,12 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           color: theme.backgroundColor,
           child: Column(
             children: [
-              // Header with collapse button
-              _buildHeader(context, theme, headerConfig, isCollapsed, statusProvider),
+              // Header
+              _buildHeader(
+                  context, theme, headerConfig, isCollapsed, statusProvider),
+
+              // Collapse/Expand button at top
+              _buildCollapseButton(context, theme, isCollapsed, statusProvider),
 
               // Sidebar Items
               Expanded(
@@ -325,9 +335,6 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                         ? _buildColumnLayout(context, theme)
                         : _buildExpandableLayout(context, theme),
               ),
-
-              // Collapse/Expand button at bottom
-              _buildCollapseButton(context, theme, isCollapsed, statusProvider),
             ],
           ),
         );
@@ -344,16 +351,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
     StatusProvider statusProvider,
   ) {
     if (isCollapsed) {
-      return Container(
-        height: theme.itemHeight * 1.7,
-        alignment: Alignment.center,
-        color: theme.backgroundColor,
-        child: Icon(
-          Icons.menu,
-          color: theme.iconColor,
-          size: theme.iconSize,
-        ),
-      );
+      return const SizedBox.shrink();
     }
 
     if (headerConfig != null) {
@@ -383,7 +381,10 @@ class _SidebarWidgetState extends State<SidebarWidget> {
     StatusProvider statusProvider,
   ) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      alignment: isCollapsed 
+          ? Alignment.center 
+          : (theme.layoutDirection == TextDirection.rtl ? Alignment.centerLeft : Alignment.centerRight),
       child: IconButton(
         onPressed: () {
           statusProvider.toggleSidebarCollapsed();
@@ -393,8 +394,8 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           turns: isCollapsed ? 0.5 : 0,
           child: Icon(
             theme.layoutDirection == TextDirection.rtl
-                ? Icons.chevron_right
-                : Icons.chevron_left,
+                ? Icons.keyboard_double_arrow_right
+                : Icons.keyboard_double_arrow_left,
             color: theme.iconColor,
             size: theme.iconSize,
           ),
@@ -405,46 +406,44 @@ class _SidebarWidgetState extends State<SidebarWidget> {
   }
 
   /// Build collapsed layout (icons only)
-  Widget _buildCollapsedLayout(BuildContext context, SideBarNavigationTheames theme) {
+  Widget _buildCollapsedLayout(
+      BuildContext context, SideBarNavigationTheames theme) {
+    final organizedItems = _organizeItems(widget.items);
+    final groupedItems =
+        organizedItems['grouped'] as Map<String, List<dynamic>>;
+    final standaloneItems = organizedItems['standalone'] as List<dynamic>;
+
+    final listChildren = <Widget>[];
     int itemIndex = 0;
 
-    return ListView.builder(
-      itemCount: widget.items.length,
-      itemBuilder: (context, index) {
-        final item = widget.items[index];
-        if (item.isSideBarRouted == false || item.isVisableInSideBar == false) {
-          return const SizedBox.shrink();
-        }
+    // Add standalone items at the beginning
+    for (var item in standaloneItems) {
+      final isSelected = widget.selectedIndex == widget.items.indexOf(item);
+      itemIndex++;
 
-        // Skip child items in collapsed mode, show only parents/standalone
-        if (item.isChildItem) {
-          return const SizedBox.shrink();
-        }
-
-        final isSelected = widget.selectedIndex == index;
-        itemIndex++;
-
-        return _buildAnimatedItem(
+      listChildren.add(
+        _buildAnimatedItem(
           Tooltip(
             message: item.label,
             preferBelow: false,
             child: InkWell(
               onTap: () {
                 _isNavigating = true;
-                
+
                 final appShellProvider =
                     Provider.of<AppShellRouterProvider>(context, listen: false);
-                appShellProvider.handleItemTapByPath(context, item.path!);
-                
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+
+                appShellProvider.handleItemTapByPath(
+                    context, item.path!, item.resolvedPath);
+
                 Future.delayed(const Duration(milliseconds: 300), () {
                   if (mounted) {
                     _isNavigating = false;
                   }
                 });
-                
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -482,15 +481,141 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           ),
           itemIndex,
           theme,
-        );
-      },
+        ),
+      );
+    }
+
+    // Add grouped items (parents)
+    groupedItems.forEach((parentName, childItems) {
+      final parentItem = childItems.first;
+      itemIndex++;
+
+      bool isParentSelected = false;
+      for (var childItem in childItems) {
+        if (widget.selectedIndex == widget.items.indexOf(childItem)) {
+          isParentSelected = true;
+          break;
+        }
+      }
+
+      listChildren.add(
+        _buildAnimatedItem(
+          PopupMenuButton<dynamic>(
+            tooltip: parentName,
+            offset: Offset(theme.itemHeight * 1.5, 0),
+            color: theme.backgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(
+                color: theme.selectedBorderColor ?? Colors.transparent,
+              ),
+            ),
+            onSelected: (childItem) {
+              _isNavigating = true;
+
+              final appShellProvider =
+                  Provider.of<AppShellRouterProvider>(context, listen: false);
+
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+
+              appShellProvider.handleItemTapByPath(
+                  context, childItem.path!, childItem.resolvedPath);
+
+              Future.delayed(const Duration(milliseconds: 300), () {
+                if (mounted) {
+                  _isNavigating = false;
+                }
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              return childItems.map((childItem) {
+                final isChildSelected =
+                    widget.selectedIndex == widget.items.indexOf(childItem);
+
+                return PopupMenuItem<dynamic>(
+                  value: childItem,
+                  child: Row(
+                    children: [
+                      Icon(
+                        childItem.icon,
+                        color: isChildSelected
+                            ? theme.selectedIconColor
+                            : theme.iconColor,
+                        size: theme.iconSize * 0.8,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        childItem.label,
+                        style: TextStyle(
+                          color: isChildSelected
+                              ? (theme.selectedTextColor ?? theme.selectedIconColor)
+                              : theme.textColor,
+                          fontSize: theme.fontSize,
+                          fontWeight: isChildSelected
+                              ? theme.selectedFontWeight
+                              : FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList();
+            },
+            child: Tooltip(
+              message: parentName,
+              preferBelow: false,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                height: theme.itemHeight,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: isParentSelected
+                      ? theme.selectedBackgroundColor
+                      : theme.backgroundColor,
+                  border: isParentSelected
+                      ? Border(
+                          left: theme.layoutDirection == TextDirection.ltr
+                              ? BorderSide(
+                                  color: theme.selectedBorderColor,
+                                  width: theme.selectedBorderWidth,
+                                )
+                              : BorderSide.none,
+                          right: theme.layoutDirection == TextDirection.rtl
+                              ? BorderSide(
+                                  color: theme.selectedBorderColor,
+                                  width: theme.selectedBorderWidth,
+                                )
+                              : BorderSide.none,
+                        )
+                      : null,
+                ),
+                child: Icon(
+                  parentItem.parentIcon ?? Icons.folder,
+                  color: isParentSelected ? theme.selectedIconColor : theme.iconColor,
+                  size: theme.iconSize,
+                ),
+              ),
+            ),
+          ),
+          itemIndex,
+          theme,
+        ),
+      );
+    });
+
+    return ListView(
+      children: listChildren,
     );
   }
 
   /// Build column layout (isSidebarInCulomn = true)
-  Widget _buildColumnLayout(BuildContext context, SideBarNavigationTheames theme) {
+  Widget _buildColumnLayout(
+      BuildContext context, SideBarNavigationTheames theme) {
     int itemIndex = 0;
-    
+
     return ListView.builder(
       itemCount: widget.items.length,
       itemBuilder: (context, index) {
@@ -507,27 +632,38 @@ class _SidebarWidgetState extends State<SidebarWidget> {
   }
 
   /// Build expandable layout with ExpansionTiles (isSidebarInCulomn = false)
-  Widget _buildExpandableLayout(BuildContext context, SideBarNavigationTheames theme) {
+  Widget _buildExpandableLayout(
+      BuildContext context, SideBarNavigationTheames theme) {
     final organizedItems = _organizeItems(widget.items);
-    final groupedItems = organizedItems['grouped'] as Map<String, List<dynamic>>;
+    final groupedItems =
+        organizedItems['grouped'] as Map<String, List<dynamic>>;
     final standaloneItems = organizedItems['standalone'] as List<dynamic>;
 
     final listChildren = <Widget>[];
     int groupIndex = 0;
     int itemIndex = 0;
 
+    // Add standalone items at the beginning
+    for (var item in standaloneItems) {
+      final isSelected = widget.selectedIndex == widget.items.indexOf(item);
+      listChildren.add(
+        _buildSidebarItem(context, item, itemIndex++, theme, isSelected),
+      );
+    }
+
     // Add grouped items with ExpansionTiles
     groupedItems.forEach((parentName, childItems) {
       final parentItem = childItems.first;
       final currentGroupIndex = groupIndex;
       groupIndex++;
-      
+
       listChildren.add(
         _buildAnimatedItem(
           Consumer<StatusProvider>(
             builder: (context, statusProvider, child) {
-              final isExpanded = statusProvider.OpenedSubMenuIndex == currentGroupIndex;
-              
+              final isExpanded =
+                  statusProvider.OpenedSubMenuIndex == currentGroupIndex;
+
               return ExpansionTile(
                 key: ValueKey(parentName),
                 initiallyExpanded: isExpanded,
@@ -538,35 +674,42 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                 title: Text(
                   parentName,
                   style: TextStyle(
-                    color: isExpanded ? theme.expandedTextColor : theme.textColor,
+                    color:
+                        isExpanded ? theme.expandedTextColor : theme.textColor,
                     fontSize: theme.fontSize,
                     fontWeight: theme.selectedFontWeight,
                   ),
                 ),
-                iconColor: isExpanded ? theme.expandedArrowColor : theme.iconColor,
+                iconColor:
+                    isExpanded ? theme.expandedArrowColor : theme.iconColor,
                 collapsedIconColor: theme.iconColor,
-                backgroundColor: isExpanded 
-                    ? theme.expandedBackgroundColor 
+                backgroundColor: isExpanded
+                    ? theme.expandedBackgroundColor
                     : theme.backgroundColor,
                 collapsedBackgroundColor: theme.backgroundColor,
                 onExpansionChanged: (newIsExpanded) {
                   // Don't allow closing while navigating
                   if (_isNavigating && !newIsExpanded) {
-                    print('Navigation in progress - preventing $parentName from closing');
+                    print(
+                        'Navigation in progress - preventing $parentName from closing');
                     return;
                   }
-                  
+
                   // Use the statusProvider from Consumer builder
                   if (newIsExpanded) {
-                    statusProvider.setOpenedSubMenuExtesionsIndex(currentGroupIndex);
-                    print('$parentName (index: $currentGroupIndex) ExpansionTile OPENED');
+                    statusProvider
+                        .setOpenedSubMenuExtesionsIndex(currentGroupIndex);
+                    print(
+                        '$parentName (index: $currentGroupIndex) ExpansionTile OPENED');
                   } else {
                     statusProvider.setOpenedSubMenuExtesionsIndex(-1);
-                    print('$parentName (index: $currentGroupIndex) ExpansionTile CLOSED');
+                    print(
+                        '$parentName (index: $currentGroupIndex) ExpansionTile CLOSED');
                   }
                 },
                 children: childItems.map((childItem) {
-                  final childIsSelected = widget.selectedIndex == widget.items.indexOf(childItem);
+                  final childIsSelected =
+                      widget.selectedIndex == widget.items.indexOf(childItem);
                   return Padding(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: SidebarItemWidget(
@@ -577,21 +720,25 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                       onTap: () {
                         // Set navigation flag to prevent expansion tile closing
                         _isNavigating = true;
-                        
+
                         final appShellProvider =
-                            Provider.of<AppShellRouterProvider>(context, listen: false);
-                        appShellProvider.handleItemTapByPath(context, childItem.path!);
-                        
+                            Provider.of<AppShellRouterProvider>(context,
+                                listen: false);
+                        // 1. أغلق القائمة
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+
+                        // 2. اذهب للرابط
+                        appShellProvider.handleItemTapByPath(
+                            context, childItem.path!, childItem.resolvedPath);
+
                         // Reset navigation flag after a short delay
                         Future.delayed(const Duration(milliseconds: 300), () {
                           if (mounted) {
                             _isNavigating = false;
                           }
                         });
-                        
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
                       },
                     ),
                   );
@@ -605,17 +752,8 @@ class _SidebarWidgetState extends State<SidebarWidget> {
       );
     });
 
-    // Add standalone items at the end
-    for (var item in standaloneItems) {
-      final isSelected = widget.selectedIndex == widget.items.indexOf(item);
-      listChildren.add(
-        _buildSidebarItem(context, item, itemIndex++, theme, isSelected),
-      );
-    }
-
     return ListView(
       children: listChildren,
     );
   }
 }
-

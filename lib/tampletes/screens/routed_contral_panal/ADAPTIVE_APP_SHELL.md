@@ -47,13 +47,53 @@ RouteItem({
 
 ## 3. تخصيص رأس القائمة: `SidebarHeaderConfig`
 
-يسمح لك بإضافة شعار وعنوان في أعلى القائمة الجانبية.
+يسمح لك `SidebarHeaderConfig` بتخصيص الجزء العلوي من القائمة الجانبية (Sidebar) بسهولة، سواء بإضافة شعار (Logo)، عنوان (Title)، أو حتى تصميم واجهة مخصصة بالكامل.
 
-- **الخيارات المتاحة:**
-  - `logoAssetPath`: مسار صورة من الـ assets.
-  - `logoNetworkUrl`: رابط صورة من الإنترنت.
-  - `title`: نص العنوان.
-  - `customHeaderWidget`: وجت مخصص بالكامل يتجاهل الإعدادات السابقة.
+### الخصائص (Properties):
+
+| الخاصية | النوع | الافتراضي | الوصف |
+| :--- | :--- | :--- | :--- |
+| `title` | `String?` | `null` | النص الذي يظهر كعنوان في الهيدر. |
+| `titleStyle` | `TextStyle?` | `null` | تنسيق الخط الخاص بالعنوان. |
+| `logoAssetPath` | `String?` | `null` | مسار صورة الشعار من ملفات المشروع (Assets). |
+| `logoNetworkUrl` | `String?` | `null` | رابط صورة الشعار من الإنترنت. |
+| `logoHight` | `double` | `60.0` | ارتفاع الشعار. |
+| `logoWidth` | `double` | `60.0` | عرض الشعار. |
+| `logoFit` | `BoxFit` | `BoxFit.contain` | طريقة احتواء الصورة داخل الإطار. |
+| `logoRadius` | `BorderRadius?` | `null` | تدوير حواف الشعار. |
+| `height` | `double` | `80.0` | الارتفاع الكلي للهيدر. |
+| `padding` | `EdgeInsetsGeometry` | `EdgeInsets.all(16)` | المسافات الداخلية للهيدر. |
+| `backgroundColor` | `Color?` | `null` | لون خلفية الهيدر. |
+| `alignment` | `Alignment` | `Alignment.center` | محاذاة المحتوى داخل الهيدر. |
+| `customHeaderWidget` | `Widget?` | `null` | إذا تم توفيره، سيتم تجاهل كل الخصائص أعلاه وعرض هذا الوجت بدلاً منها. |
+
+### مثال على الاستخدام:
+
+```dart
+SidebarHeaderConfig(
+  title: "لوحة التحكم",
+  logoAssetPath: "assets/images/logo.png",
+  logoHight: 50,
+  backgroundColor: Colors.blueAccent,
+  titleStyle: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+)
+```
+
+**أو استخدام واجهة مخصصة بالكامل:**
+
+```dart
+SidebarHeaderConfig(
+  customHeaderWidget: UserAccountsDrawerHeader(
+    accountName: Text("اسم المستخدم"),
+    accountEmail: Text("user@example.com"),
+    currentAccountPicture: CircleAvatar(child: Icon(Icons.person)),
+  ),
+)
+```
 
 ---
 

@@ -17,14 +17,18 @@ class DrawerbarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-   List<RouteItem> filteredItems = this.items.where((item) => item.isSideBarRouted == true || item.isVisableInSideBar == true && item.isUnViasibleInSideBarIfSmall == false  ).toList();
+    List<RouteItem> filteredItems = this
+        .items
+        .where((item) =>
+            item.isSideBarRouted == true ||
+            item.isVisableInSideBar == true &&
+                item.isUnViasibleInSideBarIfSmall == false)
+        .toList();
 
     // Get the theme from the provider
     final theme = AdaptiveAppShell.getTheme(context);
     // Get sidebar header configuration
-    final headerConfig =
-        AdaptiveAppShell.getSidebarHeader(context);
+    final headerConfig = AdaptiveAppShell.getSidebarHeader(context);
 
     return Container(
       width: theme.itemHeight * 5, // Dynamic width based on theme
@@ -56,12 +60,12 @@ class DrawerbarWidget extends StatelessWidget {
               itemCount: filteredItems.length,
               itemBuilder: (context, index) {
                 final isSelected = selectedIndex == index;
-                  if (filteredItems[index].isSideBarRouted == false || filteredItems[index].isVisableInSideBar == false
-                || filteredItems[index].isUnViasibleInSideBarIfSmall == true
-                  ) {
-                    // إذا كان العنصر ليس مسارًا جانبيًا، لا نعرضه
-                    return const SizedBox.shrink();
-                  }
+                if (filteredItems[index].isSideBarRouted == false ||
+                    filteredItems[index].isVisableInSideBar == false ||
+                    filteredItems[index].isUnViasibleInSideBarIfSmall == true) {
+                  // إذا كان العنصر ليس مسارًا جانبيًا، لا نعرضه
+                  return const SizedBox.shrink();
+                }
 
                 return SidebarItemWidget(
                   icon: items[index].icon,
@@ -70,7 +74,8 @@ class DrawerbarWidget extends StatelessWidget {
                   theme: theme, // Pass the theme to the item widget
                   onTap: () {
                     final appShellProvider =
-                        Provider.of<AppShellRouterProvider>(context, listen: false);
+                        Provider.of<AppShellRouterProvider>(context,
+                            listen: false);
                     // final authProvider =
                     //     Provider.of<AuthProvider>(context, listen: false);
 
@@ -78,12 +83,14 @@ class DrawerbarWidget extends StatelessWidget {
 
                     // Use the provider's handle method
                     // appShellProvider.handleItemTap(context, items[index], index);
-                    appShellProvider.handleItemTapByPath(context, items[index].path!);
-
-                    // إذا كان الـ Drawer مفتوحًا، أغلقه بعد النقر
+                    // 1. أغلق الـ Drawer أولاً لو كان مفتوح لتجنب خطأ Unmounted context
                     if (Navigator.canPop(context)) {
                       Navigator.pop(context);
                     }
+
+                    // 2. نفذ عملية الانتقال بعد الإغلاق
+                    appShellProvider.handleItemTapByPath(
+                        context, items[index].path!, items[index].resolvedPath);
                   },
                 );
               },
