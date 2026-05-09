@@ -55,6 +55,7 @@ class SideBarNavigationTheames {
   final FontWeight normalFontWeight;
   final FontWeight selectedFontWeight;
   final String? titleApp;
+  final String? fontFamily;
   
   // Animation properties
   final TextDirection layoutDirection;
@@ -91,6 +92,7 @@ class SideBarNavigationTheames {
     this.fontSize = 14.0,
     this.normalFontWeight = FontWeight.normal,
     this.selectedFontWeight = FontWeight.bold,
+    this.fontFamily,
     this.layoutDirection = TextDirection.ltr,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeOutCubic,
@@ -118,6 +120,7 @@ class SideBarNavigationTheames {
     Color? expandedTextColor,
     Color? expandedIconColor,
     Color? expandedArrowColor,
+    String? fontFamily,
     TextDirection layoutDirection = TextDirection.ltr,
     Duration animationDuration = const Duration(milliseconds: 300),
     Curve animationCurve = Curves.easeOutCubic,
@@ -144,6 +147,7 @@ class SideBarNavigationTheames {
       itemHeight: itemHeight ?? 48.0,
       fontSize: fontSize ?? 14.0,
       itemPadding: itemPadding ?? const EdgeInsets.symmetric(horizontal: 16.0),
+      fontFamily: fontFamily,
       layoutDirection: layoutDirection,
       animationDuration: animationDuration,
       animationCurve: animationCurve,
@@ -172,6 +176,7 @@ class SideBarNavigationTheames {
     Color? expandedTextColor,
     Color? expandedIconColor,
     Color? expandedArrowColor,
+    String? fontFamily,
     TextDirection layoutDirection = TextDirection.ltr,
     Duration animationDuration = const Duration(milliseconds: 300),
     Curve animationCurve = Curves.easeOutCubic,
@@ -198,6 +203,7 @@ class SideBarNavigationTheames {
       itemHeight: itemHeight ?? 48.0,
       fontSize: fontSize ?? 14.0,
       itemPadding: itemPadding ?? const EdgeInsets.symmetric(horizontal: 16.0),
+      fontFamily: fontFamily,
       layoutDirection: layoutDirection,
       animationDuration: animationDuration,
       animationCurve: animationCurve,
@@ -234,6 +240,7 @@ class SideBarNavigationTheames {
     double? fontSize,
     FontWeight? normalFontWeight,
     FontWeight? selectedFontWeight,
+    String? fontFamily,
     TextDirection? layoutDirection,
     Duration? animationDuration,
     Curve? animationCurve,
@@ -267,6 +274,7 @@ class SideBarNavigationTheames {
       fontSize: fontSize ?? this.fontSize,
       normalFontWeight: normalFontWeight ?? this.normalFontWeight,
       selectedFontWeight: selectedFontWeight ?? this.selectedFontWeight,
+      fontFamily: fontFamily ?? this.fontFamily,
       layoutDirection: layoutDirection ?? this.layoutDirection,
       animationDuration: animationDuration ?? this.animationDuration,
       animationCurve: animationCurve ?? this.animationCurve,
@@ -286,14 +294,16 @@ class SideBarNavigationTheames {
       color: isSelected
           ? selectedBackgroundColor
           : (isHovered ? hoverBackgroundColor : backgroundColor),
-      border: isSelected
-          ? Border(
-              left: BorderSide(
-                color: selectedBorderColor,
-                width: selectedBorderWidth,
-              ),
-            )
-          : null,
+      // تم إزالة الحد (border) بناءً على طلب المستخدم
+      // border: isSelected
+      //     ? Border(
+      //         left: BorderSide(
+      //           color: selectedBorderColor,
+      //           width: selectedBorderWidth,
+      //         ),
+      //       )
+      //     : null,
+
     );
   }
 
@@ -303,6 +313,7 @@ class SideBarNavigationTheames {
     bool isSelected = false,
   }) {
     return TextStyle(
+      fontFamily: fontFamily ?? 'Cairo',
       fontSize: fontSize,
       fontWeight: isSelected ? selectedFontWeight : normalFontWeight,
       color: isSelected

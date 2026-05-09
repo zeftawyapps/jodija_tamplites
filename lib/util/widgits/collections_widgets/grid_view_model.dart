@@ -3,27 +3,73 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/// ويدجت تعرض البيانات في شبكة (GridView) مع دعم الحركات وزر للإضافة.
+/// A widget that displays data in a GridView with animation support and an optional add button.
 class GridViewModel<T extends BaseViewDataModel> extends StatefulWidget {
-  GridViewModel(
-      {super.key,
-      required this.data,
-      required this.listItem,
-      this.canAdd = false,
-      this.addWidget = null,
-      this.gridDelegate,
-      this.onAdd,
-      this.scrollController,
-      this.physics,
-      this.shrinkWrap = false});
-
+  GridViewModel({
+    super.key,
+    /// البيانات.
+    /// The data.
+    required this.data,
+    /// بناء العنصر.
+    /// Item builder.
+    required this.listItem,
+    /// إمكانية الإضافة.
+    /// Can add item.
+    this.canAdd = false,
+    /// ويدجت الإضافة.
+    /// Custom add widget.
+    this.addWidget,
+    /// إعدادات الشبكة.
+    /// Grid delegate.
+    this.gridDelegate,
+    /// دالة الإضافة.
+    /// On add callback.
+    this.onAdd,
+    /// متحكم التمرير.
+    /// Scroll controller.
+    this.scrollController,
+    /// فيزياء التمرير.
+    /// Scroll physics.
+    this.physics,
+    /// هل الشبكة تلتف حول محتواها.
+    /// Shrink wrap the grid.
+    this.shrinkWrap = false,
+  });
+  /// متحكم التمرير للشبكة.
+  /// The scroll controller for the grid.
   final ScrollController? scrollController;
+  
+  /// قائمة البيانات.
+  /// The list of data to be displayed.
   final List<T> data;
+  
+  /// هل يمكن إضافة عنصر جديد.
+  /// Whether a new item can be added.
   final bool canAdd;
+  
+  /// هل الشبكة تلتف حول محتواها.
+  /// Whether the grid should shrink wrap its content.
   final bool shrinkWrap;
+  
+  /// فيزياء التمرير.
+  /// The scroll physics.
   final ScrollPhysics? physics;
+  
+  /// إعدادات تقسيم الشبكة (عدد الأعمدة، المسافات، إلخ).
+  /// The grid delegate for configuring the layout (columns, spacing, etc).
   final SliverGridDelegateWithFixedCrossAxisCount? gridDelegate;
+  
+  /// ويدجت زر الإضافة المخصص.
+  /// The custom add button widget.
   final Widget? addWidget;
+  
+  /// دالة استدعاء عند الضغط على زر الإضافة.
+  /// Callback triggered when the add button is pressed.
   final void Function()? onAdd;
+  
+  /// دالة بناء عناصر الشبكة بناءً على الفهرس والبيانات.
+  /// A builder function for each grid item based on index and data.
   final Widget Function(int i, T data) listItem;
 
   @override

@@ -2,21 +2,52 @@ import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// ويدجت تعرض قائمة من البيانات (ListView) مع دعم الحركات (Animations) وزر للإضافة.
+/// A widget that displays a ListView of data with animation support and an optional add button.
 class ListViewModel<T extends BaseViewDataModel> extends StatefulWidget {
-  ListViewModel(
-      {super.key,
-      required this.data,
-      required this.listItem,
-      this.canAdd = false,
-      this.scrollDirection = Axis.vertical,
-      this.onAdd,
-      this.addWidget = null});
-  
+  ListViewModel({
+    super.key,
+    /// البيانات.
+    /// The data.
+    required this.data,
+    /// دالة بناء العنصر.
+    /// Item builder.
+    required this.listItem,
+    /// إمكانية الإضافة.
+    /// Can add item.
+    this.canAdd = false,
+    /// اتجاه التمرير.
+    /// Scroll direction.
+    this.scrollDirection = Axis.vertical,
+    /// دالة الإضافة.
+    /// On add callback.
+    this.onAdd,
+    /// ويدجت الإضافة المخصص.
+    /// Custom add widget.
+    this.addWidget,
+  });
+  /// قائمة البيانات التي سيتم عرضها.
+  /// The list of data to be displayed.
   final List<T> data;
+  
+  /// هل يظهر زر الإضافة في نهاية القائمة.
+  /// Whether an add button should appear at the end of the list.
   final bool canAdd;
+  
+  /// الويدجت المخصص لزر الإضافة (اختياري).
+  /// The custom widget for the add button (optional).
   final Widget? addWidget;
+  
+  /// اتجاه التمرير للقائمة (عمودي أو أفقي).
+  /// The scroll direction of the list (vertical or horizontal).
   final Axis scrollDirection;
+  
+  /// دالة تُستدعى عند الضغط على زر الإضافة.
+  /// Callback triggered when the add button is pressed.
   final void Function()? onAdd;
+  
+  /// دالة بناء عنصر القائمة بناءً على الفهرس والبيانات.
+  /// A builder function for each list item based on index and data.
   final Widget Function(int i, T data) listItem;
 
   @override

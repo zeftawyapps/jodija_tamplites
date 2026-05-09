@@ -320,12 +320,9 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           color: theme.backgroundColor,
           child: Column(
             children: [
-              // Header
+              // Header with embedded collapse button
               _buildHeader(
                   context, theme, headerConfig, isCollapsed, statusProvider),
-
-              // Collapse/Expand button at top
-              _buildCollapseButton(context, theme, isCollapsed, statusProvider),
 
               // Sidebar Items
               Expanded(
@@ -342,7 +339,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
     );
   }
 
-  /// Build header with optional collapse functionality
+  /// Build header with embedded collapse functionality
   Widget _buildHeader(
     BuildContext context,
     SideBarNavigationTheames theme,
@@ -350,57 +347,59 @@ class _SidebarWidgetState extends State<SidebarWidget> {
     bool isCollapsed,
     StatusProvider statusProvider,
   ) {
-    if (isCollapsed) {
-      return const SizedBox.shrink();
-    }
-
-    if (headerConfig != null) {
-      return headerConfig.buildHeader(context);
-    }
-
-    return Container(
-      height: theme.itemHeight * 1.7,
-      alignment: Alignment.center,
-      color: theme.backgroundColor,
-      child: Text(
-        theme.titleApp ?? 'تطبيقي',
-        style: TextStyle(
-          fontSize: theme.fontSize * 1.6,
-          fontWeight: theme.selectedFontWeight,
-          color: theme.textColor,
-        ),
+    // The toggle button (Hamburger icon)
+    Widget toggleButton = IconButton(
+      onPressed: () {
+        statusProvider.toggleSidebarCollapsed();
+      },
+      icon: Icon(
+        isCollapsed ? Icons.menu : Icons.menu_open,
+        color: theme.iconColor,
+        size: theme.iconSize,
       ),
+      tooltip: isCollapsed ? 'توسيع' : 'تصغير',
     );
-  }
 
-  /// Build collapse/expand button
-  Widget _buildCollapseButton(
-    BuildContext context,
-    SideBarNavigationTheames theme,
-    bool isCollapsed,
-    StatusProvider statusProvider,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      alignment: isCollapsed 
-          ? Alignment.center 
-          : (theme.layoutDirection == TextDirection.rtl ? Alignment.centerLeft : Alignment.centerRight),
-      child: IconButton(
-        onPressed: () {
-          statusProvider.toggleSidebarCollapsed();
-        },
-        icon: AnimatedRotation(
-          duration: const Duration(milliseconds: 250),
-          turns: isCollapsed ? 0.5 : 0,
-          child: Icon(
-            theme.layoutDirection == TextDirection.rtl
-                ? Icons.keyboard_double_arrow_right
-                : Icons.keyboard_double_arrow_left,
-            color: theme.iconColor,
-            size: theme.iconSize,
+    if (isCollapsed) {
+      return Container(
+        height: theme.itemHeight * 1.7,
+        alignment: Alignment.center,
+        color: theme.backgroundColor,
+        child: toggleButton,
+      );
+    }
+
+    Widget headerContent;
+    if (headerConfig != null) {
+      headerContent = headerConfig.buildHeader(context);
+    } else {
+      headerContent = Container(
+        height: theme.itemHeight * 1.7,
+        alignment: Alignment.center,
+        color: theme.backgroundColor,
+        child: Text(
+          theme.titleApp ?? 'تطبيقي',
+          style: TextStyle(
+            fontFamily: theme.fontFamily ?? 'Cairo',
+            fontSize: theme.fontSize * 1.6,
+            fontWeight: theme.selectedFontWeight,
+            color: theme.textColor,
           ),
         ),
-        tooltip: isCollapsed ? 'توسيع' : 'تصغير',
+      );
+    }
+
+    return Container(
+      color: theme.backgroundColor,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: toggleButton,
+          ),
+          Expanded(child: headerContent),
+        ],
       ),
     );
   }
@@ -454,22 +453,24 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                   color: isSelected
                       ? theme.selectedBackgroundColor
                       : theme.backgroundColor,
-                  border: isSelected
-                      ? Border(
-                          left: theme.layoutDirection == TextDirection.ltr
-                              ? BorderSide(
-                                  color: theme.selectedBorderColor,
-                                  width: theme.selectedBorderWidth,
-                                )
-                              : BorderSide.none,
-                          right: theme.layoutDirection == TextDirection.rtl
-                              ? BorderSide(
-                                  color: theme.selectedBorderColor,
-                                  width: theme.selectedBorderWidth,
-                                )
-                              : BorderSide.none,
-                        )
-                      : null,
+                  // تم إزالة الحد بناءً على طلب المستخدم
+                  // border: isSelected
+                  //     ? Border(
+                  //         left: theme.layoutDirection == TextDirection.ltr
+                  //             ? BorderSide(
+                  //                 color: theme.selectedBorderColor,
+                  //                 width: theme.selectedBorderWidth,
+                  //               )
+                  //             : BorderSide.none,
+                  //         right: theme.layoutDirection == TextDirection.rtl
+                  //             ? BorderSide(
+                  //                 color: theme.selectedBorderColor,
+                  //                 width: theme.selectedBorderWidth,
+                  //               )
+                  //             : BorderSide.none,
+                  //       )
+                  //     : null,
+
                 ),
                 child: Icon(
                   item.icon,
@@ -549,8 +550,10 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                       Text(
                         childItem.label,
                         style: TextStyle(
+                          fontFamily: theme.fontFamily ?? 'Cairo',
                           color: isChildSelected
-                              ? (theme.selectedTextColor ?? theme.selectedIconColor)
+                              ? (theme.selectedTextColor ??
+                                  theme.selectedIconColor)
                               : theme.textColor,
                           fontSize: theme.fontSize,
                           fontWeight: isChildSelected
@@ -575,26 +578,30 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                   color: isParentSelected
                       ? theme.selectedBackgroundColor
                       : theme.backgroundColor,
-                  border: isParentSelected
-                      ? Border(
-                          left: theme.layoutDirection == TextDirection.ltr
-                              ? BorderSide(
-                                  color: theme.selectedBorderColor,
-                                  width: theme.selectedBorderWidth,
-                                )
-                              : BorderSide.none,
-                          right: theme.layoutDirection == TextDirection.rtl
-                              ? BorderSide(
-                                  color: theme.selectedBorderColor,
-                                  width: theme.selectedBorderWidth,
-                                )
-                              : BorderSide.none,
-                        )
-                      : null,
+                  // تم إزالة الحد بناءً على طلب المستخدم
+                  // border: isParentSelected
+                  //     ? Border(
+                  //         left: theme.layoutDirection == TextDirection.ltr
+                  //             ? BorderSide(
+                  //                 color: theme.selectedBorderColor,
+                  //                 width: theme.selectedBorderWidth,
+                  //               )
+                  //             : BorderSide.none,
+                  //         right: theme.layoutDirection == TextDirection.rtl
+                  //             ? BorderSide(
+                  //                 color: theme.selectedBorderColor,
+                  //                 width: theme.selectedBorderWidth,
+                  //               )
+                  //             : BorderSide.none,
+                  //       )
+                  //     : null,
+
                 ),
                 child: Icon(
                   parentItem.parentIcon ?? Icons.folder,
-                  color: isParentSelected ? theme.selectedIconColor : theme.iconColor,
+                  color: isParentSelected
+                      ? theme.selectedIconColor
+                      : theme.iconColor,
                   size: theme.iconSize,
                 ),
               ),
@@ -666,7 +673,10 @@ class _SidebarWidgetState extends State<SidebarWidget> {
 
               return ExpansionTile(
                 key: ValueKey(parentName),
+                shape: const Border(),
+                collapsedShape: const Border(),
                 initiallyExpanded: isExpanded,
+
                 leading: Icon(
                   parentItem.parentIcon ?? Icons.folder,
                   color: isExpanded ? theme.expandedIconColor : theme.iconColor,
@@ -674,6 +684,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                 title: Text(
                   parentName,
                   style: TextStyle(
+                    fontFamily: theme.fontFamily ?? 'Cairo',
                     color:
                         isExpanded ? theme.expandedTextColor : theme.textColor,
                     fontSize: theme.fontSize,

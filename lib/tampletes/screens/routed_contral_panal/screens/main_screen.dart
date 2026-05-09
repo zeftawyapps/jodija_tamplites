@@ -170,11 +170,12 @@ class _MainScreenState extends State<MainScreen>
             selectedIndex: selectedIndex,
           ),
 
-          // الخط الفاصل
-          Container(
-            width: 1,
-            color: theme.selectedBorderColor.withOpacity(0.3),
-          ),
+          // تم إزالة الخط الفاصل بناءً على طلب المستخدم
+          // Container(
+          //   width: 1,
+          //   color: theme.selectedBorderColor.withOpacity(0.3),
+          // ),
+
 
           // المحتوى الرئيسي
           Expanded(

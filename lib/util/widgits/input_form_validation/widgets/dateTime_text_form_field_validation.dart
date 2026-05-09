@@ -7,37 +7,108 @@ import '../form_validations.dart';
 import '../input_validation_item.dart';
 import '../lable_desplty.dart';
 
+/// حقل إدخال مخصص لاختيار التاريخ، مدمج مع نظام التحقق (Validation).
+/// A custom input field for picking a date, integrated with the validation system.
 class DateTimeTextFieldValidaion extends StatelessWidget
     implements InputValidationForm, InputFeildBinder, DataTableFieldBinder {
+  /// التنسيق الخاص بحقل الإدخال.
+  /// The decoration of the input field.
   InputDecoration decoration;
+  
+  /// التاريخ المبدئي، وأقدم تاريخ، وأحدث تاريخ مسموح باختياره.
+  /// The initial, earliest, and latest selectable dates.
   DateTime? initDate, firestDate, lastDate;
+  
+  /// تصميم النص الذي يظهر في الحقل.
+  /// The text style of the inputted text.
   TextStyle textStyle;
+  
+  /// تصميم نص العنوان (Label).
+  /// The text style for the label.
   TextStyle? labelStyle;
+  
+  /// قائمة شروط التحقق المطبقة.
+  /// The list of validators applied.
   List<BaseValidator>? baseValidation;
+  
+  /// نموذج التحقق المرتبط بهذا الحقل.
+  /// The form validation manager.
   ValidationsForm form;
+  
+  /// العنوان التعريفي للحقل.
+  /// The label text of the field.
   String? labalText;
+  
+  /// المفتاح الفريد لحفظ القيمة في خريطة البيانات.
+  /// The unique key to save the value in the data map.
   String keyData;
+  
+  /// وضع إدخال منتقي التاريخ (مثال: تقويم Calendar).
+  /// The entry mode for the date picker (e.g., calendar).
   DatePickerEntryMode entryMode = DatePickerEntryMode.calendar;
+  
+  /// خريطة البيانات التي يُحفظ فيها الناتج محلياً.
+  /// The local map where the value is stored.
   Map<String, dynamic>? mapValue;
+  
+  /// وضع منتقي التاريخ (عرض الأيام أو السنين).
+  /// The initial date picker mode (days or years).
   DatePickerMode datePickerMode = DatePickerMode.day;
+  
+  /// دالة تُستدعى عند تغير التاريخ المختار.
+  /// Callback triggered when the selected date changes.
   var onChange;
+  
+  /// طريقة عرض العنوان (أعلى الحقل، بجانبه، أو مخفي).
+  /// How the label is displayed relative to the field.
   LabelDisplay labelDisplay = LabelDisplay.none;
-  DateTimeTextFieldValidaion(
-      {this.initDate,
-      this.firestDate,
-      this.lastDate,
-      this.datePickerMode = DatePickerMode.day,
-      required this.decoration,
-      required this.textStyle,
-this.labelStyle,
-      required this.keyData,
-      required this.baseValidation,
-      required this.labalText,
-      this.labelDisplay = LabelDisplay.none,
-      this.mapValue,
-      required this.form,
-      this.onChange,
-      this.entryMode = DatePickerEntryMode.calendar});
+  DateTimeTextFieldValidaion({
+    /// التاريخ المبدئي.
+    /// Initial date.
+    this.initDate,
+    /// أقدم تاريخ مسموح.
+    /// Earliest selectable date.
+    this.firestDate,
+    /// أحدث تاريخ مسموح.
+    /// Latest selectable date.
+    this.lastDate,
+    /// وضع التقويم المبدئي (يوم أو سنة).
+    /// Initial date picker mode.
+    this.datePickerMode = DatePickerMode.day,
+    /// زخرفة الحقل.
+    /// Field decoration.
+    required this.decoration,
+    /// تصميم النص المدخل.
+    /// Input text style.
+    required this.textStyle,
+    /// تصميم نص العنوان.
+    /// Label text style.
+    this.labelStyle,
+    /// مفتاح حفظ القيمة.
+    /// Data save key.
+    required this.keyData,
+    /// شروط التحقق.
+    /// Validators.
+    required this.baseValidation,
+    /// نص العنوان.
+    /// Label text.
+    required this.labalText,
+    /// طريقة العرض الخاصة بالعنوان.
+    /// Label display mode.
+    this.labelDisplay = LabelDisplay.none,
+    /// خريطة البيانات المخصصة.
+    /// Data map.
+    this.mapValue,
+    /// مدير نماذج التحقق.
+    /// Validation form manager.
+    required this.form,
+    /// دالة لتتبع تغيير القيمة.
+    /// On change callback.
+    this.onChange,
+    /// وضع إدخال منتقي التاريخ.
+    /// Date picker entry mode.
+    this.entryMode = DatePickerEntryMode.calendar,
+  });
 
   @override
   Widget build(BuildContext context) {

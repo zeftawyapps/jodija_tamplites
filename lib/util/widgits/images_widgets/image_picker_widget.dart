@@ -53,97 +53,164 @@ class ImageFileModel {
   }
 }
 
-/// Widget محسّن لاختيار الصور مع دعم الويب والموبايل
+/// Widget محسّن لاختيار الصور مع دعم الويب والموبايل.
+/// An enhanced widget for picking images with Web and Mobile support.
 class ImagePecker extends StatefulWidget {
-  /// دالة يتم استدعاؤها عند اختيار صورة
+  /// دالة يتم استدعاؤها عند اختيار صورة.
+  /// Callback triggered when an image is selected.
   final Function(ImageFileModel imageModel) onImageSelected;
 
-  /// الصورة الافتراضية (placeholder)
+  /// الصورة الافتراضية (placeholder).
+  /// The default placeholder image asset.
   final String placeholderAsset;
 
-  /// رابط الصورة من الشبكة (إن وجد)
+  /// رابط الصورة من الشبكة (إن وجد).
+  /// The network image URL (if available).
   final String? networkImage;
 
-  /// الارتفاع
+  /// الارتفاع.
+  /// The height of the image widget.
   final double height;
 
-  /// العرض
+  /// العرض.
+  /// The width of the image widget.
   final double width;
 
-  /// شكل الحاوية
+  /// شكل الحاوية (مستطيل أو دائرة).
+  /// The shape of the image container (e.g., BoxShape.rectangle).
   final BoxShape shape;
 
-  /// لون الخلفية
+  /// لون الخلفية.
+  /// The background color.
   final Color backgroundColor;
 
-  /// لون أيقونة الإضافة (اختياري، يفتراض لون السمة الأساسي)
+  /// لون أيقونة الإضافة (اختياري، يفتراض لون السمة الأساسي).
+  /// The add icon color (optional, defaults to primary theme color).
   final Color? iconColor;
 
-  /// حجم الأيقونة
+  /// حجم الأيقونة.
+  /// The icon size.
   final double iconSize;
 
-  /// Border للحاوية
+  /// إطار الحاوية (Border).
+  /// The container border.
   final BoxBorder? border;
 
-  /// BorderRadius (يعمل فقط مع BoxShape.rectangle)
+  /// استدارة الحواف (يعمل فقط مع BoxShape.rectangle).
+  /// The border radius (only works with BoxShape.rectangle).
   final BorderRadius? borderRadius;
 
-  /// Shadows
+  /// الظلال (Shadows).
+  /// The box shadow list.
   final List<BoxShadow>? boxShadow;
 
-  /// نص توضيحي تحت الصورة
+  /// نص توضيحي يظهر أسفل الصورة.
+  /// Helper text displayed below the image.
   final String? helperText;
 
-  /// هل يمكن اختيار من الكاميرا (فقط للموبايل)
+  /// إمكانية التقاط صورة بالكاميرا (للموبايل فقط).
+  /// Whether camera selection is enabled (mobile only).
   final bool enableCamera;
 
-  /// هل يتم عرض أداة Crop بعد اختيار الصورة
+  /// إمكانية قص الصورة بعد اختيارها.
+  /// Whether to show the crop tool after selecting an image.
   final bool enableCrop;
 
-  /// نسبة العرض للارتفاع في Crop (null = حر)
+  /// نسبة العرض للارتفاع عند القص (null = حر).
+  /// The crop aspect ratio (null for free ratio).
   final double? cropAspectRatio;
 
-  /// الحد الأقصى لحجم الصورة بالميجابايت (null = بدون حد)
+  /// الحد الأقصى لحجم الصورة بالميجابايت (null = بدون حد).
+  /// The maximum file size in megabytes (null for no limit).
   final double? maxFileSizeMB;
 
-  /// هل يتم إظهار حجم الملف تحت الصورة
+  /// هل يتم إظهار حجم الملف تحت الصورة.
+  /// Whether to show the file size below the image.
   final bool showFileSize;
 
-  /// العرض المطلوب (ل للعرض فقط)
+  /// العرض المطلوب للمقاس.
+  /// The required width for validation.
   final int? requiredWidth;
 
-  /// الارتفاع المطلوب (ل للعرض فقط)
+  /// الارتفاع المطلوب للمقاس.
+  /// The required height for validation.
   final int? requiredHeight;
 
-  /// نوع التحقق من الأبعاد (أدنى، أقصى، أو دقيق)
+  /// قاعدة التحقق من الأبعاد (أدنى، أقصى، أو تماماً).
+  /// The dimension validation rule (min, max, or exact).
   final DimensionRule dimensionRule;
 
-  /// هل التحقق من المقاسات "صارم" (لا يقبل الصورة إذا كانت لا تطابق الشرط)
+  /// هل التحقق من المقاسات "صارم" (يرفض الصورة إذا لم تطابق).
+  /// Whether dimension validation is strict (rejects if it doesn't match).
   final bool isStrict;
 
   const ImagePecker({
     Key? key,
+    /// دالة اختيار الصورة.
+    /// Image selection callback.
     required this.onImageSelected,
+    /// مسار الصورة الافتراضية.
+    /// Placeholder asset path.
     required this.placeholderAsset,
+    /// مسار صورة الشبكة.
+    /// Network image url.
     this.networkImage,
+    /// الارتفاع.
+    /// Height.
     this.height = 200,
+    /// العرض.
+    /// Width.
     this.width = double.infinity,
+    /// شكل الحاوية.
+    /// Container shape.
     this.shape = BoxShape.rectangle,
+    /// لون الخلفية.
+    /// Background color.
     this.backgroundColor = Colors.white,
+    /// لون الأيقونة.
+    /// Icon color.
     this.iconColor,
+    /// حجم الأيقونة.
+    /// Icon size.
     this.iconSize = 40,
+    /// إطار الحاوية.
+    /// Border.
     this.border,
+    /// استدارة الحواف.
+    /// Border radius.
     this.borderRadius,
+    /// الظلال.
+    /// Box shadow.
     this.boxShadow,
+    /// نص مساعد.
+    /// Helper text.
     this.helperText,
+    /// تمكين الكاميرا.
+    /// Enable camera.
     this.enableCamera = true,
+    /// تمكين القص.
+    /// Enable crop.
     this.enableCrop = true,
+    /// نسبة القص المخصصة.
+    /// Crop aspect ratio.
     this.cropAspectRatio,
+    /// الحد الأقصى للحجم.
+    /// Maximum file size.
     this.maxFileSizeMB,
+    /// إظهار الحجم.
+    /// Show file size.
     this.showFileSize = true,
+    /// العرض المطلوب.
+    /// Required width.
     this.requiredWidth,
+    /// الارتفاع المطلوب.
+    /// Required height.
     this.requiredHeight,
+    /// قاعدة قياس الأبعاد.
+    /// Dimension rule.
     this.dimensionRule = DimensionRule.min,
+    /// هل هو صارم.
+    /// Is strict validation.
     this.isStrict = false,
   }) : super(key: key);
 
