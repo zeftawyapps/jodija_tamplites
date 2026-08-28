@@ -15,9 +15,6 @@ class SharedPrefranceChecking {
       String pass = data.getString(SharedPrefranceData.USER_PASS) ?? "";
       String uid = data.getString(SharedPrefranceData.USER_UID) ?? "";
       String token = data.getString(SharedPrefranceData.USER_TOKen) ?? "";
-      print("token : $token");
-      print("email : $email");
-      print("uid : $uid");
       var modele =
           ShardUserModel(email: email, pass: pass, uid: uid, token: token);
       UserDataStored().setUserData(modele);

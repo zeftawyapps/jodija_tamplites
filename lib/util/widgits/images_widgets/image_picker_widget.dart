@@ -233,6 +233,57 @@ class _ImagePeckerState extends State<ImagePecker> {
     }
   }
 
+  void _showPickerOptions(BuildContext context) {
+    if (kIsWeb || !widget.enableCamera) {
+      _pickImage(ImageSource.gallery);
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 8),
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.grey[700] : Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 16),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('الكاميرا'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('معرض الصور'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> _pickImage(ImageSource source) async {
     setState(() {
       _isLoading = true;
@@ -545,9 +596,7 @@ class _ImagePeckerState extends State<ImagePecker> {
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              _showOptions = !_showOptions;
-            });
+            _showPickerOptions(context);
           },
           child: Container(
             width: widget.width,
@@ -584,48 +633,78 @@ class _ImagePeckerState extends State<ImagePecker> {
 
                 // أيقونة الإضافة
                 Positioned(
-                  bottom: 8,
-                  right: 8,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: widget.iconColor ?? Theme.of(context).primaryColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
+                  bottom: (widget.width <= 120 || widget.height <= 120) ? 0 : 8,
+                  right: (widget.width <= 120 || widget.height <= 120) ? 0 : 8,
+                  left: (widget.width <= 120 || widget.height <= 120) ? 0 : null,
+                  top: (widget.width <= 120 || widget.height <= 120) ? 0 : null,
+                  child: (widget.width <= 120 || widget.height <= 120)
+                      ? Container(
+                          color: Colors.black.withOpacity(0.25),
+                          child: Center(
+                            child: Icon(
+                              Icons.add_a_photo_outlined,
+                              color: Colors.white,
+                              size: widget.iconSize * 0.5,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: widget.iconColor ?? Theme.of(context).primaryColor,
+                            shape: BoxShape.circle,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white,
+                            size: widget.iconSize * 0.6,
+                          ),
                         ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.white,
-                      size: widget.iconSize * 0.6,
-                    ),
-                  ),
                 ),
               ],
             ),
           ),
         ),
 
-        // خيارات اختيار الصورة
-        if (_showOptions)
-          AnimatedContainer(
-            duration: Duration(milliseconds: 200),
-            margin: EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // الكاميرا (للموبايل فقط)
-                if (!kIsWeb && widget.enableCamera) ...[
+        if (!(widget.width <= 120 || widget.height <= 120)) ...[
+          // خيارات اختيار الصورة
+          if (_showOptions)
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.only(top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // الكاميرا (للموبايل فقط)
+                  if (!kIsWeb && widget.enableCamera) ...[
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () => _pickImage(ImageSource.camera),
+                        icon: const Icon(Icons.camera_alt),
+                        label: const Text('كاميرا'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              widget.iconColor ?? Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+
+                  // المعرض
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () => _pickImage(ImageSource.camera),
-                      icon: Icon(Icons.camera_alt),
-                      label: Text('كاميرا'),
+                      onPressed: () => _pickImage(ImageSource.gallery),
+                      icon: const Icon(Icons.photo_library),
+                      label: const Text('معرض'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             widget.iconColor ?? Theme.of(context).primaryColor,
@@ -633,131 +712,116 @@ class _ImagePeckerState extends State<ImagePecker> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
-                ],
-
-                // المعرض
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () => _pickImage(ImageSource.gallery),
-                    icon: Icon(Icons.photo_library),
-                    label: Text('معرض'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          widget.iconColor ?? Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-        // نص توضيحي
-        if (widget.helperText != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              widget.helperText!,
-              style: TextStyle(
-                fontSize: 12,
-                color: isDark ? Colors.grey[400] : Colors.grey[600],
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-
-        // عرض حجم الملف
-        if (widget.showFileSize && _currentImage?.fileSizeInBytes != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: (widget.iconColor ?? Theme.of(context).primaryColor)
-                    .withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.insert_drive_file,
-                    size: 14,
-                    color: widget.iconColor ?? Theme.of(context).primaryColor,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    _currentImage!.readableFileSize,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: widget.iconColor ?? Theme.of(context).primaryColor,
-                    ),
-                  ),
                 ],
               ),
             ),
-          ),
 
-        // عرض الأبعاد المطلوبة
-        if (widget.requiredWidth != null && widget.requiredHeight != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.aspect_ratio,
-                  size: 14,
+          // نص توضيحي
+          if (widget.helperText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                widget.helperText!,
+                style: TextStyle(
+                  fontSize: 12,
                   color: isDark ? Colors.grey[400] : Colors.grey[600],
                 ),
-                SizedBox(width: 4),
-                Text(
-                  () {
-                    String prefix = 'المقاس المطلوب:';
-                    if (widget.dimensionRule == DimensionRule.min)
-                      prefix = 'الحد الأدنى للمقاس:';
-                    if (widget.dimensionRule == DimensionRule.max)
-                      prefix = 'الحد الأقصى للمقاس:';
-                    if (widget.dimensionRule == DimensionRule.exact)
-                      prefix = 'المقاس المطلوب تماماً:';
-                    return '$prefix ${widget.requiredWidth} × ${widget.requiredHeight}';
-                  }(),
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: isDark ? Colors.grey[400] : Colors.grey[600],
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
 
-        // عرض أبعاد الصورة المختارة حالياً
-        if (_currentImage?.width != null && _currentImage?.height != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.photo_size_select_actual,
-                  size: 14,
-                  color: isDark ? Colors.green[300] : Colors.green[700],
+          // عرض حجم الملف
+          if (widget.showFileSize && _currentImage?.fileSizeInBytes != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: (widget.iconColor ?? Theme.of(context).primaryColor)
+                      .withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                SizedBox(width: 4),
-                Text(
-                  'أبعاد الصورة المختارة: ${_currentImage!.width} × ${_currentImage!.height}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: isDark ? Colors.green[300] : Colors.green[700],
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.insert_drive_file,
+                      size: 14,
+                      color: widget.iconColor ?? Theme.of(context).primaryColor,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      _currentImage!.readableFileSize,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: widget.iconColor ?? Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+
+          // عرض الأبعاد المطلوبة
+          if (widget.requiredWidth != null && widget.requiredHeight != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.aspect_ratio,
+                    size: 14,
+                    color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    () {
+                      String prefix = 'المقاس المطلوب:';
+                      if (widget.dimensionRule == DimensionRule.min)
+                        prefix = 'الحد الأدنى للمقاس:';
+                      if (widget.dimensionRule == DimensionRule.max)
+                        prefix = 'الحد الأقصى للمقاس:';
+                      if (widget.dimensionRule == DimensionRule.exact)
+                        prefix = 'المقاس المطلوب تماماً:';
+                      return '$prefix ${widget.requiredWidth} × ${widget.requiredHeight}';
+                    }(),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: isDark ? Colors.grey[400] : Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          // عرض أبعاد الصورة المختارة حالياً
+          if (_currentImage?.width != null && _currentImage?.height != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo_size_select_actual,
+                    size: 14,
+                    color: isDark ? Colors.green[300] : Colors.green[700],
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'أبعاد الصورة المختارة: ${_currentImage!.width} × ${_currentImage!.height}',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: isDark ? Colors.green[300] : Colors.green[700],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ],
     );
   }

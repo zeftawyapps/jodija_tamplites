@@ -316,9 +316,9 @@ class SideBarNavigationTheames {
       fontFamily: fontFamily ?? 'Cairo',
       fontSize: fontSize,
       fontWeight: isSelected ? selectedFontWeight : normalFontWeight,
-      color: isSelected
-          ? selectedTextColor
-          : (isHovered ? hoverTextColor : textColor),
+      color: isHovered
+          ? hoverTextColor
+          : (isSelected ? selectedTextColor : textColor),
     );
   }
 
@@ -327,9 +327,9 @@ class SideBarNavigationTheames {
     bool isHovered = false,
     bool isSelected = false,
   }) {
-    return isSelected
-        ? selectedIconColor
-        : (isHovered ? hoverIconColor : iconColor);
+    return isHovered
+        ? hoverTextColor
+        : (isSelected ? selectedTextColor : iconColor);
   }
 
   /// Get slide offset for animation based on layout direction

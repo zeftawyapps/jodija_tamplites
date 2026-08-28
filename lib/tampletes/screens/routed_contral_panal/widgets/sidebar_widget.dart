@@ -6,6 +6,8 @@ import '../laaunser.dart';
 import '../providers/sidebar_provider.dart';
 import '../providers/status_provider.dart';
 import '../theam/theam.dart';
+import 'sidebar_group_item_widget.dart';
+import 'collapsed_sidebar_widgets.dart';
 
 class SidebarWidget extends StatefulWidget {
   final List<dynamic> items;
@@ -24,6 +26,56 @@ class SidebarWidget extends StatefulWidget {
 class _SidebarWidgetState extends State<SidebarWidget> {
   /// Track if navigation is happening
   bool _isNavigating = false;
+
+  /// Find the group index containing the selected index
+  int _findSelectedGroupIndex(List<dynamic> allItems, int selectedIndex) {
+    final organizedItems = _organizeItems(allItems);
+    final groupedItems = organizedItems['grouped'] as Map<String, List<dynamic>>;
+    
+    int groupIndex = 0;
+    for (var parentName in groupedItems.keys) {
+      final childItems = groupedItems[parentName]!;
+      for (var childItem in childItems) {
+        if (allItems.indexOf(childItem) == selectedIndex) {
+          return groupIndex;
+        }
+      }
+      groupIndex++;
+    }
+    return -1;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final selectedGroupIndex = _findSelectedGroupIndex(widget.items, widget.selectedIndex);
+        if (selectedGroupIndex != -1) {
+          final statusProvider = context.read<StatusProvider>();
+          if (statusProvider.OpenedSubMenuIndex == -1) {
+            statusProvider.setOpenedSubMenuExtesionsIndex(selectedGroupIndex);
+          }
+        }
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant SidebarWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedIndex != widget.selectedIndex) {
+      final selectedGroupIndex = _findSelectedGroupIndex(widget.items, widget.selectedIndex);
+      if (selectedGroupIndex != -1) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            final statusProvider = context.read<StatusProvider>();
+            statusProvider.setOpenedSubMenuExtesionsIndex(selectedGroupIndex);
+          }
+        });
+      }
+    }
+  }
 
   /// Check if a specific group is expanded by its index
   bool isGroupExpanded(int groupIndex) {
@@ -318,21 +370,23 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           curve: Curves.easeInOut,
           width: isCollapsed ? collapsedWidth : expandedWidth,
           color: theme.backgroundColor,
-          child: Column(
-            children: [
-              // Header with embedded collapse button
-              _buildHeader(
-                  context, theme, headerConfig, isCollapsed, statusProvider),
+          child: SafeArea(
+            child: Column(
+              children: [
+                // Header with embedded collapse button
+                _buildHeader(
+                    context, theme, headerConfig, isCollapsed, statusProvider),
 
-              // Sidebar Items
-              Expanded(
-                child: isCollapsed
-                    ? _buildCollapsedLayout(context, theme)
-                    : isColumn
-                        ? _buildColumnLayout(context, theme)
-                        : _buildExpandableLayout(context, theme),
-              ),
-            ],
+                // Sidebar Items
+                Expanded(
+                  child: isCollapsed
+                      ? _buildCollapsedLayout(context, theme)
+                      : isColumn
+                          ? _buildColumnLayout(context, theme)
+                          : _buildExpandableLayout(context, theme),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -425,7 +479,10 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           Tooltip(
             message: item.label,
             preferBelow: false,
-            child: InkWell(
+            child: CollapsedStandaloneItemWidget(
+              isSelected: isSelected,
+              icon: item.icon,
+              theme: theme,
               onTap: () {
                 _isNavigating = true;
 
@@ -444,40 +501,6 @@ class _SidebarWidgetState extends State<SidebarWidget> {
                   }
                 });
               },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                height: theme.itemHeight,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? theme.selectedBackgroundColor
-                      : theme.backgroundColor,
-                  // تم إزالة الحد بناءً على طلب المستخدم
-                  // border: isSelected
-                  //     ? Border(
-                  //         left: theme.layoutDirection == TextDirection.ltr
-                  //             ? BorderSide(
-                  //                 color: theme.selectedBorderColor,
-                  //                 width: theme.selectedBorderWidth,
-                  //               )
-                  //             : BorderSide.none,
-                  //         right: theme.layoutDirection == TextDirection.rtl
-                  //             ? BorderSide(
-                  //                 color: theme.selectedBorderColor,
-                  //                 width: theme.selectedBorderWidth,
-                  //               )
-                  //             : BorderSide.none,
-                  //       )
-                  //     : null,
-
-                ),
-                child: Icon(
-                  item.icon,
-                  color: isSelected ? theme.selectedIconColor : theme.iconColor,
-                  size: theme.iconSize,
-                ),
-              ),
             ),
           ),
           itemIndex,
@@ -537,31 +560,12 @@ class _SidebarWidgetState extends State<SidebarWidget> {
 
                 return PopupMenuItem<dynamic>(
                   value: childItem,
-                  child: Row(
-                    children: [
-                      Icon(
-                        childItem.icon,
-                        color: isChildSelected
-                            ? theme.selectedIconColor
-                            : theme.iconColor,
-                        size: theme.iconSize * 0.8,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        childItem.label,
-                        style: TextStyle(
-                          fontFamily: theme.fontFamily ?? 'Cairo',
-                          color: isChildSelected
-                              ? (theme.selectedTextColor ??
-                                  theme.selectedIconColor)
-                              : theme.textColor,
-                          fontSize: theme.fontSize,
-                          fontWeight: isChildSelected
-                              ? theme.selectedFontWeight
-                              : FontWeight.normal,
-                        ),
-                      ),
-                    ],
+                  padding: EdgeInsets.zero,
+                  child: HoverablePopupMenuItemChild(
+                    isSelected: isChildSelected,
+                    icon: childItem.icon,
+                    label: childItem.label,
+                    theme: theme,
                   ),
                 );
               }).toList();
@@ -569,41 +573,10 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             child: Tooltip(
               message: parentName,
               preferBelow: false,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                height: theme.itemHeight,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isParentSelected
-                      ? theme.selectedBackgroundColor
-                      : theme.backgroundColor,
-                  // تم إزالة الحد بناءً على طلب المستخدم
-                  // border: isParentSelected
-                  //     ? Border(
-                  //         left: theme.layoutDirection == TextDirection.ltr
-                  //             ? BorderSide(
-                  //                 color: theme.selectedBorderColor,
-                  //                 width: theme.selectedBorderWidth,
-                  //               )
-                  //             : BorderSide.none,
-                  //         right: theme.layoutDirection == TextDirection.rtl
-                  //             ? BorderSide(
-                  //                 color: theme.selectedBorderColor,
-                  //                 width: theme.selectedBorderWidth,
-                  //               )
-                  //             : BorderSide.none,
-                  //       )
-                  //     : null,
-
-                ),
-                child: Icon(
-                  parentItem.parentIcon ?? Icons.folder,
-                  color: isParentSelected
-                      ? theme.selectedIconColor
-                      : theme.iconColor,
-                  size: theme.iconSize,
-                ),
+              child: CollapsedGroupItemWidget(
+                isSelected: isParentSelected,
+                icon: parentItem.parentIcon ?? Icons.folder,
+                theme: theme,
               ),
             ),
           ),
@@ -664,6 +637,15 @@ class _SidebarWidgetState extends State<SidebarWidget> {
       final currentGroupIndex = groupIndex;
       groupIndex++;
 
+      // Check if one of the children is selected
+      bool isParentSelected = false;
+      for (var childItem in childItems) {
+        if (widget.selectedIndex == widget.items.indexOf(childItem)) {
+          isParentSelected = true;
+          break;
+        }
+      }
+
       listChildren.add(
         _buildAnimatedItem(
           Consumer<StatusProvider>(
@@ -671,33 +653,12 @@ class _SidebarWidgetState extends State<SidebarWidget> {
               final isExpanded =
                   statusProvider.OpenedSubMenuIndex == currentGroupIndex;
 
-              return ExpansionTile(
-                key: ValueKey(parentName),
-                shape: const Border(),
-                collapsedShape: const Border(),
-                initiallyExpanded: isExpanded,
-
-                leading: Icon(
-                  parentItem.parentIcon ?? Icons.folder,
-                  color: isExpanded ? theme.expandedIconColor : theme.iconColor,
-                ),
-                title: Text(
-                  parentName,
-                  style: TextStyle(
-                    fontFamily: theme.fontFamily ?? 'Cairo',
-                    color:
-                        isExpanded ? theme.expandedTextColor : theme.textColor,
-                    fontSize: theme.fontSize,
-                    fontWeight: theme.selectedFontWeight,
-                  ),
-                ),
-                iconColor:
-                    isExpanded ? theme.expandedArrowColor : theme.iconColor,
-                collapsedIconColor: theme.iconColor,
-                backgroundColor: isExpanded
-                    ? theme.expandedBackgroundColor
-                    : theme.backgroundColor,
-                collapsedBackgroundColor: theme.backgroundColor,
+              return SidebarGroupItemWidget(
+                parentName: parentName,
+                parentIcon: parentItem.parentIcon,
+                theme: theme,
+                isExpanded: isExpanded,
+                isParentSelected: isParentSelected,
                 onExpansionChanged: (newIsExpanded) {
                   // Don't allow closing while navigating
                   if (_isNavigating && !newIsExpanded) {

@@ -44,23 +44,53 @@ class ShowInputFieldsDialogs<T extends BaseViewDataModel> {
     } else {
       showModalBottomSheet<T?>(
           context: context,
-          builder: (_) {
-            bool iskeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
-            return FadeIn(
+          isScrollControlled: true, // يسمح للـ Bottom Sheet بالتمدد وتجنب التقيد بـ 50% من الشاشة
+          backgroundColor: Colors.transparent, // لجعل الخلفية تبدو انسيابية
+          builder: (modalContext) {
+            // نستخدم الـ viewInsets لمعرفة المساحة التي تغطيها لوحة المفاتيح
+            final keyboardPadding = MediaQuery.of(modalContext).viewInsets.bottom;
+            return Padding(
+              padding: EdgeInsets.only(bottom: keyboardPadding),
+              child: FadeIn(
                 duration: Duration(milliseconds: 300),
                 child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
                   width: width ?? w * 0.9,
-                  height: iskeyboard ? 20000 : height ?? h * 0.4,
+                  height: height ?? h * 0.5, // نحدد الارتفاع المطلوب أو الافتراضي
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          // height: iskeyboard ? height ??   h * 1.2 : height ??  h * .1,
-                          child: content,
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // خط سحب صغير في الأعلى للجمالية وسهولة الإغلاق
+                            Container(
+                              width: 40,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: content,
+                              ),
+                            ),
+                          ],
                         ),
                       )),
-                ));
-          }).then((value) => {onResult!(value)});
+                ),
+              ),
+            );
+          }).then((value) => {onResult?.call(value)});
     }
   }
 }

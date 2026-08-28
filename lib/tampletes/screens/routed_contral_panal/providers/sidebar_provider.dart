@@ -7,11 +7,16 @@ import '../screens/main_screen.dart';
 
 /// App Shell Router Provider - manages routing and navigation state
 class AppShellRouterProvider extends ChangeNotifier {
-  AppShellRouterProvider({required this.sidebarItems, this.errorConent}) {
+  AppShellRouterProvider({
+    required this.sidebarItems,
+    this.errorConent,
+    this.shouldShowSidebar,
+  }) {
     this.sidebarItems = sidebarItems;
   }
 
   List<RouteItem> sidebarItems;
+  final bool Function(BuildContext)? shouldShowSidebar;
 
   void setSidebarItems(List<RouteItem> items) {
     sidebarItems = items;
@@ -129,15 +134,20 @@ class AppShellRouterProvider extends ChangeNotifier {
     int index = _getIndexForPath(path);
     RouteItem item = sidebarItems[index];
 
+    final actualResolvedPath = resolvedPath ?? item.resolvedPath;
+
     if (item.isSideBarRouted && item.path != null) {
       // التعامل مع العناصر المسارة
       setSelectedIndex(index);
       if (item.prams != null) {
         Map<String, String> finalParams = {};
-        finalParams = extractParamsFromPath(item.path!, resolvedPath!);
+        finalParams = extractParamsFromPath(item.path!, actualResolvedPath);
 
-        context.goNamed(item.path!,
-            pathParameters: extractParamsFromPath(item.path!, resolvedPath!));
+        String goPath = item.path!;
+        finalParams.forEach((key, value) {
+          goPath = goPath.replaceAll(':$key', value);
+        });
+        context.go(goPath);
       } else {
         context.go(item.path!);
       }

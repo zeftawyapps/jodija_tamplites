@@ -12,22 +12,27 @@ import '../lable_desplty.dart';
 class DrobDaownValidation extends StatefulWidget
     implements InputValidationForm, InputFeildBinder {
   @override
+
   /// قائمة شروط التحقق المطبقة.
   /// The list of validators applied.
   List<BaseValidator>? baseValidation;
   @override
+
   /// نموذج التحقق المرتبط بهذا الحقل.
   /// The form validation manager.
   ValidationsForm form;
   @override
+
   /// المفتاح الفريد لحفظ القيمة في خريطة البيانات.
   /// The unique key to save the value in the data map.
   String keyData;
   @override
+
   /// العنوان التعريفي للحقل.
   /// The label text of the field.
   String? labalText;
   @override
+
   /// خريطة البيانات التي يُحفظ فيها الناتج محلياً.
   /// The local map where the value is stored.
   Map<String, dynamic>? mapValue;
@@ -35,63 +40,74 @@ class DrobDaownValidation extends StatefulWidget
   /// قائمة العناصر (النصوص) التي ستظهر داخل القائمة المنسدلة.
   /// The list of items (strings) to display in the dropdown.
   final List<String> itemslsit;
-  
+
   /// التنسيق الخاص بحقل الإدخال.
   /// The decoration of the input field.
   final InputDecoration decoration;
-  
+
   /// تصميم النص الذي يظهر في الحقل (للعنصر المختار).
   /// The text style of the inputted/selected text.
   final TextStyle textStyle;
-  
+
   /// تصميم نص العنوان (Label).
   /// The text style for the label.
   final TextStyle? labelStyle;
-  
+
   /// دالة تُستدعى عند تغير العنصر المختار.
   /// Callback triggered when the selected item changes.
   final dynamic onChange;
-  
+
   /// طريقة عرض العنوان (أعلى الحقل، بجانبه، أو مخفي).
   /// How the label is displayed relative to the field.
   final LabelDisplay lableDesplty;
-  
+
   /// الفهرس المبدئي (Index) للعنصر المختار افتراضياً من القائمة.
   /// The initial selected index from the list.
   final int index;
 
   DrobDaownValidation({
     super.key,
+
     /// زخرفة الحقل.
     /// Field decoration.
     required this.decoration,
+
     /// تصميم النص المدخل أو المختار.
     /// Input or selected text style.
     required this.textStyle,
+
     /// قائمة العناصر.
     /// The list of items.
     required this.itemslsit,
+
     /// مفتاح حفظ القيمة.
     /// Data save key.
     required this.keyData,
+
     /// شروط التحقق.
     /// Validators.
     required this.baseValidation,
+
     /// تصميم نص العنوان.
     /// Label text style.
     this.labelStyle,
+
     /// نص العنوان.
     /// Label text.
     this.labalText,
+
     /// طريقة العرض الخاصة بالعنوان.
     /// Label display mode.
     this.lableDesplty = LabelDisplay.none,
+
     /// دالة لتتبع تغيير القيمة.
     /// On change callback.
     this.onChange,
+
     /// الفهرس الافتراضي للعنصر المختار.
     /// The default selected index.
     this.index = 0,
+
     /// مدير نماذج التحقق.
     /// Validation form manager.
     required this.form,
@@ -112,20 +128,39 @@ class DrobDaownValidation extends StatefulWidget
 }
 
 class _DrobDaownValidationState extends State<DrobDaownValidation> {
+  Map<String, dynamic> _localMapValue = {};
+
   @override
   void initState() {
     super.initState();
-    widget.mapValue = <String, dynamic>{};
+    _localMapValue = <String, dynamic>{};
     if (widget.itemslsit.isNotEmpty &&
         widget.index >= 0 &&
         widget.index < widget.itemslsit.length) {
-      widget.mapValue![widget.keyData] = widget.itemslsit[widget.index];
+      _localMapValue[widget.keyData] = widget.itemslsit[widget.index];
     }
+    widget.mapValue = _localMapValue;
     widget.form.inputValidationForm.add(widget);
   }
 
   @override
+  void didUpdateWidget(covariant DrobDaownValidation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    widget.mapValue = _localMapValue;
+    if (oldWidget.index != widget.index &&
+        widget.itemslsit.isNotEmpty &&
+        widget.index >= 0 &&
+        widget.index < widget.itemslsit.length) {
+      _localMapValue[widget.keyData] = widget.itemslsit[widget.index];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    widget.mapValue = _localMapValue;
+    if (!widget.form.inputValidationForm.contains(widget)) {
+      widget.form.inputValidationForm.add(widget);
+    }
     if (widget.lableDesplty == LabelDisplay.none) {
       return DropDownInputTextField(
         textStyle: widget.textStyle,

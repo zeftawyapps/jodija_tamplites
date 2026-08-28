@@ -68,10 +68,13 @@ class _MainScreenState extends State<MainScreen>
     // isScreenSmall, theme, smallScreenAppBarConfig, largeScreenAppBarConfig, showAppBarOnLargeScreen
     // كلها متاحة مباشرة من المixin
 
+    final shouldShowSidebar =
+        appShellProvider.shouldShowSidebar?.call(context) ?? true;
+
     // إذا لم يكن المحتوى داخل sidebar، عرضه مباشرة
-    if (!widget.isRouteInsidebar) {
+    if (!widget.isRouteInsidebar || !shouldShowSidebar) {
       return Scaffold(
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: _buildAppBar(context),
         body: widget.contentWidget,
       );
@@ -97,7 +100,7 @@ class _MainScreenState extends State<MainScreen>
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(context),
       drawer: _buildDrawer(
         items: items,
@@ -128,7 +131,7 @@ class _MainScreenState extends State<MainScreen>
         children: [
           // المحتوى الرئيسي
           Container(
-            color: theme.backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: widget.contentWidget,
           ),
 
@@ -144,7 +147,7 @@ class _MainScreenState extends State<MainScreen>
                 },
                 icon: Icon(
                   Icons.menu,
-                  color: theme.selectedIconColor,
+                  color: theme.iconColor,
                   size: 24,
                 ),
               ),
@@ -160,7 +163,7 @@ class _MainScreenState extends State<MainScreen>
     int selectedIndex,
   ) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: showAppBarOnLargeScreen ? _buildAppBar(context) : null,
       body: Row(
         children: [
@@ -176,11 +179,10 @@ class _MainScreenState extends State<MainScreen>
           //   color: theme.selectedBorderColor.withOpacity(0.3),
           // ),
 
-
           // المحتوى الرئيسي
           Expanded(
             child: Container(
-              color: theme.backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: widget.contentWidget,
             ),
           ),
@@ -228,6 +230,7 @@ class _MainScreenState extends State<MainScreen>
     return AppBar(
       backgroundColor: theme.backgroundColor,
       foregroundColor: theme.textColor,
+      iconTheme: IconThemeData(color: theme.iconColor),
       title: Text(
         widget.appBarTitl,
         style: TextStyle(

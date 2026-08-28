@@ -28,6 +28,9 @@ class AdaptiveAppShell extends StatelessWidget {
   /// The list of elements (routes) that will be displayed in the sidebar.
   final List<RouteItem>? sidebarItems;
 
+  /// Callback to determine whether the sidebar should be shown dynamically.
+  final bool Function(BuildContext)? shouldShowSidebar;
+
   // Theme configuration
   /// الثيم الفاتح للتطبيق.
   /// The light theme of the application.
@@ -334,6 +337,8 @@ class AdaptiveAppShell extends StatelessWidget {
     /// مزودات (Providers) أو (Blocs) إضافية تود تهيئتها على مستوى التطبيق بالكامل.
     /// Additional global Providers or Blocs to initialize across the application.
     this.extraProvidersAndBlocs,
+    /// Callback to determine whether the sidebar should be shown dynamically.
+    this.shouldShowSidebar,
   }) {
     // Calculate layoutDirection from languageCode using utility
     _layoutDirection = AppShellUtils.getLayoutDirection(languageCode);
@@ -475,9 +480,10 @@ class AdaptiveAppShell extends StatelessWidget {
         // AppShellRouterProvider manages routing
         ChangeNotifierProvider(
           create: (_) => AppShellRouterProvider(
-              sidebarItems: sidebarItems ??
-                [
- ], errorConent: this.errorScreen),
+            sidebarItems: sidebarItems ?? [],
+            errorConent: this.errorScreen,
+            shouldShowSidebar: this.shouldShowSidebar,
+          ),
         ),
 
         // SettingsProvider manages app settings
