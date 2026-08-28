@@ -5,34 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+/// الفئة الأساسية لتهيئة وإدارة الترجمة واللغات (Localization Foundation Initializer)
+///
+/// توفر الكلمات والمصطلحات المترجمة ودعم اتجاه النص (RTL للغة العربية و LTR للغات اللاتينية).
 class AppLocalizationsInit {
-// add sengle tone
-//   static final AppLocalizationsInit _singleton = AppLocalizationsInit._internal();
-//   factory AppLocalizationsInit( ) {
-//
-//     return _singleton;
-//   }
-//   AppLocalizationsInit._internal();
+  Locale local = LocalizationConfig().locale;
 
 
-
-    Locale local = LocalizationConfig().locale;
-  // static   List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-  // <LocalizationsDelegate<dynamic>>[
-  //    delegate,
-  //   GlobalMaterialLocalizations.delegate,
-  //       GlobalWidgetsLocalizations.delegate,
-  //   GlobalCupertinoLocalizations.delegate,
-  // ];
+  /// قائمة مفوضي الترجمة بما يشمل ترجمات Material و Widgets و Cupertino.
   List<LocalizationsDelegate<dynamic>> get localizationsDelegates =>
-      LocalizationConfig().locliztionDelegates( LocalizationConfig().locale);
+      LocalizationConfig().locliztionDelegates(LocalizationConfig().locale);
 
-
-
-  /// A list of this localizations delegate's supported locales.
-    List<Locale> supportedLocales = LocalizationConfig().supportedLocales;
+  /// قائمة اللغات المدعومة حالياً داخل التطبيق.
+  List<Locale> supportedLocales = LocalizationConfig().supportedLocales;
 }
 
+/// مفوض تحميل الترجمات في بيئة فلاتر (Flutter Localization Delegate)
 class AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizationsInit> {
   const AppLocalizationsDelegate();
@@ -52,12 +40,11 @@ class AppLocalizationsDelegate
 }
 
 AppLocalizationsInit _lookupAppLocalizations(Locale locale) {
-  // use Loacalconfig class
-
   LocalizationConfig config = LocalizationConfig();
   return config.localizedValues![locale.languageCode]!;
 }
 
+/// مدير إعدادات الترجمة الموحد بنمط Singleton
 class LocalizationConfig {
   static final LocalizationConfig _singleton = LocalizationConfig._internal();
   factory LocalizationConfig({Map<String, AppLocalizationsInit>? localizedValues}) {
@@ -66,6 +53,7 @@ class LocalizationConfig {
   }
   LocalizationConfig._internal();
   Map<String, AppLocalizationsInit> localizedValues = {};
+
   List<Locale> _localList = [];
   // add a variable to hold the current locale
   Locale _locale = Locale('en');

@@ -4,9 +4,21 @@ import 'cell.dart';
 import 'modul_screateor.dart';
 import 'row_cells.dart';
 
+/// محرك إدارة ومعالجة الجداول الحسابية والإحصائية (Data Table & Cell Operations Engine)
+///
+/// يوفر هذا الكلاس وظائف متقدمة للتعامل مع قوائم البيانات والنماذج المستندة إلى [CellModel]،
+/// بما في ذلك:
+/// - تحويل النماذج إلى صفوف وخلايا ديناميكية ([RowofCells]).
+/// - استخراج القيم الفريدة والمجموعات ([unicGrubs]).
+/// - التجميع والعد الإحصائي وحساب المجاميع والمعدلات ([countBy], `groubbyCount`).
 class DataTableOfCellModels<T extends CellModel> {
+  /// قائمة الخرائط الناتجة عن تمثيل البيانات.
   List<Map<String, dynamic>> mapList = [];
+
+  /// قائمة الصفوف المكونة من خلايا مهيأة للعرض.
   List<RowofCells> listOfRows = [];
+
+  /// القائمة الأصلية لنماذج البيانات.
   List<T> listCellsModle = [];
 
   DataTableOfCellModels(this.listCellsModle) {
@@ -16,6 +28,7 @@ class DataTableOfCellModels<T extends CellModel> {
     }).toList();
     this.mapList = getListmap(listOfRows);
   }
+
   List<RowofCells> getDatarow(List<Map<String, dynamic>> listMaps) {
     List<RowofCells> getDatarows = [];
     for (int i = 0; i < listMaps.length; i++) {
