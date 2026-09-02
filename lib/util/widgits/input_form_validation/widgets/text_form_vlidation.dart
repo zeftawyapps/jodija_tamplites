@@ -52,6 +52,10 @@ class TextFomrFildValidtion extends StatelessWidget
   /// Callback triggered every time the written text changes.
   Function(String v)? onChange;
 
+  /// قائمة أدوات تنسيق وتصفية النصوص (Input Formatters).
+  /// List of text input formatters.
+  List<TextInputFormatter>? inputFormatters;
+
   /// المتحكم الخاص بالنص (TextEditingController).
   /// The text editing controller.
   TextEditingController? controller = TextEditingController();
@@ -150,6 +154,8 @@ class TextFomrFildValidtion extends StatelessWidget
     /// متحكم النص المخصص.
     /// Custom text editing controller.
     this.controller,
+    /// أدوات تصفية وتنسيق النصوص.
+    this.inputFormatters,
   });
 
   @override
@@ -167,7 +173,7 @@ class TextFomrFildValidtion extends StatelessWidget
 
     if (labelDisplay == LabelDisplay.none) {
       return InputTextFormfield(
-
+          inputFormatters: inputFormatters,
           onFieldSubmitted: (v) {
             onSubmitted(v);
             onFieldSubmitted!(v);
@@ -234,6 +240,7 @@ class TextFomrFildValidtion extends StatelessWidget
                       style: textStyle,
                       isPressed: this.isPssword,
                       decoration: decoration,
+                      inputFormatters: inputFormatters,
                       onChange: (v) {
                         // if value not == mainValue then  set to mainValue
 
@@ -269,6 +276,7 @@ class TextFomrFildValidtion extends StatelessWidget
             ),
             Container(
               child: InputTextFormfield(
+                  inputFormatters: inputFormatters,
                   onFieldSubmitted: (v) {
                     onSubmitted(v);
                     onFieldSubmitted!(v);

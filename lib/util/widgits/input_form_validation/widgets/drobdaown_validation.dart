@@ -70,11 +70,11 @@ class DrobDaownValidation extends StatefulWidget
 
     /// زخرفة الحقل.
     /// Field decoration.
-    required this.decoration,
+    this.decoration = const InputDecoration(),
 
     /// تصميم النص المدخل أو المختار.
     /// Input or selected text style.
-    required this.textStyle,
+    this.textStyle = const TextStyle(),
 
     /// قائمة العناصر.
     /// The list of items.

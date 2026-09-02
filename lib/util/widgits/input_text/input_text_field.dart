@@ -29,6 +29,7 @@ class InputTextFormfield extends StatefulWidget {
   var onTap;
   bool readOnly ;
   bool addTools;
+  List<TextInputFormatter>? inputFormatters;
   InputDecoration decoration;
   InputTextFormfield({
     required this.decoration,
@@ -58,6 +59,7 @@ class InputTextFormfield extends StatefulWidget {
     this.textAlign,
     this.characterLimit,
     this.readOnly = false,
+    this.inputFormatters,
     TextInputType? textInputType,
   }) {
     if (textInputType == null) {
@@ -109,9 +111,11 @@ class _InputTextFormfieldState extends State<InputTextFormfield> {
       autovalidateMode: widget.autoValidateMode,
       textAlign: widget.textAlign ?? TextAlign.start,
       decoration: widget.decoration,
-      inputFormatters: <TextInputFormatter>[
-        LengthLimitingTextInputFormatter(widget.characterLimit),
-      ],
+      inputFormatters: widget.inputFormatters ??
+          <TextInputFormatter>[
+            if (widget.characterLimit != null)
+              LengthLimitingTextInputFormatter(widget.characterLimit),
+          ],
       onSaved: widget.saved,
       validator: widget.validate,
       onChanged: (value) {
