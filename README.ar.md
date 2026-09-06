@@ -116,7 +116,21 @@ graph TD
 
 ## ⚡ خطوات البدء السريع (Quick Start)
 
-### 1. إعداد كلاس الـ Configuration
+### 1. التثبيت (مباشرة عبر GitHub)
+
+أضف حزمة `JoDija_tamplites` عبر مستودع GitHub إلى ملف `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  JoDija_tamplites:
+    git:
+      url: https://github.com/zeftawyapps/jodija_tamplites.git
+      ref: master
+```
+
+### 2. إعداد كلاس الـ Configuration
 ```dart
 import 'package:flutter/material.dart';
 import 'package:JoDija_tamplites/project_configrations/app_configration.dart';
@@ -142,7 +156,7 @@ class MatgerConfig extends DataViewConfigraion {
 }
 ```
 
-### 2. تهيئة وتشغيل الـ `AdaptiveAppShell`
+### 3. تهيئة وتشغيل الـ `AdaptiveAppShell`
 ```dart
 import 'package:flutter/material.dart';
 import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
@@ -209,11 +223,13 @@ class MyApp extends StatelessWidget {
 
 | الدليل | الموضوع الرئيسي | الرابط |
 | :--- | :--- | :--- |
-| **الفلسفة والمعمارية** | معمارية الحلول الأحادية والمتعددة ودور matger-express | [PHILOSOPHY_AND_ARCHITECTURE.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
-| **دليل الـ Configuration** | شرح DataViewConfigraion وموصل الشبكة AppHttpConnector | [CONFIGURATION_GUIDE.md](doc/01_architecture/CONFIGURATION_GUIDE.md) |
-| **دليل Adaptive App Shell** | الدليل الكامل لتخصيص القوالب والـ Sidebar والأنيميشن | [ADAPTIVE_APP_SHELL_GUIDE.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
-| **دليل الأدوات المشتركة** | توثيق الـ Bloc، الجداول، التخزين، والتحقق | [SHARED_UTILS_GUIDE.md](doc/03_utils/SHARED_UTILS_GUIDE.md) |
-| **دليل تكامل منظومة المتجر** | ربط Matger Management + Client مع Express | [MATGER_ECOSYSTEM_INTEGRATION.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
+| **🚀 دليل الاستخدام الشامل** | شرح تطبيقي خطوة بخطوة من الصفر وحتى بناء تطبيق متكامل | [HOW_TO_USE.ar.md](doc/HOW_TO_USE.ar.md) |
+| **الفلسفة والمعمارية** | معمارية الحلول الأحادية والمتعددة ودور matger-express | [PHILOSOPHY_AND_ARCHITECTURE.ar.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.ar.md) |
+| **دليل الـ Configuration** | شرح DataViewConfigraion وموصل الشبكة AppHttpConnector | [CONFIGURATION_GUIDE.ar.md](doc/01_architecture/CONFIGURATION_GUIDE.ar.md) |
+| **دليل Adaptive App Shell** | الدليل الكامل لتخصيص القوالب والـ Sidebar والأنيميشن | [ADAPTIVE_APP_SHELL_GUIDE.ar.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.ar.md) |
+| **دليل الأدوات المشتركة** | توثيق الـ Bloc، الجداول، التخزين، والتحقق | [SHARED_UTILS_GUIDE.ar.md](doc/03_utils/SHARED_UTILS_GUIDE.ar.md) |
+| **دليل تكامل منظومة المتجر** | ربط Matger Management + Client مع Express | [MATGER_ECOSYSTEM_INTEGRATION.ar.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.ar.md) |
+| **📖 فهرس الـ API الشامل** | مرجع مفصل يوثق كافة الأقسام والكلاسات المصدّرة | [API_REFERENCE.ar.md](doc/API_REFERENCE.ar.md) |
 
 ---
 

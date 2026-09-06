@@ -12,7 +12,28 @@ import 'models/app_bar_config.dart';
 import 'models/sidebar_header_config.dart';
 import 'utils/app_shell_utils.dart';
 
-/// Adaptive Application Shell - يتكيف مع أحجام الشاشات المختلفة
+/// حاوية التطبيق الذكية المتكيفة مع أحجام الشاشات المختلفة (Adaptive Application Shell)
+///
+/// تمثل الودجة الرئيسية لإدارة هيكل التطبيق وقوالبه. تقوم بتبديل التخطيط تلقائياً بين:
+/// - القائمة الجانبية المستمرة (Persistent Sidebar) على شاشات الديسك توب والويب.
+/// - القائمة المنزلقة (Collapsible Drawer) أو شريط التنقل السفلي (BottomNavigationBar) على الجوال والتابلت.
+/// - دعم محلي فوري لنظام RTL واللغة العربية وحركات الأنيميشن.
+///
+/// English Description:
+/// Core adaptive application shell widget that automatically morphs layout hierarchies
+/// based on device breakpoints (Desktop, Tablet, Web, and Mobile). Features out-of-the-box
+/// RTL/Arabic layout mirroring, animated sidebars, top app bar synchronizers, and global
+/// provider dependency injection.
+///
+/// ### مثال للاستخدام (Usage Example):
+/// ```dart
+/// AdaptiveAppShell(
+///   titleApp: "Delta Mager Pro",
+///   initRouter: "/dashboard",
+///   languageCode: "ar",
+///   sidebarItems: [...],
+/// );
+/// ```
 class AdaptiveAppShell extends StatelessWidget {
   // Singleton pattern
   static AdaptiveAppShell? _instance;

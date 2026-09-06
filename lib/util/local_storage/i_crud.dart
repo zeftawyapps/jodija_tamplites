@@ -1,6 +1,18 @@
 import 'data_model.dart';
 
-/// Generic CRUD interface for SQLite operations.
+/// واجهة عمليات قاعدة البيانات القياسية (Generic CRUD Interface)
+///
+/// توفر عقداً قياسياً لكافة عمليات قاعدة بيانات SQLite المحلية:
+/// الإضافة، الإضافة الجماعية، الاستعلام، التعديل، الحذف، والمسح الكامل.
+///
+/// English Description:
+/// Generic CRUD contract for SQLite persistent operations. Standardizes records insertion,
+/// batch transactions, query lookups, filters, updates, and cascading deletions.
+///
+/// ### مثال للاستخدام (Usage Example):
+/// ```dart
+/// class UserRepository implements ICrud<UserModel> { ... }
+/// ```
 abstract class ICrud<T extends DataModel> {
   /// Inserts a new record into the database table.
   Future<int> insert(T model);

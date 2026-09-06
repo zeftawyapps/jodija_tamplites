@@ -2,31 +2,36 @@
 
 <img src="../assets/jodija_logo.png" alt="JoDija Logo" width="130" style="border-radius: 14px; margin-bottom: 8px;" />
 
-# 🔗 دليل تكامل منظومة المتجر (Matger Ecosystem Integration Guide)
+# 🔗 Matger Ecosystem Integration Guide
 ### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+
+---
+
+### 🌐 Language / اللغة
+[🇸🇦 **النسخة العربية (MATGER_ECOSYSTEM_INTEGRATION.ar.md)**](MATGER_ECOSYSTEM_INTEGRATION.ar.md) • [📚 **Documentation Index (README.md)**](../README.md)
+
+---
 
 </div>
 
----
-
-يشرح هذا الدليل كيفية ربط وتكامل أطراف المنظومة الثلاثة:
-1. **`matger-management-app`** (لوحة الإدارة ولوحة التحكم).
-2. **`matger-client-app`** (تطبيق متجر العميل).
-3. **`matger-express`** (خادم الباك إند المركزي).
+This comprehensive guide details the full integration between the three key ecosystem components:
+1. **`matger-management-app`** (administrative dashboard & operational control panel).
+2. **`matger-client-app`** (customer shopping storefront).
+3. **`matger-express`** (central Node.js REST backend).
 
 ---
 
-## 1. مخطط المعمارية والاتصال المشترك
+## 1. Architecture & Communication Workflow
 
 ```mermaid
 graph TD
-    subgraph FrontendFlutter ["📱 بيئة فلاتر (Frontend Apps)"]
+    subgraph FrontendFlutter ["📱 Flutter Ecosystem"]
         AdminApp["🖥️ matger-management-app\n(Adaptive Shell + Sidebar + Grids)"]
         ClientApp["🛒 matger-client-app\n(Storefront + BottomNav)"]
         SharedTemplates["📦 jodija_tamplites\n(DataViewConfigraion & Bloc)"]
     end
     
-    subgraph BackendExpress ["🚀 خادم Express (Node.js API)"]
+    subgraph BackendExpress ["🚀 Express Backend (Node.js API)"]
         ExpressServer["matger-express Server\n(Port: 8085 / API Endpoints)"]
         ConfigRoute["/api/config & App Settings"]
         CatalogRoute["/api/products & /api/categories"]
@@ -41,9 +46,9 @@ graph TD
 
 ---
 
-## 2. التكامل مع `matger-management-app` (لوحة الإدارة)
+## 2. Integration with `matger-management-app` (Admin Panel)
 
-### تهيئة الـ Configuration:
+### Configuration Setup:
 ```dart
 class MatgerManagementConfig extends DataViewConfigraion {
   @override
@@ -65,20 +70,20 @@ class MatgerManagementConfig extends DataViewConfigraion {
 
   @override
   void setAppLocal(String localCode) {
-    // تفعيل RTL واللغة العربية
+    // Dynamic RTL activation and locale update
   }
 }
 ```
 
-### استخدام `AdaptiveAppShell`:
-- تعيين `sidebarBackgroundColor: const Color(0xFF556B2F)` (الثيم الزيتي للوحة الإدارة).
-- تفعيل القوائم الجانبية ومسارات لوحة التحكم.
+### Leveraging `AdaptiveAppShell`:
+- Configure `sidebarBackgroundColor: const Color(0xFF556B2F)` (Olive enterprise theme for administrative dashboards).
+- Enable desktop persistent sidebars and deep-linked admin routes.
 
 ---
 
-## 3. التكامل مع `matger-client-app` (تطبيق العميل)
+## 3. Integration with `matger-client-app` (Storefront)
 
-### تهيئة الـ Configuration:
+### Configuration Setup:
 ```dart
 class MatgerClientConfig extends DataViewConfigraion {
   @override
@@ -103,19 +108,19 @@ class MatgerClientConfig extends DataViewConfigraion {
 }
 ```
 
-### الخصائص المميزة للعميل:
-- تفعيل `isInBottomNavBar: true` للعناصر الرئيسية.
-- إخفاء القائمة الجانبية الإدارية لتبسيط تجربة المستخدم.
+### Storefront Customizations:
+- Enable `isInBottomNavBar: true` on top-level routes for mobile thumb-friendly shopping.
+- Suppress desktop management sidebars for a focused consumer experience.
 
 ---
 
-## 4. التكامل مع `matger-express` (الباك إند)
+## 4. Connecting with `matger-express` (Backend Engine)
 
-### عقود الـ API المشتركة (API Contracts):
-- **نقاط الإعدادات:** `GET /api/config`
-  - إرجاع إعدادات المتجر العامة، العملة (`ج.م`)، اللغات المفعلة، وحالات الميزات (Feature Flags).
-- **نقاط المنتجات والفئات:**
-  - `GET /api/products` (يدعم معاملات التصفية `category`, `search`, `page`).
-  - `GET /api/categories` (إرجاع الفئات مع عدد المنتجات وصور التصنيف).
-- **المصادقة:**
-  - `POST /api/auth/login` (إرجاع JWT Token ليتم تخزينه في `SharedPrefranceData`).
+### Shared API Contracts:
+- **Configuration Endpoint:** `GET /api/config`
+  - Returns global shop settings, default currency (`EGP`), activated languages, and live feature flags.
+- **Products & Categories Endpoints:**
+  - `GET /api/products` (supports filter query parameters: `category`, `search`, `page`, `limit`).
+  - `GET /api/categories` (returns category trees, product counts, and cover images).
+- **Authentication:**
+  - Securely store and transmit Bearer JWT tokens via `SharedPrefranceData`.

@@ -5,8 +5,14 @@ import '../utils/app_shell_utils.dart';
 import 'app_bar_config.dart';
 import 'sidebar_header_config.dart';
 
-/// Class وسيط يحتوي على بيانات AdaptiveAppShell
-/// يتم إنشاؤه من AdaptiveAppShell instance ويوفر وصول سهل للبيانات
+/// كائن وسيط يحمل الحالة المجمعة لبيانات القالب التكيفي (App Shell Runtime Data)
+///
+/// يستخرج البيانات المجمعة من [AdaptiveAppShell] ويتيح قراءتها وتمريرها بسهولة
+/// عبر الودجات والشاشات الداخلية دون الحاجة لتهيئة متكررة.
+///
+/// English Description:
+/// Immutable runtime state snapshot holding theme configurations, app bar models,
+/// text directions, animation parameters, and locale metadata for [AdaptiveAppShell].
 class AppShellData {
   // Theme
   final SideBarNavigationTheames theme;

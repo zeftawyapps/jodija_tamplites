@@ -4,6 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+/// مدير قاعدة بيانات SQLite المحلي عبر المنصات (Cross-Platform SQLite Storage Helper)
+///
+/// يدير دورة حياة قاعدة البيانات محلياً عبر الجوال (Android/iOS) والديسك توب (Windows/macOS/Linux via FFI).
+/// يدعم استيراد قواعد البيانات المعدة مسبقاً من الـ Assets أو إنشاء الجداول ديناميكياً وترقيتها (Migrations).
+///
+/// English Description:
 /// Comprehensive Cross-Platform SQLite Database Manager for JoDija.
 /// Supports Mobile (Android/iOS), Desktop (macOS/Windows/Linux via FFI), and Web.
 /// Supports both pre-populated Asset loading and dynamic programmatic Schema creation.

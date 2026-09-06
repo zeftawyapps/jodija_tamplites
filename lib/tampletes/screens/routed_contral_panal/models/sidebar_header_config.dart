@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// إعدادات وتخصيص ترويسة القائمة الجانبية (Sidebar Header Configuration)
+///
+/// يتحكم في مظهر رأس القائمة الجانبية في [AdaptiveAppShell]، ويتيح تخصيص شعار التطبيق
+/// (سواء محلي أو عبر الإنترنت)، عناوين الترويسة، والأبعاد والهوامش.
+///
+/// English Description:
+/// Configuration model for the sidebar header in [AdaptiveAppShell]. Controls application
+/// brand logos (asset or network URL), title typography, header heights, and padding.
 class SidebarHeaderConfig {
   // Title configuration
   /// النص أو العنوان الذي يظهر في ترويسة القائمة الجانبية بجوار اللوجو أو أسفله.

@@ -1,11 +1,18 @@
-# ⚙️ دليل الـ Configuration وإدارة الإعدادات التأسيسية
-
-## 1. نظرة عامة
-كلاس **`DataViewConfigraion`** هو الأساس الهيكلي لتهيئة أي تطبيق يعتمد على حزمة `JoDija Templates`. يضمن هذا الكلاس توحيد دورة حياة التطبيق، تهيئة المسارات، وضبط اللغات.
+# ⚙️ Configuration Guide & Foundation Settings Management
 
 ---
 
-## 2. هيكل كلاس `DataViewConfigraion`
+### 🌐 Language / اللغة
+[🇸🇦 **النسخة العربية (CONFIGURATION_GUIDE.ar.md)**](CONFIGURATION_GUIDE.ar.md) • [📚 **Documentation Index (README.md)**](../README.md)
+
+---
+
+## 1. Overview
+The abstract class **`DataViewConfigraion`** serves as the architectural foundation for configuring any Flutter application powered by `JoDija Templates`. It unifies application lifecycle, route table initialization, and dynamic locale switching.
+
+---
+
+## 2. Structure of `DataViewConfigraion`
 
 ```dart
 import 'package:flutter/material.dart';
@@ -25,27 +32,27 @@ abstract class DataViewConfigraion {
   String get AppNameID => _AppNameID;
   set AppNameID(String value) => _AppNameID = value;
 
-  /// الشاشة الرئيسية التي يبدأ بها التطبيق
+  /// Default launch screen widget
   Widget launchScreen();
 
-  /// تهيئة المسارات في NavigationService
+  /// Initializes route registration with NavigationService
   void RouteInit() {
     NavigationService().setRouters(getRouters());
   }
 
-  /// خريطة المسارات المتاحة داخل التطبيق
+  /// Complete routing map for application screens
   Map<String, Widget> getRouters();
 
-  /// ضبط اللغة وتحديث الاتجاه
+  /// Dynamic locale updater and RTL handler
   void setAppLocal(String localCode);
 }
 ```
 
 ---
 
-## 3. أمثلة عملية للتطبيق
+## 3. Practical Implementation Examples
 
-### أ) إعداد تطبيق أحادي الحلول (`matger-client-app`)
+### A) Single-Solution App Configuration (`matger-client-app`)
 ```dart
 class MatgerClientConfig extends DataViewConfigraion {
   @override
@@ -70,12 +77,12 @@ class MatgerClientConfig extends DataViewConfigraion {
 
   @override
   void setAppLocal(String localCode) {
-    // ضبط اتجاه الواجهة بناء على لغة العميل
+    // Dynamically adjust text direction and layout direction based on user selection
   }
 }
 ```
 
-### ب) إعداد نظام متعدد الحلول (`matger-management-app`)
+### B) Multi-Solution Ecosystem Configuration (`matger-management-app`)
 ```dart
 class MatgerAdminConfig extends DataViewConfigraion {
   @override
@@ -83,6 +90,9 @@ class MatgerAdminConfig extends DataViewConfigraion {
 
   @override
   String get AppNameID => "delta_management_app";
+
+  @override
+  String get Version => "3.0.3";
 
   @override
   Widget launchScreen() => const ProductsManagementScreen();
@@ -99,18 +109,18 @@ class MatgerAdminConfig extends DataViewConfigraion {
 
   @override
   void setAppLocal(String localCode) {
-    // تحديث الترجمة وضبط جداول البيانات
+    // Dynamic localization reload and tabular view update
   }
 }
 ```
 
 ---
 
-## 4. موصل الشبكة الموحد (`AppHttpConnector`)
-كلاس تجريدي لتنسيق الاتصال مع خادم `matger-express`:
+## 4. Unified Network Connector (`AppHttpConnector`)
+An abstract network connector designed to interface with the `matger-express` API:
 
 ```dart
 abstract class AppHttpConnector {
-  // يحدد إعدادات الـ Base URL، الـ Headers، ورمز المصادقة JWT
+  /// Defines Base URL, Default Headers, and Bearer JWT authorization tokens
 }
 ```

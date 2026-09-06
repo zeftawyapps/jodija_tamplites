@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// أنواع الحركات المتاحة للـ Sidebar
+/// أنواع الحركات والتأثيرات الانتقالية للقائمة الجانبية (Sidebar Transition Animations)
+///
+/// English Description:
+/// Transition animation curve and effect options for sidebar item entry in [AdaptiveAppShell].
 enum SidBarAnimationType {
   /// حركة الانزلاق من الجانب مع التلاشي
   slideAndFade,
@@ -24,6 +27,14 @@ enum SidBarAnimationType {
   rotateAndScale,
 }
 
+/// ثيم ومظهر القائمة الجانبية المتكيفة (Adaptive Sidebar Theme Configuration)
+///
+/// يحدد كافة ألوان وحالات القائمة الجانبية: اللون الافتراضي، عند التحويم (Hover)،
+/// عند الاختيار (Selected)، وحالات القوائم الفرعية المنسدلة (Expanded).
+///
+/// English Description:
+/// Complete visual styling model for the adaptive navigation sidebar. Configures
+/// normal, hovered, and selected color states for backgrounds, typography, and icons.
 class SideBarNavigationTheames {
   // Properties
   bool isSidebarInCulomn; 

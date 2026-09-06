@@ -2,7 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../utiles/side_bar_navigation_router.dart';
 
-/// نموذج عنصر الشريط الجانبي
+/// نموذج عنصر ومسار التنقل في القالب التكيفي (Adaptive Navigation Route Item)
+///
+/// يمثل هذا النموذج عنصراً واحداً أو مساراً ضمن القائمة الجانبية أو الشريط السفلي أو العلوي.
+/// يربط بين المعرف الفريد، الرابط، الأيقونة، الشاشة المقابلة، وخيارات العرض والتجاوب.
+///
+/// English Description:
+/// Data model representing a navigation destination item within [AdaptiveAppShell].
+/// Couples path routing, visual icons, screen widgets, drawer behavior, and responsive
+/// visibility settings across Desktop, Tablet, and Mobile layouts.
+///
+/// ### مثال للاستخدام (Usage Example):
+/// ```dart
+/// final item = RouteItem(
+///   id: "products",
+///   path: "/products",
+///   label: "المنتجات",
+///   icon: Icons.inventory_2_outlined,
+///   content: const ProductsScreen(),
+///   isSideBarRouted: true,
+/// );
+/// ```
 class RouteItem {
   /// المعرف الفريد للعنصر.
   /// The unique identifier for the route item.

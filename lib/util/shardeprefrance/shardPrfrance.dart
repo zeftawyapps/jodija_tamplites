@@ -4,6 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// يوفر وصولاً مركزياً بنمط (Singleton) لتخزين واسترجاع بيانات الجلسة والمصادقة محلياً،
 /// مثل: بيانات المستخدم، حالة تسجيل الدخول، والـ Tokens المشتركة مع `matger-express`.
+///
+/// English Description:
+/// Persistent storage singleton wrapping [SharedPreferences]. Manages local user sessions,
+/// authentication tokens, profile payloads, and login state flags.
 class SharedPrefranceData {
   /// مفتاح تخزين بيانات المستخدم بصيغة JSON.
   static const String USER_DATA = "userData";

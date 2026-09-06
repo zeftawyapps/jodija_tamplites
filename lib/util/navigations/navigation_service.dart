@@ -5,7 +5,15 @@ import 'INavigation_service.dart';
 import 'animation_types.dart';
 import 'genrating_routes.dart';
 
-/// [NavigationService] = [NavigationService]
+/// خدمة الملاحة والتوجيه الموحدة (Global Navigation Service)
+///
+/// توفر وصولاً مركزياً بنمط Singleton لإدارة التنقل والمسارات في التطبيق
+/// دون الحاجة لتمرير [BuildContext] يدوياً، مع دعم المسارات عبر الويب
+/// ومعاملات الرابط ومؤثرات الانتقال المتحركة.
+///
+/// English Description:
+/// Context-less navigation coordinator singleton managing application routing,
+/// parameter decoding, deep linking, and custom page transition animations.
 class NavigationService extends INavigationService {
   static final NavigationService _instance = NavigationService._init();
 

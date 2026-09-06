@@ -1,11 +1,18 @@
-# 🧭 دليل Adaptive App Shell الشامل
-
-## 1. نظرة عامة
-**`AdaptiveAppShell`** هو المكون الأساسي لبناء واجهات متجاوبة بالكامل تتكيف تلقائياً مع مختلف أحجام الشاشات وأنظمة التشغيل (Desktop, Web, Tablet, Mobile) مع دعم كامل لنظام **RTL** واللغة العربية وحركات الأنيميشن السلسة.
+# 🧭 Adaptive App Shell Comprehensive Guide
 
 ---
 
-## 2. المعاينات البصرية لقوالب الواجهات
+### 🌐 Language / اللغة
+[🇸🇦 **النسخة العربية (ADAPTIVE_APP_SHELL_GUIDE.ar.md)**](ADAPTIVE_APP_SHELL_GUIDE.ar.md) • [📚 **Documentation Index (README.md)**](../README.md)
+
+---
+
+## 1. Overview
+**`AdaptiveAppShell`** is the core component for constructing cross-platform, responsive interfaces that automatically adapt across Desktop, Web, Tablet, and Mobile screen viewports. It features native, first-class **RTL** and Arabic localization alongside micro-animations and route synchronizers.
+
+---
+
+## 2. Real Visual Showcase
 
 <div align="center">
   <img src="../assets/products_dashboard.jpg" alt="Delta Mager Pro Products Dashboard" width="85%" style="border-radius: 12px; margin-bottom: 16px;" />
@@ -14,47 +21,47 @@
 
 ---
 
-## 3. المعاملات والخصائص الرئيسية
+## 3. Key Parameters & Configuration Properties
 
-| الخاصية | النوع | الوصف |
+| Property | Type | Description |
 | :--- | :--- | :--- |
-| `sidebarItems` | `List<RouteItem>` | قائمة عناصر وروابط القائمة الجانبية ومساراتها |
-| `languageCode` | `String` | كود اللغة ('ar' لتفعيل RTL تلقائياً، 'en' للـ LTR) |
-| `isDarkMode` | `bool` | التبديل بين الوضع الفاتح والداكن |
-| `sidebarBackgroundColor` | `Color?` | لون خلفية القائمة الجانبية (مثل الثيم الزيتي `0xFF556B2F`) |
-| `sidebarSelectedColor` | `Color?` | لون خلفية العنصر النشط (Selected Item) |
-| `sidebarTextColor` | `Color?` | لون النصوص العادية في القائمة |
-| `sidebarSelectedTextColor` | `Color?` | لون نص العنصر النشط |
-| `animationType` | `SidBarAnimationType` | نوع أنيميشن دخول عناصر القائمة (`slideAndFade`, `fadeOnly`, ...) |
-| `smallScreenAppBar` | `AppBarConfig?` | إعدادات الـ AppBar لشاشات الجوال |
-| `largeScreenAppBar` | `AppBarConfig?` | إعدادات الـ AppBar لشاشات الديسك توب والتابلت |
-| `extraProvidersAndBlocs` | `List<SingleChildWidget>?` | حقن مزودات الـ BLoC و Provider على مستوى التطبيق بالكامل |
+| `sidebarItems` | `List<RouteItem>` | List of navigation route items, icons, and destinations |
+| `languageCode` | `String` | Active locale code ('ar' auto-activates native RTL, 'en' enables LTR) |
+| `isDarkMode` | `bool` | Toggles between light and dark theme modes |
+| `sidebarBackgroundColor` | `Color?` | Custom sidebar background color (e.g., Olive theme `0xFF556B2F`) |
+| `sidebarSelectedColor` | `Color?` | Highlight background color for active route items |
+| `sidebarTextColor` | `Color?` | Normal font color for unselected navigation items |
+| `sidebarSelectedTextColor` | `Color?` | Font color for active route items |
+| `animationType` | `SidBarAnimationType` | Entrance animation curve (`slideAndFade`, `fadeOnly`, etc.) |
+| `smallScreenAppBar` | `AppBarConfig?` | Mobile view top app bar configuration |
+| `largeScreenAppBar` | `AppBarConfig?` | Desktop/Tablet view top app bar configuration |
+| `extraProvidersAndBlocs` | `List<SingleChildWidget>?` | Global dependency injection layer for BLoCs and Providers |
 
 ---
 
-## 4. نموذج `RouteItem`
+## 4. The `RouteItem` Data Model
 
-يحدد كل مسار وشاشة داخل التطبيق:
+Defines routing endpoints and behavior within the application shell:
 
 ```dart
 RouteItem(
   id: "products",
   path: "/products",
-  label: "المنتجات",
+  label: "Products",
   icon: Icons.inventory_2_outlined,
   content: const ProductsScreen(),
-  isSideBarRouted: true,    // استخدام التوجيه بالمسار
-  isAppBar: true,           // إظهار الـ AppBar
-  isInBottomNavBar: false,  // إظهاره في الشريط السفلي للجوال إن رغبت
-  isVisableInSideBar: true, // مرئي في القائمة الجانبية
+  isSideBarRouted: true,    // Enables URL-based synchronization
+  isAppBar: true,           // Renders top app bar
+  isInBottomNavBar: false,  // Controls inclusion in mobile bottom nav bar
+  isVisableInSideBar: true, // Visible in desktop sidebar
 )
 ```
 
 ---
 
-## 5. ميزات التوجيه مع `AppShellRouterMixin`
+## 5. Navigation Features via `AppShellRouterMixin`
 
-أي شاشة تستخدم هذا الـ Mixin تحصل على وصول فوري لمعاملات الرابط والتنقل:
+Any screen mixing with `AppShellRouterMixin` gains direct access to route parameters and navigation helpers:
 
 ```dart
 class ProductDetailsScreen extends StatefulWidget {
@@ -70,7 +77,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   @override
   void initState() {
     super.initState();
-    // قراءة معامل :id من الرابط مباشرة
+    // Directly retrieve the :id URL route parameter
     final productId = getPrams()?['id'];
   }
 
@@ -79,7 +86,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     return Scaffold(
       body: ElevatedButton(
         onPressed: () => goRoute(context, '/categories'),
-        child: const Text('العودة للفئات'),
+        child: const Text('Back to Categories'),
       ),
     );
   }

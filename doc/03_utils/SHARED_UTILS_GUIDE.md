@@ -1,16 +1,23 @@
-# 🧩 دليل الأدوات المشتركة (Shared Utilities Guide)
-
-تتضمن حزمة `JoDija Templates` مجموعة متكاملة من الأدوات التي توفر الوقت وتوحد منطق العمل عبر كافة التطبيقات.
+# 🧩 Shared Utilities & Core Helpers Guide
 
 ---
 
-## 1. طبقة إدارة الحالات والبيانات (`DataSourceBloc`)
+### 🌐 Language / اللغة
+[🇸🇦 **النسخة العربية (SHARED_UTILS_GUIDE.ar.md)**](SHARED_UTILS_GUIDE.ar.md) • [📚 **Documentation Index (README.md)**](../README.md)
 
-### كلاس `FeaturDataSourceState`
-يدير حالات الشاشة بطريقة موحدة ومنظمة:
-- `listState`: حالة جلب قائمة البيانات بالكامل (`init`, `loading`, `loaded`, `error`).
-- `itemState`: حالة عنصر محدد للعمليات الفردية (عرض، تعديل، حذف).
-- `feadState`: حالة العمليات التفاعلية وإرسال النماذج.
+---
+
+The `JoDija Templates` package provides an extensive collection of utility layers that save development time and enforce unified architectural patterns across all apps.
+
+---
+
+## 1. Unified State & Data Layer (`DataSourceBloc`)
+
+### The `FeaturDataSourceState` Class
+Manages screen states in a predictable, multi-channel state machine:
+- `listState`: Complete dataset fetch state (`init`, `loading`, `loaded`, `error`).
+- `itemState`: Targeted single-entity operations (fetch single, edit, delete).
+- `feadState`: Interactive mutation and feedback state for form submissions.
 
 ```dart
 class ProductsBloc extends Bloc<ProductsEvent, FeaturDataSourceState<ProductModel>> {
@@ -30,42 +37,42 @@ class ProductsBloc extends Bloc<ProductsEvent, FeaturDataSourceState<ProductMode
 
 ---
 
-## 2. محرك الجداول والخلايا الذكية (`Cell Models`)
+## 2. Smart Cell Engine & Tables (`Cell Models`)
 
-### كلاس `DataTableOfCellModels`
-يتيح التعامل مع كميات البيانات وتحويلها إلى جداول ديناميكية مع إمكانية التجميع الإحصائي:
+### The `DataTableOfCellModels` Class
+Enables high-density data parsing into flexible, reactive tabular grids with statistical grouping:
 
 ```dart
 final dataTable = DataTableOfCellModels<ProductCellModel>(productsList);
 
-// استخراج المجموعات الفريدة
+// Extract distinct groups/categories
 final uniqueCategories = dataTable.unicGrubs(dataTable.mapList, categoryCell);
 
-// حساب إحصاءات التكرار
+// Calculate frequency aggregations
 final counts = dataTable.countBy(dataTable.mapList, categoryCell);
 ```
 
 ---
 
-## 3. التخزين المحلي والجلسات (`SharedPrefranceData`)
+## 3. Local Storage & Session Management (`SharedPrefranceData`)
 
-يوفر وصولاً سريعاً بنمط Singleton لإدارة بيانات المستخدم والتوكن المشترك مع السيرفر:
+Provides a clean singleton interface for persisting user profiles, authorization tokens, and device flags:
 
 ```dart
 final prefs = SharedPrefranceData();
 
-// قراءة توكن المصادقة
+// Retrieve cached bearer JWT token
 final token = prefs.sharedPrefrance.getString(SharedPrefranceData.USER_TOKen);
 
-// حفظ حالة تسجيل الدخول
+// Persist user authentication status
 await prefs.sharedPrefrance.setBool(SharedPrefranceData.USER_ISREJESTED, true);
 ```
 
 ---
 
-## 4. محرك اللغات والـ RTL (`LocalizationConfig`)
+## 4. Native Localization & RTL Engine (`LocalizationConfig`)
 
-تهيئة اللغات ودعم اللغة العربية تلقائياً:
+Initializes multilingual bundles with automatic Arabic RTL direction switching:
 
 ```dart
 final locConfig = LocalizationConfig(
@@ -75,16 +82,16 @@ final locConfig = LocalizationConfig(
   },
 );
 
-// التبديل الفوري للغة
+// Instant runtime locale change
 locConfig.setLocale(const Locale('ar'));
 ```
 
 ---
 
-## 5. أدوات التحقق من المدخلات (Form Validators)
+## 5. Input Form Validators (`FormValidators`)
 
-محققات جاهزة وسهلة الاستخدام في حقول الإدخال:
-- `RequiredValidator(message: "هذا الحقل مطلوب")`
-- `EmailValidator(message: "البريد الإلكتروني غير صحيح")`
+Pre-built, chainable validators with localized feedback messages:
+- `RequiredValidator(message: "This field is required")`
+- `EmailValidator(message: "Please enter a valid email address")`
 - `PasswordValidator(minLength: 6)`
 - `NumberValidator()`

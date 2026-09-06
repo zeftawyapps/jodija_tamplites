@@ -111,7 +111,21 @@ graph TD
 
 ## ⚡ Quick Start
 
-### 1. Configure Global Settings
+### 1. Installation (via GitHub)
+
+Add `JoDija_tamplites` directly from GitHub to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  JoDija_tamplites:
+    git:
+      url: https://github.com/zeftawyapps/jodija_tamplites.git
+      ref: master
+```
+
+### 2. Configure Global Settings
 
 Create your configuration class extending `DataViewConfigraion`:
 
@@ -140,7 +154,7 @@ class MyAppConfig extends DataViewConfigraion {
 }
 ```
 
-### 2. Launch with `AdaptiveAppShell`
+### 3. Launch with `AdaptiveAppShell`
 
 ```dart
 import 'package:flutter/material.dart';
@@ -209,11 +223,13 @@ class MyApp extends StatelessWidget {
 | Guide | Description | Link |
 | :--- | :--- | :--- |
 | **🇸🇦 Arabic Guide** | Complete package guide and documentation in Arabic | [README.ar.md](README.ar.md) |
+| **🚀 End-to-End Tutorial** | Complete step-by-step developer tutorial from zero to production | [HOW_TO_USE.md](doc/HOW_TO_USE.md) |
 | **Philosophy & Architecture** | Single vs Multi-Solution patterns and backend integration | [PHILOSOPHY_AND_ARCHITECTURE.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
 | **Configuration Guide** | Comprehensive guide to `DataViewConfigraion` and `AppHttpConnector` | [CONFIGURATION_GUIDE.md](doc/01_architecture/CONFIGURATION_GUIDE.md) |
 | **Adaptive App Shell** | Layout templates, themes, sidebar customization, and animations | [ADAPTIVE_APP_SHELL_GUIDE.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
 | **Shared Utilities** | BLoC state management, Cell Models, local storage, and validators | [SHARED_UTILS_GUIDE.md](doc/03_utils/SHARED_UTILS_GUIDE.md) |
 | **Ecosystem Integration** | Integrating management dashboards, client apps, and express API | [MATGER_ECOSYSTEM_INTEGRATION.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
+| **📖 Complete API Catalog** | Comprehensive module-by-module reference catalog of all classes | [API_REFERENCE.md](doc/API_REFERENCE.md) |
 
 ---
 

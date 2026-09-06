@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// Settings Provider - manages app settings like theme, language, etc.
+/// مزود إعدادات التطبيق العامة (Application Settings Provider)
+///
+/// يدير تفضيلات المستخدم الأساسية بما في ذلك الوضع الليلي/النهاري (`isDarkMode`)،
+/// اللغة النشطة (`languageCode`)، حجم الخط العام (`fontSize`)، والإعدادات المخصصة.
+///
+/// English Description:
+/// Application settings notifier handling runtime user preferences including dark/light
+/// theme mode, active language locale, typography scale, and custom configuration maps.
 class SettingsProvider extends ChangeNotifier {
   SettingsProvider({
     bool isDarkMode = false,

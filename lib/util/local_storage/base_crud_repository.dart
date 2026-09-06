@@ -2,7 +2,26 @@ import 'package:sqflite/sqflite.dart';
 import 'data_model.dart';
 import 'i_crud.dart';
 
-/// Generic Base Repository providing automated CRUD implementations for any DataModel in JoDija.
+/// المستودع التجريدي العام لعمليات قاعدة البيانات (Base Generic CRUD Repository)
+///
+/// يوفر تنفيذاً جاهزاً ومباشراً لكافة عمليات [ICrud] فوق جداول SQLite:
+/// الإدراج، الاستعلامات، الفلاتر والترتيب، التحديثات، والحذف، مع دعم التحويل التلقائي
+/// للنماذج عبر دالة `fromMap`.
+///
+/// English Description:
+/// Abstract base repository providing automated SQLite CRUD implementations for any
+/// [DataModel]. Encapsulates parameterized database lookups, transactions, and deserialization.
+///
+/// ### مثال للاستخدام (Usage Example):
+/// ```dart
+/// class ProductRepository extends BaseCrudRepository<ProductModel> {
+///   ProductRepository() : super(
+///     tableName: "products",
+///     primaryKeyColumn: "id",
+///     fromMap: (map) => ProductModel.fromMap(map),
+///   );
+/// }
+/// ```
 abstract class BaseCrudRepository<T extends DataModel> implements ICrud<T> {
   final Future<Database> Function()? _dbProvider;
   final T Function(Map<String, dynamic> map)? _fromMapFunc;

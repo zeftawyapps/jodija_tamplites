@@ -11,6 +11,11 @@ import 'row_cells.dart';
 /// - تحويل النماذج إلى صفوف وخلايا ديناميكية ([RowofCells]).
 /// - استخراج القيم الفريدة والمجموعات ([unicGrubs]).
 /// - التجميع والعد الإحصائي وحساب المجاميع والمعدلات ([countBy], `groubbyCount`).
+///
+/// English Description:
+/// High-density analytical table engine operating over collections of [CellModel].
+/// Automates model conversion to [RowofCells], computes distinct group sets ([unicGrubs]),
+/// and calculates frequency aggregates ([countBy]).
 class DataTableOfCellModels<T extends CellModel> {
   /// قائمة الخرائط الناتجة عن تمثيل البيانات.
   List<Map<String, dynamic>> mapList = [];

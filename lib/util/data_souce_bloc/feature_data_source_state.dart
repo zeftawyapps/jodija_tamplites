@@ -9,6 +9,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 /// - [listState]: حالة جلب وتحديث قائمة العناصر بالكامل (Initial, Loading, Loaded, Error).
 /// - [itemState]: حالة عنصر محدد للعمليات الفردية (Get by ID, Update, Delete).
 /// - [feadState]: حالة العمليات الإضافية والتغذية الراجعة (Feedback, Submissions, Actions).
+///
+/// English Description:
+/// Unified state container for data-driven BLoC features. Coordinates three synchronized channels:
+/// [listState] (collection fetching), [itemState] (single-record mutation), and [feadState] (action feedback).
 @immutable
 @freezed
 class FeaturDataSourceState<T extends BaseViewDataModel> {

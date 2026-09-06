@@ -5,7 +5,14 @@ import '../models/route_item.dart';
 import '../screens/content/error_screen.dart';
 import '../screens/main_screen.dart';
 
-/// App Shell Router Provider - manages routing and navigation state
+/// مزود حالة التوجيه والملاحة في القالب التكيفي (App Shell Router Provider)
+///
+/// يدير حالة عناصر القائمة الجانبية والشريط السفلي، ويتحكم في العنصر النشط
+/// (`selectedIndex`) ويتكامل مع محرك GoRouter لتحديث الواجهة ديناميكياً.
+///
+/// English Description:
+/// Navigation state coordinator managing routing tables, sidebar selected indices,
+/// bottom navigation bar states, and GoRouter integration across adaptive screen layouts.
 class AppShellRouterProvider extends ChangeNotifier {
   AppShellRouterProvider({
     required this.sidebarItems,

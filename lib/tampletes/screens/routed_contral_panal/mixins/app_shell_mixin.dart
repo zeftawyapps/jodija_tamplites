@@ -3,9 +3,14 @@ import '../models/app_bar_config.dart';
 import '../models/app_shell_data.dart';
 import '../theam/theam.dart';
 
-/// Mixin لتوفير الوصول إلى خصائص AdaptiveAppShell
-/// يمكن استخدامه مع أي State لتوفير وصول سهل للإعدادات والتكوينات
-/// يستخدم AppShellData كطبقة وسيطة للوصول إلى البيانات
+/// ميكسين للوصول المباشر لخصائص القالب التكيفي (App Shell State Mixin)
+///
+/// يُمكّن أي State في StatefulWidget من القراءة المباشرة لخصائص [AdaptiveAppShell]
+/// مثل الثيم، اتجاه النص، أحجام الشاشة، وإعدادات الـ AppBar وحركات الأنيميشن.
+///
+/// English Description:
+/// State mixin granting direct convenience access to [AdaptiveAppShell] runtime configurations,
+/// responsive screen checks, layout directions, and animation curves.
 mixin AppShellMixin<T extends StatefulWidget> on State<T> {
   
   /// الحصول على بيانات AppShell (يتم إنشاؤها من Singleton)
