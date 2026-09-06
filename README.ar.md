@@ -14,7 +14,12 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![RTL Support](https://img.shields.io/badge/RTL-مفعل%20تلقائياً-orange.svg)](#-دعم-اللغة-العربية-واتجاه-rtl-المدمج)
 
-[English Documentation (README.md)](README.md) • [📚 بوابة التوثيق الكاملة (doc/README.md)](doc/README.md)
+---
+
+### 🌐 اللغة / Language
+[🇺🇸 **English Documentation (README.md)**](README.md) • [📚 **بوابة التوثيق الكاملة (doc/README.md)**](doc/README.md)
+
+---
 
 </div>
 

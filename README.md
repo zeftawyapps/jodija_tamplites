@@ -6,52 +6,55 @@
 
 ### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
 
-**حزمة فلاتر المتقدمة لبناء لوحات التحكم، التطبيقات الأحادية، والأنظمة المتعددة مع دعم RTL كامل والتوجيه المتجاوب.**
+**An advanced, enterprise-grade Flutter package for building responsive dashboards, single-purpose apps, and modular multi-solution ecosystems with built-in native RTL support and adaptive navigation.**
 
 [![Version](https://img.shields.io/badge/version-3.0.3-success.svg)](pubspec.yaml)
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
 [![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![RTL Support](https://img.shields.io/badge/RTL-Native%20Support-orange.svg)](#-native-rtl--localization-support)
-[![Languages](https://img.shields.io/badge/Docs-Arabic%20%7C%20English-blue)](#-documentation-index)
-
-[📖 قراءة التوثيق باللغة العربية (README.ar.md)](README.ar.md) • [📚 بوابة التوثيق الكاملة (doc/README.md)](doc/README.md)
-
-</div>
+[![RTL Support](https://img.shields.io/badge/RTL-Native%20Support-orange.svg)](#2-native-rtl--localization-support)
+[![Docs](https://img.shields.io/badge/Docs-Arabic%20%7C%20English-blue.svg)](#-documentation-index)
 
 ---
 
-## 📸 Real UI Showcase (معاينات الواجهات والقوالب الحية)
+### 🌐 Language / اللغة
+[🇸🇦 **اقرأ هذا الدليل باللغة العربية (README.ar.md)**](README.ar.md) • [📚 **Full Documentation Portal (doc/README.md)**](doc/README.md)
 
-مستوحاة من التطبيقات الحقيقية المبنية على الحزمة مثل **Delta Mager Pro**:
+---
+
+</div>
+
+## 📸 Real UI Showcase
+
+Real-world production applications powered by **JoDija Templates**, such as **Delta Mager Pro**:
 
 <div align="center">
   <img src="doc/assets/products_dashboard.jpg" alt="Delta Mager Pro Products Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 20px;" />
-  <p><em>لوحة تحكم المنتجات (Products Dashboard) مع القائمة الجانبية بالثيم المخصص وشبكة البطاقات المتجاوبة بنظام RTL</em></p>
+  <p><em><strong>Products Dashboard:</strong> RTL collapsible Sidebar with custom Olive Theme, filter chips, responsive card grid, and badges (Best Seller, Hot Discount).</em></p>
 </div>
 
 <div align="center">
   <img src="doc/assets/categories_dashboard.jpg" alt="Delta Mager Pro Categories Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 10px;" />
-  <p><em>لوحة إدارة الفئات والكتالوج (Categories Dashboard) مع الـ Filter Chips والـ Header المخصص</em></p>
+  <p><em><strong>Categories & Catalog Dashboard:</strong> Active sidebar item highlight, quick search bar, and custom styled floating actions.</em></p>
 </div>
 
 ---
 
-## 🏛️ الفلسفة المعمارية (Single-Solution vs Multi-Solution Architecture)
+## 🏛️ Architectural Philosophy: Single-Solution vs Multi-Solution
 
-بنيت حزمة `JoDija Templates` على فلسفة موحدة تدعم نمطين أساسيين من التطبيقات دون تكرار الكود:
+`JoDija Templates` is built upon a unified architecture designed to support both focused micro-apps and expansive enterprise platforms without redundant boilerplate:
 
 ```mermaid
 graph TD
     Templates["📦 jodija_tamplites\n(Core Templates, BLoC, Themes, Config)"]
     Express["🚀 matger-express\n(Central Node.js API & Config Provider)"]
     
-    subgraph MultiSolution ["🏢 Multi-Solution Ecosystems (أنظمة متعددة الحلول)"]
+    subgraph MultiSolution ["🏢 Multi-Solution Ecosystems"]
         Management["🖥️ matger-management-app\n(Admin Shell + Sub-Modules + DataTables)"]
         FontLogic["🔤 font logic\n(Typography & Advanced Font Engine)"]
     end
     
-    subgraph SingleSolution ["📱 Single-Solution Apps (تطبيقات أحادية الحلول)"]
+    subgraph SingleSolution ["📱 Single-Solution Apps"]
         Client["🛒 matger-client-app\n(Customer Storefront / BottomNav)"]
         Specialized["🎯 Specialized Micro-Apps"]
     end
@@ -62,55 +65,55 @@ graph TD
     Express -->|Storefront API & Settings| SingleSolution
 ```
 
-1. **تطبيقات أحادية الحلول (Single-Solution Apps):**
-   - تطبيقات تركز على تدفق واستخدام محدد (مثل `matger-client-app` كمتجر عميل مع شريط تنقل سفلي).
-   - سرعة فائقة وعزل للمهام واستفادة مباشرة من الـ Core Utilities وطبقة الـ Bloc.
-2. **تطبيقات متعددة الحلول (Multi-Solution Apps / Modular Ecosystems):**
-   - منصات متكاملة تحتوي على وحدات متعددة وشاشات إدارية متداخلة (مثل `font logic` لإدارة ومعالجة الخطوط، و `matger-management-app` لإدارة المخزون والمبيعات والكتالوج).
-   - تستفيد من `AdaptiveAppShell` لتغيير التخطيط آلياً بين Desktop/Tablet/Mobile، ونظام `Cell Models` للجداول والتقارير.
-3. **العمود الفقري المشترك (`matger-express`):**
-   - يوفر عقود البيانات الموحدة (Data Contracts) وإعدادات النظام الحية والـ Feature Flags لكلا النمطين.
+1. **Single-Solution Apps:**
+   - Designed for single, streamlined workflows (e.g., `matger-client-app` with bottom navigation).
+   - Lightweight, highly responsive, and leveraging the shared core utilities, models, and BLoC layer.
+2. **Multi-Solution Ecosystems:**
+   - Scalable enterprise applications with nested modules, sub-dashboards, and rich reporting (e.g., `matger-management-app` and `font logic`).
+   - Powered by `AdaptiveAppShell` which auto-adapts layouts between Desktop, Tablet, and Mobile, coupled with the `Cell Models` engine for dynamic data tables.
+3. **Shared Backend Backbone (`matger-express`):**
+   - Serves unified data contracts, live remote configuration, and feature flags to all connected platforms.
 
 ---
 
-## 🌟 Comprehensive Features (كافة مميزات المكتبة)
+## 🌟 Key Features
 
 ### 1. 🧭 Responsive Adaptive App Shell
-- **تبديل تلقائي للتخطيط:** تحويل ذكي بين القائمة الجانبية الثابتة (`Sidebar`) على الديسك توب والويب، والقائمة المنزلقة (`Drawer`) أو شريط التنقل السفلي (`BottomNavigationBar`) على الجوال.
-- **توجيه متقدم (`GoRouter` مدمج):** دعم مسارات URL المباشرة، الـ Deep Linking، معاملات المسار (`:id`) واستعلامات البحث (`?query=val`).
-- **شريط علوي مخصص (`AppBarConfig`):** تحكم كامل في الأزرار والإجراءات والعناوين وحالة الرجوع.
+- **Automatic Layout Switching:** Dynamically transitions between a persistent `Sidebar` on Desktop/Web, and a collapsible `Drawer` or `BottomNavigationBar` on Mobile and Tablets.
+- **Advanced Navigation (`GoRouter` Ready):** Native deep linking, nested routing, URL path parameters (`:id`), and query parameters (`?filter=active`).
+- **Customizable Top Bar (`AppBarConfig`):** Complete control over app bar titles, actions, back-navigation handlers, and branding.
 
 ### 2. 🌍 Native RTL & Arabic Localization
-- **دعم كامل للغة العربية والاتجاه RTL:** انعكاس القوائم الجانبية، الرسوم المتحركة، الأيقونات، ونصوص الواجهة بسلاسة ودون كسر للتصميم.
-- **محرك ترجمة مدمج (`LocalizationConfig` & `AppLocalizationsInit`):** إدارة متعددة اللغات مع التبديل اللحظي للغة دون إعادة تشغيل التطبيق.
-- **دعم خطوط Google:** تهيئة خطوط عربية جميلة مثل Cairo, Tajawal, Almarai.
+- **First-Class RTL Support:** Built specifically with Arabic and RTL-first layouts in mind. Sidebars, drawers, icons, and animations flip naturally without broken layouts.
+- **Dynamic Language Engine (`LocalizationConfig` & `AppLocalizationsInit`):** Instant runtime language switching without restarting the app.
+- **Google Fonts Integration:** Pre-configured support for popular Arabic typography such as Cairo, Tajawal, and Almarai.
 
 ### 3. 🧩 State Management & Unified Data Layer (`DataSourceBloc`)
-- **نمط حالات موحد:** كلاس `FeaturDataSourceState` لإدارة الحالات المشتركة (Initial, Loading, Loaded, Error, Empty).
-- **عمليات الـ CRUD الجاهزة:** كلاسات `BaseBloc` و `CrudBloc` لتسريع بناء الشاشات التي تعتمد على جلب وتعديل وحذف البيانات.
+- **Standardized State Machine:** `FeaturDataSourceState` providing seamless states: `Initial`, `Loading`, `Loaded`, `Error`, and `Empty`.
+- **Pre-Built CRUD Operations:** Extend `BaseBloc` and `CrudBloc` to eliminate repetitive data-fetching, updating, and deletion code.
 
 ### 4. 📊 Advanced Cell & Data Table Engine (`Cell Models`)
-- **تحويل وهيكلة البيانات:** تحويل أي نموذج `BaseViewDataModel` إلى خلايا ذكية `RowofCells` و `Cell`.
-- **معالجة وحسابات الجداول (`DataTableOfCellModels`):** استخراج القيم الفريدة (`unicGrubs`)، التجميع الإحصائي (`countBy`)، وتجهيز البيانات للعرض في الجداول والتقارير.
+- **Flexible Data Mapping:** Convert any `BaseViewDataModel` into smart, composable `Cell` and `RowofCells` objects.
+- **Table Calculations (`DataTableOfCellModels`):** Built-in methods for extracting unique groups (`unicGrubs`), statistical aggregations (`countBy`), and generating rich tabular views.
 
 ### 5. 🎨 Design System & Dynamic Theming
-- **نظام ألوان متكامل (`AppColors`):** إدارة الألوان الأساسية، الفرعية، درجات النصوص، وعناصر التحكم.
-- **ثيمات متجاوبة (`AppThemes` & `DashboardThemes`):** دعم الوضع الفاتح والداكن (Light/Dark Mode) وتخصيص ثيمات لوحات التحكم الإدارية.
+- **Comprehensive Color Palette (`AppColors`):** Unified tokens for primary, secondary, background, surface, and feedback colors.
+- **Adaptive Theming (`AppThemes` & `DashboardThemes`):** Full light/dark mode support with specialized themes for admin dashboards (including modern Olive, Dark Slate, and Navy palettes).
 
 ### 6. 💾 Local Storage & Session Management
-- **إدارة الجلسات (`SharedPrefranceData`):** تخزين وإدارة بيانات المستخدم، حالة تسجيل الدخول، وحفظ الـ Auth Tokens والـ Headers بأمان.
-- **دعم SQLite مدمج (`sqllite_helper.dart`):** لحفظ البيانات محلياً للعمل بدون اتصال (Offline-first caching).
+- **Session Helper (`SharedPrefranceData`):** Simplified persistent storage for user profiles, login state, auth tokens, and HTTP headers.
+- **Offline SQLite Caching (`sqllite_helper.dart`):** Structured local database support for offline-first capabilities.
 
 ### 7. ✅ Form Validation & Input Helpers
-- حقول إدخال ومحققات جاهزة: `RequiredValidator`, `EmailValidator`, `PasswordValidator`, `NumberValidator` مع رسائل خطأ معربة.
+- Pre-built validators: `RequiredValidator`, `EmailValidator`, `PasswordValidator`, and `NumberValidator` with multilingual localized error messages.
 
 ---
 
-## ⚡ Quick Start (البدء السريع)
+## ⚡ Quick Start
 
-### 1. إعداد الـ Configuration العام
+### 1. Configure Global Settings
 
-قم بإنشاء كلاس إعدادات يرث من `DataViewConfigraion`:
+Create your configuration class extending `DataViewConfigraion`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -121,23 +124,23 @@ class MyAppConfig extends DataViewConfigraion {
   String get AppName => "Delta Mager Pro";
 
   @override
-  Widget launchScreen() => DashboardScreen();
+  Widget launchScreen() => const DashboardScreen();
 
   @override
   Map<String, Widget> getRouters() => {
-    '/dashboard': DashboardScreen(),
-    '/products': ProductsScreen(),
-    '/categories': CategoriesScreen(),
+    '/dashboard': const DashboardScreen(),
+    '/products': const ProductsScreen(),
+    '/categories': const CategoriesScreen(),
   };
 
   @override
   void setAppLocal(String localCode) {
-    // تحديث لغة التطبيق
+    // Handle dynamic locale change
   }
 }
 ```
 
-### 2. تشغيل الـ `AdaptiveAppShell`
+### 2. Launch with `AdaptiveAppShell`
 
 ```dart
 import 'package:flutter/material.dart';
@@ -145,22 +148,22 @@ import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser
 import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveAppShell(
       titleApp: "Delta Mager Pro",
       initRouter: "/products",
-      languageCode: "ar", // تفعيل اللغة العربية ونظام RTL تلقائياً
+      languageCode: "en", // Set 'ar' for native Arabic / RTL
       isDarkMode: false,
       
-      // ثيم القائمة الجانبية
-      sidebarBackgroundColor: const Color(0xFF556B2F), // ثيم زيتي احترافي
+      // Custom Sidebar Styling (e.g., Enterprise Olive Theme)
+      sidebarBackgroundColor: const Color(0xFF556B2F),
       sidebarSelectedColor: Colors.white,
       sidebarTextColor: Colors.white,
       sidebarSelectedTextColor: const Color(0xFF556B2F),
@@ -169,7 +172,7 @@ class MainApp extends StatelessWidget {
         RouteItem(
           id: "dashboard",
           path: "/dashboard",
-          label: "لوحة التحكم",
+          label: "Dashboard",
           icon: Icons.dashboard_outlined,
           content: const DashboardScreen(),
           isSideBarRouted: true,
@@ -178,7 +181,7 @@ class MainApp extends StatelessWidget {
         RouteItem(
           id: "products",
           path: "/products",
-          label: "المنتجات",
+          label: "Products",
           icon: Icons.inventory_2_outlined,
           content: const ProductsScreen(),
           isSideBarRouted: true,
@@ -187,7 +190,7 @@ class MainApp extends StatelessWidget {
         RouteItem(
           id: "categories",
           path: "/categories",
-          label: "الفئات",
+          label: "Categories",
           icon: Icons.category_outlined,
           content: const CategoriesScreen(),
           isSideBarRouted: true,
@@ -201,18 +204,19 @@ class MainApp extends StatelessWidget {
 
 ---
 
-## 📚 Documentation Index (فهرس التوثيق والأدلة)
+## 📚 Documentation Index
 
-| الدليل | الوصف | الرابط |
+| Guide | Description | Link |
 | :--- | :--- | :--- |
-| **README العربي** | الدليل والواجهة التوثيقية الكاملة باللغة العربية | [README.ar.md](README.ar.md) |
-| **الفلسفة والمعمارية** | مقارنة معمارية الحلول الأحادية والمتعددة وتكامل الباك إند | [PHILOSOPHY_AND_ARCHITECTURE.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
-| **دليل الـ Configuration** | شرح `DataViewConfigraion` و `AppHttpConnector` | [CONFIGURATION_GUIDE.md](doc/01_architecture/CONFIGURATION_GUIDE.md) |
-| **دليل Adaptive App Shell** | الدليل الشامل للقوالب، الألوان، الشاشات المتجاوبة، والأنيميشن | [ADAPTIVE_APP_SHELL_GUIDE.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
-| **دليل الأدوات المشتركة** | توثيق الـ BLoC، الجداول، التخزين المحلي، والـ Validators | [SHARED_UTILS_GUIDE.md](doc/03_utils/SHARED_UTILS_GUIDE.md) |
-| **دليل تكامل منظومة المتجر** | ربط `matger-management-app` و `matger-client-app` مع `matger-express` | [MATGER_ECOSYSTEM_INTEGRATION.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
+| **🇸🇦 Arabic Guide** | Complete package guide and documentation in Arabic | [README.ar.md](README.ar.md) |
+| **Philosophy & Architecture** | Single vs Multi-Solution patterns and backend integration | [PHILOSOPHY_AND_ARCHITECTURE.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
+| **Configuration Guide** | Comprehensive guide to `DataViewConfigraion` and `AppHttpConnector` | [CONFIGURATION_GUIDE.md](doc/01_architecture/CONFIGURATION_GUIDE.md) |
+| **Adaptive App Shell** | Layout templates, themes, sidebar customization, and animations | [ADAPTIVE_APP_SHELL_GUIDE.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
+| **Shared Utilities** | BLoC state management, Cell Models, local storage, and validators | [SHARED_UTILS_GUIDE.md](doc/03_utils/SHARED_UTILS_GUIDE.md) |
+| **Ecosystem Integration** | Integrating management dashboards, client apps, and express API | [MATGER_ECOSYSTEM_INTEGRATION.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
 
 ---
 
 ## 📄 License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
