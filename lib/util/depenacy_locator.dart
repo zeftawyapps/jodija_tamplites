@@ -1,7 +1,5 @@
 // add get it locator
 import 'package:get_it/get_it.dart';
-import 'package:JoDija_tamplites/util/data_souce_bloc/base_bloc.dart';
-import 'package:JoDija_tamplites/util/data_souce_bloc/remote_base_model.dart';
 
 var joDijaLocator = GetIt.instance;
 

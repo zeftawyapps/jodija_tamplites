@@ -1,9 +1,14 @@
 <div align="center">
 
+<img src="doc/assets/jodija_logo.png" alt="شعار جوديجا - JoDija" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
+
 # 🚀 قوالب جوديجا (JoDija Templates) - النواة الشاملة للأنظمة والتطبيقات
+
+### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
 
 **حزمة فلاتر متطورة لتأسيس لوحات التحكم، التطبيقات الأحادية، والمنصات متعددة الوحدات مع دعم كامل ومحلي للغة العربية ونظام RTL.**
 
+[![Version](https://img.shields.io/badge/الإصدار-3.0.3-success.svg)](pubspec.yaml)
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
 [![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)

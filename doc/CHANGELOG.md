@@ -4,6 +4,38 @@ All notable changes to the `JoDija_tamplites` package will be documented in this
 
 ---
 
+## [3.0.3] - 2026-09-05
+
+### 🇸🇦 التحديثات باللغة العربية (Arabic Release Notes)
+
+#### 🌟 أبرز التغييرات والإضافات:
+- **🎨 الهوية والشعار الرسمي (Official Branding & Identity):**
+  - اعتماد وتوثيق الشعار الرسمي لحزمة **JODIJA** والسلوجان الرسمي:
+    > *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+  - إضافة وتحديث أصول الشعار الرسمية داخل المستودع وبوابات التوثيق (`assets/` و `doc/assets/`).
+- **🧩 محرك النماذج الديناميكية (CellFieldBuilder & Dynamic Form Binder):**
+  - تقديم `CellFieldBuilder` لبناء نماذج الإدخال والإخراج الديناميكية المعتمدة على الـ Cells.
+  - دعم تدفقات التخزين المحلي والعمليات (Local Storage CRUD Architecture).
+- **🛠️ تحسينات التحقق ومعالجة الحقول (Input Validation Refactor):**
+  - إعادة هيكلة وتطوير منطق التحقق من صحة المدخلات في `text_form_validation.dart` وإزالة الشفرات المكررة.
+
+---
+
+### 🇬🇧 English Release Notes
+
+#### 🌟 Highlights & Major Changes:
+- **🎨 Official Brand Identity & Logo:**
+  - Integrated the official **JODIJA** brand logo and tagline:
+    > *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+  - Added official logo assets across repository and documentation portals.
+- **🧩 Dynamic Form Engine (CellFieldBuilder & Form Binder):**
+  - Introduced `CellFieldBuilder` for cell-driven reactive input/output binding and dynamic form rendering.
+  - Added local storage CRUD architecture workflows.
+- **🛠️ Form Validation & Performance Refactoring:**
+  - Simplified and optimized text form field validation in `text_form_validation.dart`.
+
+---
+
 ## [1.5.0] - 2026-08-28
 
 ### 🇸🇦 التحديثات باللغة العربية (Arabic Release Notes)

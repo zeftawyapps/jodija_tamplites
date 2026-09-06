@@ -1,4 +1,15 @@
-# 📚 JoDija Templates Documentation Portal (بوابة التوثيق الرسمية)
+<div align="center">
+
+<img src="assets/jodija_logo.png" alt="JoDija Official Logo" width="160" style="border-radius: 16px; margin-bottom: 12px;" />
+
+# 📚 JoDija Templates Documentation Portal
+### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+
+**بوابة التوثيق الرسمية لحزمة JoDija Templates**
+
+</div>
+
+---
 
 مرحباً بك في بوابة التوثيق الرسمية لحزمة **JoDija Templates**. تم تنظيم التوثيق في أدلة تخصصية لتسهيل الوصول والتطوير.
 

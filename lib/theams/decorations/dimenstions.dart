@@ -1,10 +1,9 @@
-abstract class AppThemes {
-   double borderRadius ();
-    double padding();
-    int fontSizeInWeb();
-    int fontSizeInMobile();
-    double iconSize();
-    double iconSizeSmall();
-    double iconSizeLarge();
-
+abstract class AppDimensions {
+  double borderRadius();
+  double padding();
+  int fontSizeInWeb();
+  int fontSizeInMobile();
+  double iconSize();
+  double iconSizeSmall();
+  double iconSizeLarge();
 }

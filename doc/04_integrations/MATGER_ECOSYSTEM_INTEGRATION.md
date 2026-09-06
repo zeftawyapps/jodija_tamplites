@@ -1,4 +1,13 @@
+<div align="center">
+
+<img src="../assets/jodija_logo.png" alt="JoDija Logo" width="130" style="border-radius: 14px; margin-bottom: 8px;" />
+
 # 🔗 دليل تكامل منظومة المتجر (Matger Ecosystem Integration Guide)
+### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+
+</div>
+
+---
 
 يشرح هذا الدليل كيفية ربط وتكامل أطراف المنظومة الثلاثة:
 1. **`matger-management-app`** (لوحة الإدارة ولوحة التحكم).

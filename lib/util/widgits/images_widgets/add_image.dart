@@ -12,8 +12,8 @@ import 'package:image_picker/image_picker.dart';
 import 'imag_bloc.dart';
 import 'image_model.dart';
 
-class ImagePecker extends StatefulWidget {
-  ImagePecker(
+class BlocImagePicker extends StatefulWidget {
+  BlocImagePicker(
       {Key? key,
       required this.onImage,
       required this.place,
@@ -57,12 +57,13 @@ class ImagePecker extends StatefulWidget {
   List<BoxShadow> shapeShaw = [];
   BoxBorder? border;
   BoxBorder? iconBorder;
+  BoxBorder? shapeBorder;
 
   @override
-  _ImagePeckerState createState() => _ImagePeckerState();
+  _BlocImagePickerState createState() => _BlocImagePickerState();
 }
 
-class _ImagePeckerState extends State<ImagePecker> {
+class _BlocImagePickerState extends State<BlocImagePicker> {
   bool imgshwo = false;
   bool imgget = false;
 

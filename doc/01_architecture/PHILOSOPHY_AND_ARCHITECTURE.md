@@ -1,4 +1,13 @@
+<div align="center">
+
+<img src="../assets/jodija_logo.png" alt="JoDija Logo" width="130" style="border-radius: 14px; margin-bottom: 8px;" />
+
 # 🏛️ الفلسفة المعمارية: التطبيقات أحادية الحلول vs متعددة الحلول
+### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
+
+</div>
+
+---
 
 ## 1. المقدمة والنشأة التأسيسية
 منذ بداية تصميم وتطوير حزمة **JoDija Templates**، لم يكن الهدف بناء مجرد قالب واجهات (UI Template) عادي، بل تأسيس **إطار عمل معماري مرن (Architectural Framework)** قادر على خدمة نوعين متباينين تماماً من المنتجات البرمجية مع الحفاظ على قاعدة كود نظيفة ومشتركة 100%.

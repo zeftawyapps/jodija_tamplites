@@ -111,18 +111,63 @@ class CellFieldBuilder {
           validators.add(EmailValidator());
         }
 
+        // إرفاق مستمع على المتحكم لتحديث قيمة الخلية وتنبيه onChanged بأمان
+        // دون التأثير على موضع المؤشر أو مقاطعة الكتابة
+        field.controller.addListener(() {
+          final v = field.controller.text;
+          final trimmed = v.trim();
+          dynamic parsedVal;
+
+          if (trimmed.isEmpty) {
+            parsedVal = null;
+          } else if (cell.type == CellDataType.integer ||
+              cell is Cell<int>) {
+            parsedVal = int.tryParse(trimmed) ??
+                (double.tryParse(trimmed)?.toInt());
+          } else if (cell.type == CellDataType.decimal ||
+              cell is Cell<double>) {
+            parsedVal = double.tryParse(trimmed);
+          } else if (cell.type == CellDataType.measuredValue) {
+            if (cell is Cell<int>) {
+              parsedVal = int.tryParse(trimmed) ??
+                  (double.tryParse(trimmed)?.toInt());
+            } else if (cell is Cell<double>) {
+              parsedVal = double.tryParse(trimmed);
+            } else {
+              parsedVal = num.tryParse(trimmed) ?? trimmed;
+            }
+          } else {
+            parsedVal = v;
+          }
+
+          try {
+            cell.value = parsedVal;
+          } catch (_) {
+            if (parsedVal is double && cell is Cell<int>) {
+              cell.value = parsedVal.toInt();
+            } else if (parsedVal is int && cell is Cell<double>) {
+              cell.value = parsedVal.toDouble();
+            } else {
+              cell.value = parsedVal;
+            }
+          }
+
+          if (onChanged != null) onChanged(parsedVal);
+        });
+
         // تحديد أدوات تصفية النصوص (InputFormatters) لمنع الحروف في الحقول الرقمية
         List<TextInputFormatter>? formatters;
-        if (cell.type == CellDataType.integer || (cell.type.isNumeric && cell is Cell<int>)) {
+        if (cell.type == CellDataType.integer ||
+            (cell.type.isNumeric && cell is Cell<int>)) {
           formatters = [FilteringTextInputFormatter.digitsOnly];
         } else if (cell.type == CellDataType.decimal ||
             cell.type == CellDataType.measuredValue) {
           formatters = [
-            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
           ];
         } else if (cell.type == CellDataType.phone) {
           formatters = [
-            FilteringTextInputFormatter.allow(RegExp(r'^[0-9+\s-]*')),
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9+\s-]')),
           ];
         }
 
@@ -138,42 +183,6 @@ class CellFieldBuilder {
             isPssword: cell.type == CellDataType.password,
             mulitLine: cell.type == CellDataType.multilineText ? 4 : 1,
             textInputType: cell.type.keyboardType,
-            onChange: (v) {
-              final trimmed = v.trim();
-              dynamic parsedVal;
-
-              if (trimmed.isEmpty) {
-                parsedVal = null;
-              } else if (cell.type == CellDataType.integer || cell is Cell<int>) {
-                parsedVal = int.tryParse(trimmed) ?? (double.tryParse(trimmed)?.toInt());
-              } else if (cell.type == CellDataType.decimal || cell is Cell<double>) {
-                parsedVal = double.tryParse(trimmed);
-              } else if (cell.type == CellDataType.measuredValue) {
-                if (cell is Cell<int>) {
-                  parsedVal = int.tryParse(trimmed) ?? (double.tryParse(trimmed)?.toInt());
-                } else if (cell is Cell<double>) {
-                  parsedVal = double.tryParse(trimmed);
-                } else {
-                  parsedVal = num.tryParse(trimmed) ?? trimmed;
-                }
-              } else {
-                parsedVal = v;
-              }
-
-              try {
-                cell.value = parsedVal;
-              } catch (_) {
-                if (parsedVal is double && cell is Cell<int>) {
-                  cell.value = parsedVal.toInt();
-                } else if (parsedVal is int && cell is Cell<double>) {
-                  cell.value = parsedVal.toDouble();
-                } else {
-                  cell.value = parsedVal;
-                }
-              }
-
-              if (onChanged != null) onChanged(parsedVal);
-            },
             decoration: InputDecoration(
               labelText: cell.isRequired ? '$caption *' : caption,
               hintText: cell.hint,

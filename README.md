@@ -1,9 +1,14 @@
 <div align="center">
 
+<img src="doc/assets/jodija_logo.png" alt="JoDija Logo" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
+
 # 🚀 JoDija Templates (Adaptive App Shell & Enterprise Toolkit)
+
+### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
 
 **حزمة فلاتر المتقدمة لبناء لوحات التحكم، التطبيقات الأحادية، والأنظمة المتعددة مع دعم RTL كامل والتوجيه المتجاوب.**
 
+[![Version](https://img.shields.io/badge/version-3.0.3-success.svg)](pubspec.yaml)
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
 [![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
