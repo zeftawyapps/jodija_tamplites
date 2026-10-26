@@ -103,6 +103,18 @@ class AdaptiveAppShell extends StatelessWidget {
   /// The header configuration for the sidebar.
   final SidebarHeaderConfig? sidebarHeader;
 
+  /// إعدادات الترويسة المخصصة للـ Drawer في الشاشات الصغيرة (إن لم تُحدد، يتم استخدام sidebarHeader تلقائياً).
+  /// Custom header configuration for Drawer on small screens. Defaults to sidebarHeader if null.
+  final SidebarHeaderConfig? drawerHeader;
+
+  // Dark mode specific colors for sidebar
+  final Color? sidebarDarkBackgroundColor;
+  final Color? sidebarDarkSelectedColor;
+  final Color? sidebarDarkTextColor;
+  final Color? sidebarDarkSelectedTextColor;
+  final Color? sidebarDarkIconColor;
+  final Color? sidebarDarkSelectedIconColor;
+
   /// الشاشة التي تظهر في حالة حدوث خطأ أو صفحة غير موجودة (404).
   /// The screen that appears in case of an error or page not found (404).
   final Widget? errorScreen;
@@ -282,11 +294,20 @@ class AdaptiveAppShell extends StatelessWidget {
     /// إعدادات الترويسة (Header) الخاصة بالقائمة الجانبية.
     /// The header configuration for the sidebar.
     this.sidebarHeader,
+    /// إعدادات ترويسة القائمة المنزلقة (Drawer) للشاشات الصغيرة.
+    this.drawerHeader,
 
     // Sidebar styling
     /// لون خلفية القائمة الجانبية.
     /// The background color of the sidebar.
     this.sidebarBackgroundColor,
+    /// ألوان السايدبار في الوضع الداكن
+    this.sidebarDarkBackgroundColor,
+    this.sidebarDarkSelectedColor,
+    this.sidebarDarkTextColor,
+    this.sidebarDarkSelectedTextColor,
+    this.sidebarDarkIconColor,
+    this.sidebarDarkSelectedIconColor,
     /// لون الخلفية للعنصر المحدد (النشط) في القائمة الجانبية.
     /// The background color of the selected (active) item in the sidebar.
     this.sidebarSelectedColor,
@@ -379,8 +400,9 @@ class AdaptiveAppShell extends StatelessWidget {
   }
 
   // Method to create SideBarNavigationTheames from current settings
-  SideBarNavigationTheames createSidebarTheme() {
-    return isDarkMode
+  SideBarNavigationTheames createSidebarTheme({bool? isDark}) {
+    final effectiveIsDark = isDark ?? isDarkMode;
+    return effectiveIsDark
         ? SideBarNavigationTheames.dark(
             titleApp: titleApp,
             isSidebarInCulomn: isSidbarInCulomn,
@@ -392,14 +414,20 @@ class AdaptiveAppShell extends StatelessWidget {
             itemHeight: sidebarItemHeight,
             fontSize: sidebarFontSize,
             fontFamily: sidebarFontFamily,
-            backgroundColor: sidebarBackgroundColor,
-            selectedBackgroundColor: sidebarSelectedColor,
+            backgroundColor: sidebarDarkBackgroundColor ??
+                (darkTheme?.scaffoldBackgroundColor ??
+                    const Color(0xFF1F1F1F)),
+            selectedBackgroundColor: sidebarDarkSelectedColor ??
+                sidebarSelectedColor ??
+                Colors.blue.shade900,
             hoverBackgroundColor: sidebarHoverColor,
-            textColor: sidebarTextColor,
-            selectedTextColor: sidebarSelectedTextColor,
+            textColor: sidebarDarkTextColor ?? sidebarTextColor,
+            selectedTextColor: sidebarDarkSelectedTextColor ??
+                sidebarSelectedTextColor,
             hoverTextColor: sidebarHoverTextColor,
-            iconColor: sidebarIconColor,
-            selectedIconColor: sidebarSelectedIconColor,
+            iconColor: sidebarDarkIconColor ?? sidebarIconColor,
+            selectedIconColor: sidebarDarkSelectedIconColor ??
+                sidebarSelectedIconColor,
             hoverIconColor: sidebarHoverIconColor,
             expandedBackgroundColor: sidebarExpandedBackgroundColor,
             expandedTextColor: sidebarExpandedTextColor,
@@ -434,8 +462,8 @@ class AdaptiveAppShell extends StatelessWidget {
   }
 
   // Method to provide the theme to child widgets
-  static SideBarNavigationTheames getTheme(BuildContext context) {
-    return Provider.of<SideBarNavigationTheames>(context, listen: false);
+  static SideBarNavigationTheames getTheme(BuildContext context, {bool listen = true}) {
+    return Provider.of<SideBarNavigationTheames>(context, listen: listen);
   }
 
   // Method to get settings provider
@@ -445,22 +473,28 @@ class AdaptiveAppShell extends StatelessWidget {
 
   // Method to get app bar configuration
   static AppBarConfig? getAppBarConfig(
-      BuildContext context, bool isSmallScreen) {
-    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
+      BuildContext context, bool isSmallScreen, {bool listen = true}) {
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: listen);
     return isSmallScreen
         ? instance.smallScreenAppBar
         : instance.largeScreenAppBar;
   }
 
   // Method to get sidebar header configuration
-  static SidebarHeaderConfig? getSidebarHeader(BuildContext context) {
-    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
+  static SidebarHeaderConfig? getSidebarHeader(BuildContext context, {bool listen = true}) {
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: listen);
     return instance.sidebarHeader;
   }
 
+  // Method to get drawer header configuration (falls back to sidebarHeader)
+  static SidebarHeaderConfig? getDrawerHeader(BuildContext context, {bool listen = true}) {
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: listen);
+    return instance.drawerHeader ?? instance.sidebarHeader;
+  }
+
   // Method to check if large screen should show app bar
-  static bool shouldShowAppBarOnLargeScreen(BuildContext context) {
-    final instance = Provider.of<AdaptiveAppShell>(context, listen: false);
+  static bool shouldShowAppBarOnLargeScreen(BuildContext context, {bool listen = true}) {
+    final instance = Provider.of<AdaptiveAppShell>(context, listen: listen);
     return instance.showAppBarOnLargeScreen;
   }
 
@@ -512,16 +546,17 @@ class AdaptiveAppShell extends StatelessWidget {
           create: (_) => SettingsProvider(
             languageCode: languageCode,
             isDarkMode: isDarkMode,
-          ),
+          )..initFromPrefs(),
         ),
 
         ChangeNotifierProvider(
           create: (_) => StatusProvider(),
         ),
 
-        // Provide the sidebar theme instance
-        Provider<SideBarNavigationTheames>.value(
-          value: createSidebarTheme(),
+        // Provide the sidebar theme instance dynamically based on SettingsProvider
+        ProxyProvider<SettingsProvider, SideBarNavigationTheames>(
+          update: (context, settings, previous) =>
+              createSidebarTheme(isDark: settings.isDarkMode),
         ),
 
         // Provide the control panel instance
@@ -543,7 +578,7 @@ class AdaptiveAppShell extends StatelessWidget {
                 ...this.extraLocalizationsDelegates!,
             ],
             title: this.titleApp,
-            theme: getCurrentTheme(context),
+            theme: lightTheme ?? ThemeData.light(useMaterial3: true),
             darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
             themeMode:
                 settingsProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,

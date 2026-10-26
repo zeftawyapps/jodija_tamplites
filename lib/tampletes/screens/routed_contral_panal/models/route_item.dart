@@ -113,6 +113,7 @@ class RouteItem {
   /// The query parameters passed through the URL.
   Map<String, dynamic>? queryParameters;
   // Custom action for non-routed items
+  final List<Widget>? actions;
 
   RouteItem({
     /// المعرف الفريد للعنصر.
@@ -178,6 +179,7 @@ class RouteItem {
     /// هل يتم عرض العنوان (Title) في الشاشات الصغيرة.
     /// Whether to display the title on small screens.
     this.isDesplayTitleInSmallScreen = false, // Default to routed
+
     /// المتغيرات أو المعاملات المرفقة مع الرابط (مثال: id=5).
     /// Parameters attached to the route path.
     this.prams,
@@ -189,6 +191,9 @@ class RouteItem {
     /// المعاملات التي تمرر عبر رابط الاستعلام (Query Parameters).
     /// The query parameters passed through the URL.
     this.queryParameters,
+
+    /// إجراءات شريط التطبيق المخصصة
+    this.actions,
   }) {
     // عمل نسخة من prams وليس مرجع
     constPrams = prams != null ? Map<String, dynamic>.from(prams!) : null;

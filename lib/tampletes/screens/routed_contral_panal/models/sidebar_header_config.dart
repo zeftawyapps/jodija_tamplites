@@ -176,6 +176,8 @@ class SidebarHeaderConfig {
         height:  logoHight,
         width:  logoWidth,
         fit: logoFit,
+        errorBuilder: (context, error, stackTrace) =>
+            Icon(Icons.storefront, size: logoHight),
       );
     } else if (logoNetworkUrl != null) {
       return Image.network(

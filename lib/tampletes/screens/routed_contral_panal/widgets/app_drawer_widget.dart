@@ -1,9 +1,7 @@
 import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/widgets/drower_widget.dart';
 import 'package:flutter/material.dart';
-import '../theam/theam.dart';
 import '../laaunser.dart';
-import 'sidebar_widget.dart';
 
 class AppDrawerWidget extends StatelessWidget {
   final List<RouteItem> items;
@@ -19,7 +17,7 @@ class AppDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AdaptiveAppShell.getTheme(context);
      return Drawer(
-      width: theme.itemHeight * 5.5, // Dynamic width based on theme
+      width: (theme.itemHeight * 5.5).clamp(270.0, 320.0), // Responsive width based on theme
       backgroundColor: theme.backgroundColor,
       child: DrawerbarWidget(
         items: items,

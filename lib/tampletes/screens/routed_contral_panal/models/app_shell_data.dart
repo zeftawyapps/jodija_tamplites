@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../laaunser.dart';
+import '../providers/settings_provider.dart';
 import '../theam/theam.dart';
 import '../utils/app_shell_utils.dart';
 import 'app_bar_config.dart';
@@ -58,8 +60,27 @@ class AppShellData {
   /// إنشاء AppShellData من AdaptiveAppShell instance
   factory AppShellData.fromAppShell(
       AdaptiveAppShell appShell, BuildContext? context) {
+    SettingsProvider? settings;
+    if (context != null) {
+      try {
+        settings = Provider.of<SettingsProvider>(context, listen: false);
+      } catch (_) {}
+    }
+    final effectiveIsDark = settings?.isDarkMode ?? appShell.isDarkMode;
+
+    SideBarNavigationTheames currentTheme;
+    if (context != null) {
+      try {
+        currentTheme = AdaptiveAppShell.getTheme(context, listen: false);
+      } catch (_) {
+        currentTheme = appShell.createSidebarTheme(isDark: effectiveIsDark);
+      }
+    } else {
+      currentTheme = appShell.createSidebarTheme(isDark: effectiveIsDark);
+    }
+
     return AppShellData._(
-      theme: appShell.createSidebarTheme(),
+      theme: currentTheme,
       smallScreenAppBar: appShell.smallScreenAppBar,
       largeScreenAppBar: appShell.largeScreenAppBar,
       showAppBarOnSmallScreen: appShell.showAppBarOnSmallScreen,
@@ -71,8 +92,8 @@ class AppShellData {
       animationDuration: appShell.animationDuration,
       animationCurve: appShell.animationCurve,
       animationSlideDistance: appShell.animationSlideDistance,
-      languageCode: appShell.languageCode,
-      isDarkMode: appShell.isDarkMode,
+      languageCode: settings?.languageCode ?? appShell.languageCode,
+      isDarkMode: effectiveIsDark,
       titleApp: appShell.titleApp,
       isSidbarInCulomn: appShell.isSidbarInCulomn,
     );

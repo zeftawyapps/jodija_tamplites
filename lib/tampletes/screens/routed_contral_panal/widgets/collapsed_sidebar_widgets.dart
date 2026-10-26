@@ -46,8 +46,8 @@ class _CollapsedStandaloneItemWidgetState
           child: Icon(
             widget.icon,
             color: widget.isSelected
-                ? theme.selectedTextColor
-                : (_isHovered ? theme.hoverTextColor : theme.iconColor),
+                ? (theme.selectedIconColor)
+                : (_isHovered ? theme.hoverIconColor : theme.iconColor),
             size: theme.iconSize,
           ),
         ),
@@ -96,8 +96,8 @@ class _CollapsedGroupItemWidgetState extends State<CollapsedGroupItemWidget> {
         child: Icon(
           widget.icon,
           color: widget.isSelected
-              ? theme.selectedTextColor
-              : (_isHovered ? theme.hoverTextColor : theme.iconColor),
+              ? (theme.selectedIconColor)
+              : (_isHovered ? theme.hoverIconColor : theme.iconColor),
           size: theme.iconSize,
         ),
       ),

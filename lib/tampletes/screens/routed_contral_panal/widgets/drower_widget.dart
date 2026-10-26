@@ -66,8 +66,8 @@ class DrawerbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Get the theme from the provider
     final theme = AdaptiveAppShell.getTheme(context);
-    // Get sidebar header configuration
-    final headerConfig = AdaptiveAppShell.getSidebarHeader(context);
+    // Get drawer header configuration (falls back to sidebarHeader)
+    final headerConfig = AdaptiveAppShell.getDrawerHeader(context);
 
     // Auto expand parent group on load if not set
     final statusProvider = context.read<StatusProvider>();
@@ -172,22 +172,26 @@ class DrawerbarWidget extends StatelessWidget {
     });
 
     return Container(
-      width: theme.itemHeight * 5, // Dynamic width based on theme
+      width: double.infinity,
       color: theme.backgroundColor,
       child: SafeArea(
         child: Column(
           children: [
-            // Custom or default header
-            if (headerConfig != null)
-              headerConfig.buildHeader(context)
-            else
-              // Default header if no custom header is provided
+            // Custom or default header with Logo & Org Name
+            if (headerConfig != null) ...[
+              headerConfig.buildHeader(context),
+              Divider(
+                color: theme.textColor.withValues(alpha: 0.15),
+                height: 1,
+                thickness: 1,
+              ),
+            ] else
               Container(
                 height: theme.itemHeight * 1.7, // Responsive based on theme
                 alignment: Alignment.center,
                 color: theme.backgroundColor,
                 child: Text(
-                  'تطبيقي',
+                  theme.titleApp ?? 'تطبيقي',
                   style: TextStyle(
                     fontSize: theme.fontSize * 1.6,
                     fontWeight: theme.selectedFontWeight,

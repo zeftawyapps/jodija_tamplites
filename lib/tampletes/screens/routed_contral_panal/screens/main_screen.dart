@@ -135,20 +135,25 @@ class _MainScreenState extends State<MainScreen>
             child: widget.contentWidget,
           ),
 
-          // أيقونة Menu العائمة في الأعلى
+          // أيقونة Menu العائمة في الأعلى للشاشات الصغيرة
           if (shouldShowMenuIcon)
             Positioned(
-              top: 16,
+              top: MediaQuery.of(context).padding.top + 8,
               left: layoutDirection == TextDirection.rtl ? null : 16,
               right: layoutDirection == TextDirection.rtl ? 16 : null,
-              child: IconButton(
-                onPressed: () {
-                  _scaffoldKey.currentState?.openDrawer();
-                },
-                icon: Icon(
-                  Icons.menu,
-                  color: theme.iconColor,
-                  size: 24,
+              child: Material(
+                color: theme.backgroundColor.withValues(alpha: 0.9),
+                shape: const CircleBorder(),
+                elevation: 3,
+                child: IconButton(
+                  onPressed: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
+                  icon: Icon(
+                    Icons.menu,
+                    color: theme.iconColor,
+                    size: 24,
+                  ),
                 ),
               ),
             ),

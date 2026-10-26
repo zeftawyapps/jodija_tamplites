@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// مزود إعدادات التطبيق العامة (Application Settings Provider)
 ///
@@ -26,13 +27,35 @@ class SettingsProvider extends ChangeNotifier {
   void setDarkMode(bool value) {
     if (_isDarkMode != value) {
       _isDarkMode = value;
+      _saveThemeToPrefs(value);
       notifyListeners();
     }
   }
 
   void toggleTheme() {
     _isDarkMode = !_isDarkMode;
+    _saveThemeToPrefs(_isDarkMode);
     notifyListeners();
+  }
+
+  Future<void> _saveThemeToPrefs(bool value) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('is_dark_mode', value);
+    } catch (_) {}
+  }
+
+  Future<void> initFromPrefs() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (prefs.containsKey('is_dark_mode')) {
+        final savedTheme = prefs.getBool('is_dark_mode');
+        if (savedTheme != null && savedTheme != _isDarkMode) {
+          _isDarkMode = savedTheme;
+          notifyListeners();
+        }
+      }
+    } catch (_) {}
   }
 
   // Language settings
