@@ -34,7 +34,7 @@ import 'utils/app_shell_utils.dart';
 ///   sidebarItems: [...],
 /// );
 /// ```
-class AdaptiveAppShell extends StatelessWidget {
+class AdaptiveAppShell extends StatefulWidget {
   // Singleton pattern
   static AdaptiveAppShell? _instance;
   static AdaptiveAppShell get instance {
@@ -525,48 +525,70 @@ class AdaptiveAppShell extends StatelessWidget {
   }
 
   @override
+  State<AdaptiveAppShell> createState() => _AdaptiveAppShellState();
+}
+
+class _AdaptiveAppShellState extends State<AdaptiveAppShell> {
+  late final SettingsProvider _settingsProvider;
+  late final AppShellRouterProvider _routerProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _settingsProvider = SettingsProvider(
+      languageCode: widget.languageCode,
+      isDarkMode: widget.isDarkMode,
+    )..initFromPrefs();
+
+    _routerProvider = AppShellRouterProvider(
+      sidebarItems: widget.sidebarItems ?? [],
+      errorConent: widget.errorScreen,
+      shouldShowSidebar: widget.shouldShowSidebar,
+    );
+  }
+
+  @override
+  void didUpdateWidget(AdaptiveAppShell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isDarkMode != oldWidget.isDarkMode) {
+      _settingsProvider.setDarkMode(widget.isDarkMode);
+    }
+    if (widget.languageCode != oldWidget.languageCode) {
+      _settingsProvider.setLanguage(widget.languageCode);
+    }
+    if (widget.sidebarItems != oldWidget.sidebarItems) {
+      _routerProvider.setSidebarItems(widget.sidebarItems ?? []);
+    }
+  }
+
+  @override
+  void dispose() {
+    _settingsProvider.dispose();
+    _routerProvider.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        if (extraProvidersAndBlocs != null) ...extraProvidersAndBlocs!,
-        // Add AuthProvider first
-        // ChangeNotifierProvider(create: (_) => AuthProvider()),
-
-        // AppShellRouterProvider manages routing
-        ChangeNotifierProvider(
-          create: (_) => AppShellRouterProvider(
-            sidebarItems: sidebarItems ?? [],
-            errorConent: this.errorScreen,
-            shouldShowSidebar: this.shouldShowSidebar,
-          ),
-        ),
-
-        // SettingsProvider manages app settings
-        ChangeNotifierProvider(
-          create: (_) => SettingsProvider(
-            languageCode: languageCode,
-            isDarkMode: isDarkMode,
-          )..initFromPrefs(),
-        ),
-
+        if (widget.extraProvidersAndBlocs != null)
+          ...widget.extraProvidersAndBlocs!,
+        ChangeNotifierProvider.value(value: _routerProvider),
+        ChangeNotifierProvider.value(value: _settingsProvider),
         ChangeNotifierProvider(
           create: (_) => StatusProvider(),
         ),
-
-        // Provide the sidebar theme instance dynamically based on SettingsProvider
         ProxyProvider<SettingsProvider, SideBarNavigationTheames>(
           update: (context, settings, previous) =>
-              createSidebarTheme(isDark: settings.isDarkMode),
+              widget.createSidebarTheme(isDark: settings.isDarkMode),
         ),
-
-        // Provide the control panel instance
-        Provider<AdaptiveAppShell>.value(value: this),
+        Provider<AdaptiveAppShell>.value(value: widget),
       ],
       child: Consumer2<AppShellRouterProvider, SettingsProvider>(
         builder: (context, appShellProvider, settingsProvider, child) {
-          // Update localization when language changes
           LocalizationInit localizationInit =
-              LocalizationInit(loclizationLangs);
+              LocalizationInit(widget.loclizationLangs);
           localizationInit.setAppLocal(settingsProvider.languageCode);
 
           return MaterialApp.router(
@@ -574,31 +596,22 @@ class AdaptiveAppShell extends StatelessWidget {
             locale: Locale(settingsProvider.languageCode),
             localizationsDelegates: [
               ...AppLocalizationsInit().localizationsDelegates,
-              if (this.extraLocalizationsDelegates != null)
-                ...this.extraLocalizationsDelegates!,
+              if (widget.extraLocalizationsDelegates != null)
+                ...widget.extraLocalizationsDelegates!,
             ],
-            title: this.titleApp,
-            theme: lightTheme ?? ThemeData.light(useMaterial3: true),
-            darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
+            title: widget.titleApp,
+            theme: widget.lightTheme ?? ThemeData.light(useMaterial3: true),
+            darkTheme: widget.darkTheme ?? ThemeData.dark(useMaterial3: true),
             themeMode:
                 settingsProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             routerConfig: appShellProvider.createRouter(
-              initRouter,
-              observers: this.navigatorObservers,
+              widget.initRouter,
+              observers: widget.navigatorObservers,
             ),
-            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
           );
         },
       ),
     );
   }
-
-//  void setAppLocal(String localCode) {
-//     LocalizationConfig localizationConfig =
-//     LocalizationConfig(localizedValues:  {}
-//     );
-//     localizationConfig.setLocale(Locale(localCode));
-//     Translation().getlocal();
-
-//   }
 }
