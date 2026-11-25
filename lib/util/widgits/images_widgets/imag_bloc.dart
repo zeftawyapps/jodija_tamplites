@@ -1,6 +1,6 @@
 
-import 'dart:io';
-import 'dart:typed_data';
+import '../../platform/io_stub.dart' if (dart.library.io) 'dart:io';
+import 'package:flutter/foundation.dart';
 
 
 import 'package:dio/dio.dart';
@@ -40,26 +40,24 @@ class ImagePickerModele extends Cubit<ImageState> {
         Uint8List bytes =await   value.readAsBytes();
         Imagebytes = bytes ;
         fileImagePath = p ;
-        xFile =  value ;
-        fileImage = File(p);
-        fileImageFrombytes = File.fromRawPath(bytes);
+        xFile = value;
+        if (!kIsWeb) {
+          fileImage = File(p);
+          fileImageFrombytes = File.fromRawPath(bytes);
+        }
         var imagefile = value;
 
         var image = Imagebytes;
         String name = imagefile.name;
-        String extention =
-        name.substring(name.lastIndexOf(".") + 1);
+        String extention = name.substring(name.lastIndexOf(".") + 1);
         // rename file use date time micorsecond
-        name =
-            "${DateTime.now().microsecondsSinceEpoch}.$extention";
-          multiFile = MultipartFile.fromBytes(
+        name = "${DateTime.now().microsecondsSinceEpoch}.$extention";
+        multiFile = MultipartFile.fromBytes(
           image!,
           filename: name,
-          contentType: MediaType.parse(
-              imagefile.mimeType ?? "image/png"),
+          contentType: MediaType.parse(imagefile.mimeType ?? "image/png"),
         );
-        // ignore: unnecessary_null_comparison
-        if (fileImage == null) {
+        if (!kIsWeb && fileImage == null) {
           imgget = false;
           emit(NoFileLoaded());
         } else {

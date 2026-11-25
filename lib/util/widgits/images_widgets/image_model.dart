@@ -1,4 +1,4 @@
-import 'dart:io';
+import '../../platform/io_stub.dart' if (dart.library.io) 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';

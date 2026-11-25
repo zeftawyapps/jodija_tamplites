@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.1] - 2026-11-25
+
+### Fixed & Improved
+- **Full Web & Wasm Platform Support:**
+  - Replaced direct `dart:io` imports across local storage, JSON file manager, and image picker modules with conditional imports (`if (dart.library.io)`).
+  - Guarded `File.fromRawPath` in `ImagePickerModele` on Web (`kIsWeb`).
+  - Explicitly declared all 6 supported platforms (`android`, `ios`, `linux`, `macos`, `web`, `windows`) in `pubspec.yaml`.
+
+---
+
 ## [3.1.0] - 2026-11-25
 
 ### Breaking Changes

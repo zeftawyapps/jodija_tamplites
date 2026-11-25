@@ -1,3 +1,5 @@
+import '../../platform/file_image_stub.dart'
+    if (dart.library.io) '../../platform/file_image_io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -133,10 +135,13 @@ class _BlocImagePickerState extends State<BlocImagePicker> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         child: addimagep.imgget
-                                            ? Image(
-                                                image: FileImage(
-                                                    addimagep.fileImage!),
-                                              )
+                                            ? (addimagep.Imagebytes != null
+                                                ? Image.memory(
+                                                    addimagep.Imagebytes!,
+                                                  )
+                                                : buildPlatformFileImage(
+                                                    addimagep.fileImage!,
+                                                  ))
                                             : Image(
                                                 image: AssetImage(widget.place),
                                               ),

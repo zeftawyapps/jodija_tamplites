@@ -1,4 +1,6 @@
-import 'dart:io';
+import '../../platform/io_stub.dart' if (dart.library.io) 'dart:io';
+import '../../platform/file_image_stub.dart'
+    if (dart.library.io) '../../platform/file_image_io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -545,7 +547,7 @@ class _ImagePeckerState extends State<ImagePecker> {
         height: widget.height,
       );
     } else if (_currentImage?.file != null) {
-      return Image.file(
+      return buildPlatformFileImage(
         _currentImage!.file!,
         fit: BoxFit.cover,
         width: widget.width,

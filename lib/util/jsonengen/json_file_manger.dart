@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import '../platform/io_stub.dart' if (dart.library.io) 'dart:io';
 
 
 import 'package:flutter/services.dart';
@@ -19,55 +19,47 @@ class JsonFileManger{
  Future<void > setfileRedy(String ass , String name ){
    return _CopyFileFromAsset(ass, name);
  }
-  Future <  dynamic> readFile(String path,String filename)async{
-    Directory?  directory = await getExternalStorageDirectory();
+  Future<dynamic> readFile(String path, String filename) async {
+    final directory = await getExternalStorageDirectory();
     File file = File("${directory!.path}/$filename");
- fileExists = await    file.exists() ;
- if (!fileExists){
-      await  setfileRedy( path,filename);}
-else {
-  response = file.readAsStringSync(); }
-  //   response = await rootBundle.loadString('$path$filename');
-
-return   json.decode(response) ;
+    fileExists = await file.exists();
+    if (!fileExists) {
+      await setfileRedy(path, filename);
+    } else {
+      response = file.readAsStringSync();
+    }
+    return json.decode(response);
   }
-  Future < dynamic > readFileFromAsset (String path  )async{
 
-  //  response = await  file.readAsString();
+  Future<dynamic> readFileFromAsset(String path) async {
     response = await rootBundle.loadString(path);
-
-    return json.decode(response) ;
+    return json.decode(response);
   }
-  Future<void  >  _CopyFileFromAsset (String asset,String filename  ) async {
-    Directory?  directory = await getExternalStorageDirectory();
+
+  Future<void> _CopyFileFromAsset(String asset, String filename) async {
+    final directory = await getExternalStorageDirectory();
     File file = File("${directory!.path}/$filename");
     response = await rootBundle.loadString('$asset$filename');
 
     file.createSync();
 
     file.writeAsStringSync(response);
-
   }
 
-  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
-    print("Creating file!");
+  void createFile(
+      Map<String, dynamic> content, Directory dir, String fileName) {
     File file = File("${dir.path}/$fileName");
     file.createSync();
 
     file.writeAsStringSync(json.encode(content));
   }
-late   File jsonFile;
 
-  void writeToFile(String r ,  String filename  ) async {
-    print("Writing to file!");
+  late File jsonFile;
 
-
-      print("File exists");
-      Directory?  directory = await getExternalStorageDirectory();
-      File file = File("${directory!.path}/$filename");
-      file.writeAsStringSync(r);
-
-
+  void writeToFile(String r, String filename) async {
+    final directory = await getExternalStorageDirectory();
+    File file = File("${directory!.path}/$filename");
+    file.writeAsStringSync(r);
   }
  }
 

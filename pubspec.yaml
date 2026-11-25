@@ -1,9 +1,17 @@
 name: jodija_tamplites
 description: An enterprise-grade Flutter toolkit with an adaptive app shell, native RTL support, BLoC state management, cell models, and dynamic forms.
-version: 3.1.0
+version: 3.1.1
 homepage: https://github.com/zeftawyapps/jodija_tamplites
 repository: https://github.com/zeftawyapps/jodija_tamplites
 issue_tracker: https://github.com/zeftawyapps/jodija_tamplites/issues
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
 topics:
   - flutter
   - dashboard
