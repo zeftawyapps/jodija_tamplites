@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/data_souce_bloc/remote_base_model.dart';
+import 'package:jodija_tamplites/util/data_souce_bloc/remote_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

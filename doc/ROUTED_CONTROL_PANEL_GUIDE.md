@@ -20,7 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 // استيراد الحزم الخاصة بالقالب والمشروع
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
 import 'package:delta_mager_pro_mangement_app/configs/sidbarItmes.dart' show SidebarItemsConfig;
 import 'package:delta_mager_pro_mangement_app/configs/app_shell_config.dart';
 import 'package:delta_mager_pro_mangement_app/configs/ui_configs.dart';
@@ -137,7 +137,7 @@ RouteItem(
 يأتي القالب مع `AppShellRouterMixin` ليسهل عملية التنقل والحصول على المعاملات (Parameters/Queries) من داخل الـ `StatefulWidget`.
 
 ```dart
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/utiles/side_bar_navigation_router.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/utiles/side_bar_navigation_router.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {

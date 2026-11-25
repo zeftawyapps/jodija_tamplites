@@ -1,7 +1,7 @@
-import 'package:JoDija_tamplites/util/cell_models/data-operations.dart';
-import 'package:JoDija_tamplites/util/cell_models/modul_screateor.dart';
-import 'package:JoDija_tamplites/util/widgits/input_output_cell_binder/field_model_binder.dart';
-import 'package:JoDija_tamplites/util/widgits/input_text/input_text_field.dart';
+import 'package:jodija_tamplites/util/cell_models/data-operations.dart';
+import 'package:jodija_tamplites/util/cell_models/modul_screateor.dart';
+import 'package:jodija_tamplites/util/widgits/input_output_cell_binder/field_model_binder.dart';
+import 'package:jodija_tamplites/util/widgits/input_text/input_text_field.dart';
 import 'package:flutter/material.dart';
 
 class DataTableGrid<F extends FeildModelBinder, C extends CellModel>

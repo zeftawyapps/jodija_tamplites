@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

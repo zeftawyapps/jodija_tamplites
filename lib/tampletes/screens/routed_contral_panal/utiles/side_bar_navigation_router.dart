@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/providers/sidebar_provider.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/providers/sidebar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';

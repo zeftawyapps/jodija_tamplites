@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/widgits/taps/tap_item_interface.dart';
+import 'package:jodija_tamplites/util/widgits/taps/tap_item_interface.dart';
 import 'package:flutter/material.dart';
 
 class TapItem extends StatelessWidget implements ITapItems {

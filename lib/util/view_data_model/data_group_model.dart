@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 
 /// نموذج تجميع البيانات في علاقات رئيسية وفرعية (Hierarchical Data Group Model)
 ///

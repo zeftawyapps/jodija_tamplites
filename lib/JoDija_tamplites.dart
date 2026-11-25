@@ -1,4 +1,4 @@
-library JoDija_tamplites;
+library jodija_tamplites;
 
 // ============================================================================
 // 1. الحزم الأساسية الخارجية (Core Foundation Packages)

@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 
 import 'cell.dart';
 import 'modul_screateor.dart';

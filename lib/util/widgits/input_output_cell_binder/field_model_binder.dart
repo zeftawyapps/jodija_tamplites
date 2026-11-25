@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/cell_models/modul_screateor.dart';
+import 'package:jodija_tamplites/util/cell_models/modul_screateor.dart';
 import 'package:flutter/material.dart';
 
 import 'field.dart';

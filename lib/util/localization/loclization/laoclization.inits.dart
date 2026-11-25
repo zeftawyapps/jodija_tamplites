@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:JoDija_tamplites/util/localization/loaclized_init.dart';
-import 'package:JoDija_tamplites/util/localization/loclization/app_localizations.dart';
+import 'package:jodija_tamplites/util/localization/loaclized_init.dart';
+import 'package:jodija_tamplites/util/localization/loclization/app_localizations.dart';
  
 class LocalizationInit {
 Map<String, AppLocalizationsInit>? localizedValues;

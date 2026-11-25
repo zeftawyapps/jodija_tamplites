@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/widgits/input_form_validation/lable_desplty.dart';
+import 'package:jodija_tamplites/util/widgits/input_form_validation/lable_desplty.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../util/validators/base_validator.dart';

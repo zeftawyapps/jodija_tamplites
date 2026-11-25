@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/data_souce_bloc/base_bloc.dart';
+import 'package:jodija_tamplites/util/data_souce_bloc/base_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

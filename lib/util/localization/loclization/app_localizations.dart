@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/localization/loaclized_init.dart';
+import 'package:jodija_tamplites/util/localization/loaclized_init.dart';
 import 'package:flutter/cupertino.dart';
 
 class Translation {

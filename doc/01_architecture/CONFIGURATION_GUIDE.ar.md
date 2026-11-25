@@ -16,7 +16,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/util/navigations/navigation_service.dart';
+import 'package:jodija_tamplites/util/navigations/navigation_service.dart';
 
 abstract class DataViewConfigraion {
   String _Version = " V:  1.0.0";

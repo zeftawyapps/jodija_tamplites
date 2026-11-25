@@ -25,13 +25,13 @@ Welcome to the comprehensive, step-by-step developer tutorial for **`JoDija Temp
 
 ## 1. Step 1: Installation & Foundation Setup
 
-Add `JoDija_tamplites` directly from GitHub to your application's `pubspec.yaml`:
+Add `jodija_tamplites` directly from GitHub to your application's `pubspec.yaml`:
 
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  JoDija_tamplites:
+  jodija_tamplites:
     git:
       url: https://github.com/zeftawyapps/jodija_tamplites.git
       ref: master
@@ -41,18 +41,18 @@ dependencies:
 > If you are working in a local multi-package workspace/monorepo, you can also link it locally via path:
 > ```yaml
 > dependencies:
->   JoDija_tamplites:
+>   jodija_tamplites:
 >     path: ../tools/jodija_tamplites
 > ```
 
 Import the unified package header into `main.dart`:
 
 ```dart
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 ```
 
 > [!TIP]
-> Importing `JoDija_tamplites.dart` automatically re-exports essential production packages including `flutter_bloc`, `provider`, `go_router`, `sqflite`, `flutter_animate`, and `google_fonts`.
+> Importing `jodija_tamplites.dart` automatically re-exports essential production packages including `flutter_bloc`, `provider`, `go_router`, `sqflite`, `flutter_animate`, and `google_fonts`.
 
 ---
 
@@ -62,7 +62,7 @@ Subclass **`DataViewConfigraion`** to establish global app identity, routing end
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class MyAppConfig extends DataViewConfigraion {
   @override
@@ -101,7 +101,7 @@ class MyAppConfig extends DataViewConfigraion {
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

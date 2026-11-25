@@ -1,5 +1,5 @@
-import 'package:JoDija_tamplites/util/app_settings/settings_model.dart';
-import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
+import 'package:jodija_tamplites/util/app_settings/settings_model.dart';
+import 'package:jodija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 
 class SettingChanger extends StatefulWidget {

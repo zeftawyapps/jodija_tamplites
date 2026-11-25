@@ -32,7 +32,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class CustomOliveTheme {
   static const Color primaryOlive = Color(0xFF556B2F); // زيتي داكن

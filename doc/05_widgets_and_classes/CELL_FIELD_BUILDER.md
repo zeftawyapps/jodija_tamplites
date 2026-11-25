@@ -30,7 +30,7 @@ Instead of manually wiring dozens of `TextEditingController` instances, focus no
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class CustomerEntryFormScreen extends StatefulWidget {
   const CustomerEntryFormScreen({super.key});

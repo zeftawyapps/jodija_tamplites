@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/widgits/input_form_validation/input_validation_item.dart';
+import 'package:jodija_tamplites/util/widgits/input_form_validation/input_validation_item.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class InputFeildBinder extends InputValidationForm {

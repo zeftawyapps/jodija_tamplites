@@ -31,7 +31,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  JoDija_tamplites:
+  jodija_tamplites:
     git:
       url: https://github.com/zeftawyapps/jodija_tamplites.git
       ref: master
@@ -41,18 +41,18 @@ dependencies:
 > إذا كنت تعمل داخل مساحة عمل محلية متعددة الحزم (Monorepo Workspace)، يمكنك أيضاً ربطها محلياً عبر المسار (Path):
 > ```yaml
 > dependencies:
->   JoDija_tamplites:
+>   jodija_tamplites:
 >     path: ../tools/jodija_tamplites
 > ```
 
 ثم قم باستيراد المكتبة الرئيسية في ملف `main.dart`:
 
 ```dart
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 ```
 
 > [!TIP]
-> استيراد `JoDija_tamplites.dart` يوفر لك تلقائياً حزم `flutter_bloc`, `provider`, `go_router`, `sqflite`, `flutter_animate`, و `google_fonts` دون الحاجة لاستيرادها بشكل منفصل.
+> استيراد `jodija_tamplites.dart` يوفر لك تلقائياً حزم `flutter_bloc`, `provider`, `go_router`, `sqflite`, `flutter_animate`, و `google_fonts` دون الحاجة لاستيرادها بشكل منفصل.
 
 ---
 
@@ -62,7 +62,7 @@ import 'package:JoDija_tamplites/JoDija_tamplites.dart';
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class MyAppConfig extends DataViewConfigraion {
   @override
@@ -101,7 +101,7 @@ class MyAppConfig extends DataViewConfigraion {
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

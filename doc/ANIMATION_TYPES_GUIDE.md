@@ -331,8 +331,8 @@ return AdaptiveAppShell(
 ```dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/theam/theam.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/theam/theam.dart';
 
 void main() {
   runApp(const MyApp());

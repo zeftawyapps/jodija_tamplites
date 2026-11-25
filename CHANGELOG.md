@@ -1,9 +1,32 @@
 # Changelog
 
-All notable changes to the `JoDija_tamplites` package will be documented in this file.
+All notable changes to the `jodija_tamplites` package will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [3.1.0] - 2026-11-25
+
+### Breaking Changes
+- **Package Name Standardized for pub.dev:**
+  - Renamed package from `JoDija_tamplites` to lowercase `jodija_tamplites` and main entrypoint to `lib/jodija_tamplites.dart` to comply with pub.dev naming conventions.
+
+### Added
+- **Persistent Theme & Responsive Navigation:**
+  - Added persistent theme settings in `SettingsProvider`.
+  - Added responsive drawer sizing and improved mobile navigation UI across `AdaptiveAppShell` and sidebar/drawer widgets.
+  - Updated the routed control panel launcher (`AdaptiveAppShell`) for cleaner initialization and shell configuration.
+- **pub.dev Packaging & Example:**
+  - Added `example/lib/main.dart` demonstrating `AdaptiveAppShell` with RTL support and `RouteItem` configuration.
+  - Added full `pubspec.yaml` metadata (`homepage`, `repository`, `issue_tracker`, `topics`) and declared `http_parser` directly in dependencies.
+- **Expanded Documentation:**
+  - Added comprehensive Arabic translations and module-by-module API reference guides in `doc/`.
+
+### Fixed
+- Fixed `assets:` placement under the `flutter:` section in `pubspec.yaml`.
+- Removed empty temporary `pubspec.yaml.new` file.
 
 ---
 

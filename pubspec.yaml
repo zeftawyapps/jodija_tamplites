@@ -1,7 +1,15 @@
-name: JoDija_tamplites
-description: A new Flutter project.
-version: 3.0.3
-homepage: page
+name: jodija_tamplites
+description: An enterprise-grade Flutter toolkit with an adaptive app shell, native RTL support, BLoC state management, cell models, and dynamic forms.
+version: 3.1.0
+homepage: https://github.com/zeftawyapps/jodija_tamplites
+repository: https://github.com/zeftawyapps/jodija_tamplites
+issue_tracker: https://github.com/zeftawyapps/jodija_tamplites/issues
+topics:
+  - flutter
+  - dashboard
+  - rtl
+  - bloc
+  - responsive
 
 environment:
   sdk: ">=3.0.6 <4.0.0"
@@ -39,6 +47,7 @@ dependencies:
   uuid: ^4.5.1
   path: ^1.9.0
   google_fonts: ^8.0.2
+  http_parser: ^4.1.2
 
 dev_dependencies:
   flutter_test:
@@ -54,8 +63,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 
 # To add assets to your package, add an assets section, like this:
-assets:
-  - assets/
+flutter:
+  assets:
+    - assets/
 #   - images/a_dot_ham.jpeg
 #
 # For details regarding assets in packages, see

@@ -132,8 +132,8 @@ final customTheme = theme.copyWith(
 
 ### Required Imports
 ```dart
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/theam/theam.dart';
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/theam/theam.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
 ```
 
 ### Common Patterns

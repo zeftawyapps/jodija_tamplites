@@ -8,7 +8,8 @@
 
 **حزمة فلاتر متطورة لتأسيس لوحات التحكم، التطبيقات الأحادية، والمنصات متعددة الوحدات مع دعم كامل ومحلي للغة العربية ونظام RTL.**
 
-[![Version](https://img.shields.io/badge/الإصدار-3.0.3-success.svg)](pubspec.yaml)
+[![pub package](https://img.shields.io/pub/v/jodija_tamplites.svg)](https://pub.dev/packages/jodija_tamplites)
+[![Version](https://img.shields.io/badge/الإصدار-3.1.0-success.svg)](pubspec.yaml)
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
 [![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -116,24 +117,27 @@ graph TD
 
 ## ⚡ خطوات البدء السريع (Quick Start)
 
-### 1. التثبيت (مباشرة عبر GitHub)
+### 1. التثبيت
 
-أضف حزمة `JoDija_tamplites` عبر مستودع GitHub إلى ملف `pubspec.yaml`:
+أضف حزمة `jodija_tamplites` مباشرة من [pub.dev](https://pub.dev/packages/jodija_tamplites):
+
+```bash
+flutter pub add jodija_tamplites
+```
+
+أو أضفها يدوياً إلى ملف `pubspec.yaml`:
 
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  JoDija_tamplites:
-    git:
-      url: https://github.com/zeftawyapps/jodija_tamplites.git
-      ref: master
+  jodija_tamplites: ^3.1.0
 ```
 
 ### 2. إعداد كلاس الـ Configuration
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/project_configrations/app_configration.dart';
+import 'package:jodija_tamplites/project_configrations/app_configration.dart';
 
 class MatgerConfig extends DataViewConfigraion {
   @override
@@ -159,8 +163,8 @@ class MatgerConfig extends DataViewConfigraion {
 ### 3. تهيئة وتشغيل الـ `AdaptiveAppShell`
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
-import 'package:JoDija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/laaunser.dart';
+import 'package:jodija_tamplites/tampletes/screens/routed_contral_panal/models/route_item.dart';
 
 void main() {
   runApp(const MyApp());

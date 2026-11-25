@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/functions/date_time.dart';
+import 'package:jodija_tamplites/util/functions/date_time.dart';
 import 'package:flutter/material.dart';
 
 import 'input_text_field.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
-import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:jodija_tamplites/util/main-screen/screen-type.dart';
+import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
-import 'package:JoDija_tamplites/util/data_souce_bloc/base_state.dart';
-import 'package:JoDija_tamplites/util/view_data_model/base_data_model.dart';
+import 'package:jodija_tamplites/util/data_souce_bloc/base_state.dart';
+import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

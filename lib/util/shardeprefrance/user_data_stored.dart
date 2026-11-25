@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/shardeprefrance/shardUserModel.dart';
+import 'package:jodija_tamplites/util/shardeprefrance/shardUserModel.dart';
 
 class UserDataStored {
   // sengleton class for user data stored from shared prefrence with sahredUserModel

@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/navigations/web_route.dart';
+import 'package:jodija_tamplites/util/navigations/web_route.dart';
 import 'package:flutter/material.dart';
 
 import 'INavigation_service.dart';

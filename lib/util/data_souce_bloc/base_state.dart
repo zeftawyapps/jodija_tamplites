@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/data_souce_bloc/remote_base_model.dart';
+import 'package:jodija_tamplites/util/data_souce_bloc/remote_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'base_state.freezed.dart';

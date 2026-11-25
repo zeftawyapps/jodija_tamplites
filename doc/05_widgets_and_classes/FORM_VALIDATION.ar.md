@@ -30,7 +30,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});

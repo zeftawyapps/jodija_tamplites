@@ -1,6 +1,6 @@
-import 'package:JoDija_tamplites/util/shardeprefrance/shardPrfrance.dart';
-import 'package:JoDija_tamplites/util/shardeprefrance/shardUserModel.dart';
-import 'package:JoDija_tamplites/util/shardeprefrance/user_data_stored.dart';
+import 'package:jodija_tamplites/util/shardeprefrance/shardPrfrance.dart';
+import 'package:jodija_tamplites/util/shardeprefrance/shardUserModel.dart';
+import 'package:jodija_tamplites/util/shardeprefrance/user_data_stored.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

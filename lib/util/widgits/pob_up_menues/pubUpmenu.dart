@@ -1,4 +1,4 @@
-import 'package:JoDija_tamplites/util/main-screen/screen-type.dart';
+import 'package:jodija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

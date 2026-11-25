@@ -124,7 +124,7 @@ final binder = CellFieldBuilder.buildBinderFromModel(
 قم بإنشاء كلاس يرث من `CellModel` وعرف الحقول كمتغيرات من نوع `Cell`:
 
 ```dart
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class PatientIntakeModel extends CellModel {
   // حقل نصي إلزامي
@@ -210,7 +210,7 @@ class PatientIntakeModel extends CellModel {
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 class PatientIntakeScreen extends StatefulWidget {
   const PatientIntakeScreen({super.key});

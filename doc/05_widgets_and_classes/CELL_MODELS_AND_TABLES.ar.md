@@ -45,7 +45,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:JoDija_tamplites/JoDija_tamplites.dart';
+import 'package:jodija_tamplites/jodija_tamplites.dart';
 
 // 1. تعريف نموذج الكيان يرث من CellModel
 class InventoryItemModel extends CellModel {
