@@ -1,29 +1,15 @@
-<div align="center">
+![JoDija Logo](https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/jodija_logo.png)
 
-<img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/jodija_logo.png" alt="JoDija Logo" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
+# 🚀 JoDija Templates (`jodija_tamplites`)
 
-# 🚀 JoDija Templates (Adaptive App Shell & Enterprise Toolkit)
-
-### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
-
-**An advanced, enterprise-grade Flutter package for building responsive dashboards, single-purpose apps, and modular multi-solution ecosystems with built-in native RTL support and adaptive navigation.**
+**An enterprise-grade Flutter UI & state-management toolkit for responsive dashboards, native RTL apps, BLoC data states, cell tables, and dynamic forms across Android, iOS, Web, macOS, Windows, and Linux.**
 
 [![pub package](https://img.shields.io/pub/v/jodija_tamplites.svg)](https://pub.dev/packages/jodija_tamplites)
-[![Version](https://img.shields.io/badge/version-3.1.0-success.svg)](pubspec.yaml)
-[![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
-[![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![RTL Support](https://img.shields.io/badge/RTL-Native%20Support-orange.svg)](#2-native-rtl--localization-support)
-[![Docs](https://img.shields.io/badge/Docs-Arabic%20%7C%20English-blue.svg)](#-documentation-index)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/zeftawyapps/jodija_tamplites/blob/master/LICENSE)
+
+🌐 **Language / اللغة:** [🇸🇦 اقرأ الدليل بالعربية (README.ar.md)](https://github.com/zeftawyapps/jodija_tamplites/blob/master/README.ar.md) • [📚 Full Documentation Portal](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/README.md)
 
 ---
-
-### 🌐 Language / اللغة
-[🇸🇦 **اقرأ هذا الدليل باللغة العربية (README.ar.md)**](README.ar.md) • [📚 **Full Documentation Portal (doc/README.md)**](doc/README.md)
-
----
-
-</div>
 
 ## 📸 Real UI Showcase
 
@@ -45,25 +31,18 @@ Real-world production applications powered by **JoDija Templates**, such as **De
 
 `JoDija Templates` is built upon a unified architecture designed to support both focused micro-apps and expansive enterprise platforms without redundant boilerplate:
 
-```mermaid
-graph TD
-    Templates["📦 jodija_tamplites\n(Core Templates, BLoC, Themes, Config)"]
-    Express["🚀 matger-express\n(Central Node.js API & Config Provider)"]
-    
-    subgraph MultiSolution ["🏢 Multi-Solution Ecosystems"]
-        Management["🖥️ matger-management-app\n(Admin Shell + Sub-Modules + DataTables)"]
-        FontLogic["🔤 font logic\n(Typography & Advanced Font Engine)"]
-    end
-    
-    subgraph SingleSolution ["📱 Single-Solution Apps"]
-        Client["🛒 matger-client-app\n(Customer Storefront / BottomNav)"]
-        Specialized["🎯 Specialized Micro-Apps"]
-    end
-    
-    Templates --> MultiSolution
-    Templates --> SingleSolution
-    Express -->|Central API Contracts & Configs| MultiSolution
-    Express -->|Storefront API & Settings| SingleSolution
+```text
++-------------------------------------------------------------------+
+|                        jodija_tamplites                           |
+|  AdaptiveAppShell | DataSourceBloc | CellFieldBuilder | Themes    |
++-----------------+-------------------------------+-----------------+
+                  |                               |
+                  v                               v
++---------------------------------+ +-------------------------------+
+|    Multi-Solution Dashboards    | |     Single-Solution Apps      |
+| - Responsive Sidebar / Drawer   | | - Mobile / Web Storefronts    |
+| - Dynamic Data Tables & Forms   | | - Native RTL & Localization   |
++---------------------------------+ +-------------------------------+
 ```
 
 1. **Single-Solution Apps:**
@@ -226,17 +205,17 @@ class MyApp extends StatelessWidget {
 
 | Guide | Description | Link |
 | :--- | :--- | :--- |
-| **🇸🇦 Arabic Guide** | Complete package guide and documentation in Arabic | [README.ar.md](README.ar.md) |
-| **🚀 End-to-End Tutorial** | Complete step-by-step developer tutorial from zero to production | [HOW_TO_USE.md](doc/HOW_TO_USE.md) |
-| **Philosophy & Architecture** | Single vs Multi-Solution patterns and backend integration | [PHILOSOPHY_AND_ARCHITECTURE.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
-| **Configuration Guide** | Comprehensive guide to `DataViewConfigraion` and `AppHttpConnector` | [CONFIGURATION_GUIDE.md](doc/01_architecture/CONFIGURATION_GUIDE.md) |
-| **Adaptive App Shell** | Layout templates, themes, sidebar customization, and animations | [ADAPTIVE_APP_SHELL_GUIDE.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
-| **Shared Utilities** | BLoC state management, Cell Models, local storage, and validators | [SHARED_UTILS_GUIDE.md](doc/03_utils/SHARED_UTILS_GUIDE.md) |
-| **Ecosystem Integration** | Integrating management dashboards, client apps, and express API | [MATGER_ECOSYSTEM_INTEGRATION.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
-| **📖 Complete API Catalog** | Comprehensive module-by-module reference catalog of all classes | [API_REFERENCE.md](doc/API_REFERENCE.md) |
+| **🇸🇦 Arabic Guide** | Complete package guide and documentation in Arabic | [README.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/README.ar.md) |
+| **🚀 End-to-End Tutorial** | Complete step-by-step developer tutorial from zero to production | [HOW_TO_USE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/HOW_TO_USE.md) |
+| **Philosophy & Architecture** | Single vs Multi-Solution patterns and backend integration | [PHILOSOPHY_AND_ARCHITECTURE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.md) |
+| **Configuration Guide** | Comprehensive guide to `DataViewConfigraion` and `AppHttpConnector` | [CONFIGURATION_GUIDE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/01_architecture/CONFIGURATION_GUIDE.md) |
+| **Adaptive App Shell** | Layout templates, themes, sidebar customization, and animations | [ADAPTIVE_APP_SHELL_GUIDE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.md) |
+| **Shared Utilities** | BLoC state management, Cell Models, local storage, and validators | [SHARED_UTILS_GUIDE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/03_utils/SHARED_UTILS_GUIDE.md) |
+| **Ecosystem Integration** | Integrating management dashboards, client apps, and express API | [MATGER_ECOSYSTEM_INTEGRATION.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.md) |
+| **📖 Complete API Catalog** | Comprehensive module-by-module reference catalog of all classes | [API_REFERENCE.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/API_REFERENCE.md) |
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/zeftawyapps/jodija_tamplites/blob/master/LICENSE) file for details.

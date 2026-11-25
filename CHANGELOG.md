@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.2] - 2026-11-25
+
+### Improved
+- Updated `README.md` architecture diagram and converted all documentation links to direct GitHub URLs for immediate accessibility on `pub.dev`.
+
+---
+
 ## [3.1.1] - 2026-11-25
 
 ### Fixed & Improved
