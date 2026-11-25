@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="doc/assets/jodija_logo.png" alt="JoDija Logo" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
+<img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/jodija_logo.png" alt="JoDija Logo" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
 
 # 🚀 JoDija Templates (Adaptive App Shell & Enterprise Toolkit)
 
@@ -30,12 +30,12 @@
 Real-world production applications powered by **JoDija Templates**, such as **Delta Mager Pro**:
 
 <div align="center">
-  <img src="doc/assets/products_dashboard.jpg" alt="Delta Mager Pro Products Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 20px;" />
+  <img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/products_dashboard.jpg" alt="Delta Mager Pro Products Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 20px;" />
   <p><em><strong>Products Dashboard:</strong> RTL collapsible Sidebar with custom Olive Theme, filter chips, responsive card grid, and badges (Best Seller, Hot Discount).</em></p>
 </div>
 
 <div align="center">
-  <img src="doc/assets/categories_dashboard.jpg" alt="Delta Mager Pro Categories Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 10px;" />
+  <img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/categories_dashboard.jpg" alt="Delta Mager Pro Categories Dashboard" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 10px;" />
   <p><em><strong>Categories & Catalog Dashboard:</strong> Active sidebar item highlight, quick search bar, and custom styled floating actions.</em></p>
 </div>
 
