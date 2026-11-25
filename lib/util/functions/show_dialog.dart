@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:jodija_tamplites/util/main-screen/screen-type.dart';
 import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 class ShowInputFieldsDialogs<T extends BaseViewDataModel> {
   Widget content;
@@ -34,9 +31,9 @@ class ShowInputFieldsDialogs<T extends BaseViewDataModel> {
           context: context,
           builder: (_) {
             return FadeIn(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 child: Dialog(
-                    child: Container(
+                    child: SizedBox(
                         width: width ?? w * 0.9,
                         height: height ?? h * 0.4,
                         child: content)));
@@ -52,7 +49,7 @@ class ShowInputFieldsDialogs<T extends BaseViewDataModel> {
             return Padding(
               padding: EdgeInsets.only(bottom: keyboardPadding),
               child: FadeIn(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,

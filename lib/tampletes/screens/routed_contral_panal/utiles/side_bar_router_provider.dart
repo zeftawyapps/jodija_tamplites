@@ -16,8 +16,8 @@ mixin AppShellRouteManager {
 
 // how access to provider
   void setupAppShellRouteManager(BuildContext context) {
-    if (this.provider == null) {
-      this.provider = context.read<AppShellRouterProvider>();
+    if (provider == null) {
+      provider = context.read<AppShellRouterProvider>();
 
       provider!.setSidebarItems(_routeItems);
     }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -75,22 +74,27 @@ class TextFomrFildValidtion extends StatelessWidget
 
   /// قائمة بشروط التحقق (Validators) التي يجب أن يستوفيها الحقل.
   /// A list of validators the field must pass.
+  @override
   List<BaseValidator>? baseValidation;
 
   /// العنوان التعريفي للحقل (Label).
   /// The label text for the field.
+  @override
   String? labalText = "";
 
   /// المفتاح الفريد (Key) الذي ستُخزن به قيمة الحقل في خريطة البيانات (Map).
   /// The unique key used to store the field's value in the data map.
+  @override
   String keyData;
 
   /// نموذج التحقق (ValidationsForm) الذي يرتبط به هذا الحقل.
   /// The form validation manager (ValidationsForm) this field is linked to.
+  @override
   ValidationsForm form;
 
   /// خريطة البيانات التي يُحفظ فيها ناتج هذا الحقل محلياً.
   /// The local map where the field's resulting value is stored.
+  @override
   Map<String, dynamic>? mapValue;
 
   /// طريقة عرض العنوان (Label) أعلى الحقل أو بجانبه.
@@ -183,12 +187,8 @@ class TextFomrFildValidtion extends StatelessWidget
   Widget build(BuildContext context) {
     form.inputValidationForm.add(this);
 
-    if (mapValue == null) {
-      mapValue = Map<String, dynamic>();
-    }
-    if (controller == null) {
-      controller = controllerInit;
-    }
+    mapValue ??= <String, dynamic>{};
+    controller ??= controllerInit;
 
     if (labelDisplay == LabelDisplay.none) {
       return InputTextFormfield(
@@ -201,10 +201,10 @@ class TextFomrFildValidtion extends StatelessWidget
           maxLines: mulitLine,
           readOnly: isReadOnly,
           textInputType: textInputType,
-          controller: this.controller,
-          mainValue: this.controller != null ? initValue : null,
+          controller: controller,
+          mainValue: controller != null ? initValue : null,
           style: textStyle,
-          isPressed: this.isPssword,
+          isPressed: isPssword,
           decoration: labalText != ""
               ? decoration.copyWith(labelText: labalText)
               : decoration,
@@ -229,7 +229,7 @@ class TextFomrFildValidtion extends StatelessWidget
           });
     } else if (labelDisplay == LabelDisplay.rowDisplay) {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
         child: Column(
           children: [
             Row(
@@ -239,7 +239,7 @@ class TextFomrFildValidtion extends StatelessWidget
                   labalText!,
                   style: labelStyle ?? textStyle,
                 )),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
@@ -253,10 +253,10 @@ class TextFomrFildValidtion extends StatelessWidget
                       maxLines: mulitLine,
                       readOnly: isReadOnly,
                       textInputType: textInputType,
-                      controller: this.controller,
-                      mainValue: this.controller != null ? initValue : null,
+                      controller: controller,
+                      mainValue: controller != null ? initValue : null,
                       style: textStyle,
-                      isPressed: this.isPssword,
+                      isPressed: isPssword,
                       decoration: decoration,
                       inputFormatters: inputFormatters,
                       onChange: (v) {
@@ -284,7 +284,7 @@ class TextFomrFildValidtion extends StatelessWidget
       );
     } else {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -303,10 +303,10 @@ class TextFomrFildValidtion extends StatelessWidget
                   maxLines: mulitLine,
                   readOnly: isReadOnly,
                   textInputType: textInputType,
-                  controller: this.controller,
-                  mainValue: this.controller != null ? initValue : null,
+                  controller: controller,
+                  mainValue: controller != null ? initValue : null,
                   style: textStyle,
-                  isPressed: this.isPssword,
+                  isPressed: isPssword,
                   decoration: decoration,
                   onChange: (v) {
                     // if value not == mainValue then  set to mainValue
@@ -336,16 +336,16 @@ class TextFomrFildValidtion extends StatelessWidget
       String value = v.toString().trim();
       // if value have .0 then parse to double else to int
       if (value.contains(".")) {
-        mapValue!["${keyData}"] = double.parse(v!);
+        mapValue![keyData] = double.parse(v!);
       } else {
-        mapValue!["${keyData}"] = int.parse(v!);
+        mapValue![keyData] = int.parse(v!);
       }
     } else {
-      mapValue!["${keyData}"] = v;
+      mapValue![keyData] = v;
     }
   }
 
   @override
   // TODO: implement nameCaption
-  get nameCaption => this.labalText;
+  get nameCaption => labalText;
 }

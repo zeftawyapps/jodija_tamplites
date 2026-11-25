@@ -5,7 +5,6 @@ import '../../../../util/validators/base_validator.dart';
 import '../../../functions/show_dialog.dart';
 import '../../../view_data_model/base_data_model.dart';
 import '../../input_output_cell_binder/intpu_cell_binder.dart';
-import '../../input_text/dateTime_input_text_field.dart';
 import '../../input_text/refrance_input_text_field.dart';
 import '../form_validations.dart';
 import '../input_validation_item.dart';
@@ -28,14 +27,17 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
   
   /// قائمة شروط التحقق المطبقة على هذا الحقل.
   /// The list of validators applied to this field.
+  @override
   List<BaseValidator>? baseValidation;
   
   /// نموذج التحقق الأساسي (ValidationsForm) الذي يرتبط به هذا الحقل.
   /// The form validation manager (ValidationsForm) this field is linked to.
+  @override
   ValidationsForm form;
   
   /// العنوان التعريفي للحقل.
   /// The label text of the field.
+  @override
   String? labalText;
   
   /// المفتاح المستخدم لعرض القيمة المختارة (مثل: name).
@@ -44,10 +46,12 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
   
   /// المفتاح الفريد المستخدم لحفظ القيمة الفعلية في البيانات (مثل: id).
   /// The unique key used to save the actual value in the data (e.g., id).
+  @override
   String keyData;
   
   /// خريطة البيانات التي يُحفظ فيها ناتج هذا الحقل محلياً.
   /// The local map where the field's resulting value is stored.
+  @override
   Map<String, dynamic>? mapValue;
   
   /// طريقة عرض العنوان (Label) أعلى الحقل أو بجانبه.
@@ -70,7 +74,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
   /// Configuration for the dialog used to select the reference item.
   ShowInputFieldsDialogs<T> showInputDialoge;
 
-  RefranceValidaion({
+  RefranceValidaion({super.key, 
     /// زخرفة الحقل.
     /// Field decoration.
     required this.decoration,
@@ -117,15 +121,15 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    mapValue = Map<String, dynamic>();
+    mapValue = <String, dynamic>{};
     form.inputValidationForm.add(this);
-    if (controller == null) controller = TextEditingController();
+    controller ??= TextEditingController();
     if (labelDisplay == LabelDisplay.none) {
       return RefranceFormField(
           controller: controller,
           textStyle: textStyle,
           decoration: labalText == null
-              ? InputDecoration()
+              ? const InputDecoration()
               : InputDecoration(
                   labelText: labalText,
                 ),
@@ -136,7 +140,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                 mapValue = data.map;
                 String text = mapValue![keyDesplay];
                 controller!.text = text;
-                onResult(data!);
+                onResult(data);
                 if (onChange != null) {
                   onChange(data);
                 }
@@ -157,7 +161,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
           });
     } else if (labelDisplay == LabelDisplay.rowDisplay) {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
         child: Row(
           children: [
             Expanded(
@@ -166,7 +170,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                 style: labelStyle ?? textStyle,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
@@ -182,7 +186,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                         mapValue = data.map;
                         String text = mapValue![keyDesplay];
                         controller!.text = text;
-                        onResult(data!);
+                        onResult(data);
                         if (onChange != null) {
                           onChange(data);
                         }
@@ -207,7 +211,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
       );
     } else {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -227,7 +231,7 @@ class RefranceValidaion<T extends BaseViewDataModel> extends StatelessWidget
                           mapValue = data.map;
                           String text = mapValue![keyDesplay];
                           controller!.text = text;
-                          onResult(data!);
+                          onResult(data);
                           if (onChange != null) {
                             onChange(data);
                           }

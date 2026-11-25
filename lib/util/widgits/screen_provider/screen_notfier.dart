@@ -4,7 +4,6 @@ abstract class ScreenStateNotifier extends ChangeNotifier {
   late BuildContext context;
   late Function fuction;
 
-  @override
   void createproviers(BuildContext contxt);
 
 }

@@ -1,12 +1,7 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'imag_bloc.dart';
@@ -75,7 +70,7 @@ class _BlocImagePickerState extends State<BlocImagePicker> {
   @override
   Widget build(BuildContext context) {
     ImagePickerModele addimagep = widget.addimagep;
-    if (widget.networkImage != null || widget.networkImage != "") {
+    if (widget.networkImage != "") {
       addimagep.setwebimage(widget.networkImage);
     }
     imgget = addimagep.imgget;
@@ -103,7 +98,7 @@ class _BlocImagePickerState extends State<BlocImagePicker> {
         builder: (context, state) {
           ImageFileLoading.imagFile = addimagep.fileImage;
 
-          return Container(
+          return SizedBox(
             width: widget.width,
             height: widget.hight,
             child: Column(
@@ -216,7 +211,7 @@ class _BlocImagePickerState extends State<BlocImagePicker> {
                           ).animate().scaleY(
                               begin: 0,
                               end: 1,
-                              duration: Duration(milliseconds: 100),
+                              duration: const Duration(milliseconds: 100),
                             )
                         : Container()),
               ],

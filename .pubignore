@@ -1,0 +1,28 @@
+# Exclude generated/local platform runner files from pub.dev archive
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Exclude Dart/Flutter build & tooling caches
+.dart_tool/
+**/.dart_tool/
+build/
+**/build/
+pubspec.lock
+**/pubspec.lock
+.packages
+**/doc/api/
+
+# Exclude legacy gitignored file and local tooling metadata
+lib/JoDija_tamplites.dart
+.fvm/
+.fvmrc
+.vscode/
+.idea/
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+.DS_Store
+**/.DS_Store

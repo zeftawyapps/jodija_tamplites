@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../../view_data_model/base_data_model.dart';
 /// ويدجت لعرض بيانات مجمعة (Grouped Data) بحيث يكون هناك عنوان للمجموعة (Parent) وأسفلها قائمة من العناصر (Children List).
@@ -62,13 +61,12 @@ class GroupedMapListWidget<parent , child > extends StatelessWidget {
     parent pdata  ;
     child cdata ;
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: data.length,
       itemBuilder: (context, index) {
         final groupData = data[index].map as Map<String, dynamic>;
         pdata = parentData(groupData);
-        final groupName = groupData['name'];
-        final items = groupData['${chidlKey}']??[] as List<dynamic>;
+        final items = groupData[chidlKey]??[];
         return Column(
           children: [
             // Group title
@@ -78,7 +76,7 @@ class GroupedMapListWidget<parent , child > extends StatelessWidget {
             ListView.builder(
 
               shrinkWrap: true, // Wrap content vertically
-              physics: NeverScrollableScrollPhysics(), // Disable grid scrolling
+              physics: const NeverScrollableScrollPhysics(), // Disable grid scrolling
 
               itemCount: items.length,
               itemBuilder: (context, index) {

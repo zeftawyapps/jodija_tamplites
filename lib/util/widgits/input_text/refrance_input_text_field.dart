@@ -1,4 +1,3 @@
-import 'package:jodija_tamplites/util/functions/date_time.dart';
 import 'package:flutter/material.dart';
 
 import 'input_text_field.dart';
@@ -28,7 +27,7 @@ class RefranceFormField extends StatefulWidget {
 }
 
 class _RefranceFormFieldState extends State<RefranceFormField> {
-  DateTime? value = null;
+  DateTime? value;
 
   @override
   void initState() {
@@ -51,6 +50,6 @@ class _RefranceFormFieldState extends State<RefranceFormField> {
         decoration: widget.decoration,
         validate: widget.onvlaidate,
         saved: widget.onSave,
-        mainValue: this.value == null ? null : "");
+        mainValue: value == null ? null : "");
   }
 }

@@ -11,13 +11,13 @@ with AppShellRouterMixin
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.analytics, size: 80, color: Colors.purple),
-          const SizedBox(height: 16),
-          const Text('التحليلات', style: TextStyle(fontSize: 24)),
+          SizedBox(height: 16),
+          Text('التحليلات', style: TextStyle(fontSize: 24)),
         ],
       ),
     );

@@ -30,7 +30,7 @@ class DrawerbarWidget extends StatelessWidget {
       }
 
       if (item.isChildItem) {
-        final parentName = item.parentName ?? 'default';
+        final parentName = item.parentName;
         groupedItems.putIfAbsent(parentName, () => []);
         groupedItems[parentName]!.add(item);
       } else {
@@ -104,7 +104,7 @@ class DrawerbarWidget extends StatelessWidget {
               Navigator.pop(context);
             }
             appShellProvider.handleItemTapByPath(
-                context, item.path!, item.resolvedPath);
+                context, item.path, item.resolvedPath);
           },
         ),
       );
@@ -160,7 +160,7 @@ class DrawerbarWidget extends StatelessWidget {
                         Navigator.pop(context);
                       }
                       appShellProvider.handleItemTapByPath(
-                          context, childItem.path!, childItem.resolvedPath);
+                          context, childItem.path, childItem.resolvedPath);
                     },
                   ),
                 );

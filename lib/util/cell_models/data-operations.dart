@@ -1,4 +1,3 @@
-import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
 
 import 'cell.dart';
 import 'modul_screateor.dart';
@@ -31,7 +30,7 @@ class DataTableOfCellModels<T extends CellModel> {
       RowofCells<T> row = RowofCells.model(model);
       listOfRows.add(row);
     }).toList();
-    this.mapList = getListmap(listOfRows);
+    mapList = getListmap(listOfRows);
   }
 
   List<RowofCells> getDatarow(List<Map<String, dynamic>> listMaps) {
@@ -69,10 +68,6 @@ class DataTableOfCellModels<T extends CellModel> {
     listMaps.map((Map<String, dynamic> map) {
       keylist!.add(map[keycell.name]);
     }).toList();
-
-    List<dynamic>? distinctIds = listMaps.toSet().toList();
-
-    int i = 0;
   }
 
   List<Map<dynamic, int>> countBy(
@@ -83,7 +78,7 @@ class DataTableOfCellModels<T extends CellModel> {
     int i = 0;
     int c = d.length;
     do {
-      Map<dynamic, int> m = Map<dynamic, int>();
+      Map<dynamic, int> m = <dynamic, int>{};
       int cc = data.where((e) => e[keycell.name] == d[i]).length;
       m.addAll({d[i]: cc});
       newdata.add(m);
@@ -101,7 +96,7 @@ class DataTableOfCellModels<T extends CellModel> {
     int i = 0;
     int c = d.length;
     do {
-      Map<dynamic, double> m = Map<dynamic, double>();
+      Map<dynamic, double> m = <dynamic, double>{};
       String v = d[i];
       double sum = 0;
       for (int i = 0; i < data.length; i++) {

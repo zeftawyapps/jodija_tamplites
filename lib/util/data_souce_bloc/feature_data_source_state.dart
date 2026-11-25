@@ -1,6 +1,5 @@
 import 'package:jodija_tamplites/util/data_souce_bloc/base_state.dart';
 import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 /// حالة إدارة مصادر البيانات الموحدة للميزات (Feature Data Source State)
@@ -42,7 +41,7 @@ class FeaturDataSourceState<T extends BaseViewDataModel> {
   }
 
   factory FeaturDataSourceState.defaultState() => FeaturDataSourceState<T>(
-      listState: DataSourceBaseState.init(),
+      listState: const DataSourceBaseState.init(),
       itemState: DataSourceBaseState.init(),
-      feadState: DataSourceBaseState.init());
+      feadState: const DataSourceBaseState.init());
 }

@@ -29,18 +29,22 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   
   /// قائمة شروط التحقق المطبقة.
   /// The list of validators applied.
+  @override
   List<BaseValidator>? baseValidation;
   
   /// نموذج التحقق المرتبط بهذا الحقل.
   /// The form validation manager.
+  @override
   ValidationsForm form;
   
   /// العنوان التعريفي للحقل.
   /// The label text of the field.
+  @override
   String? labalText;
   
   /// المفتاح الفريد لحفظ القيمة في خريطة البيانات.
   /// The unique key to save the value in the data map.
+  @override
   String keyData;
   
   /// وضع إدخال منتقي التاريخ (مثال: تقويم Calendar).
@@ -49,6 +53,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   
   /// خريطة البيانات التي يُحفظ فيها الناتج محلياً.
   /// The local map where the value is stored.
+  @override
   Map<String, dynamic>? mapValue;
   
   /// وضع منتقي التاريخ (عرض الأيام أو السنين).
@@ -62,7 +67,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   /// طريقة عرض العنوان (أعلى الحقل، بجانبه، أو مخفي).
   /// How the label is displayed relative to the field.
   LabelDisplay labelDisplay = LabelDisplay.none;
-  DateTimeTextFieldValidaion({
+  DateTimeTextFieldValidaion({super.key, 
     /// التاريخ المبدئي.
     /// Initial date.
     this.initDate,
@@ -114,9 +119,9 @@ class DateTimeTextFieldValidaion extends StatelessWidget
   Widget build(BuildContext context) {
     DateTime init = initDate ?? DateTime.now();
     DateTime first = firestDate ?? DateTime.now();
-    DateTime last = lastDate ?? first.add(Duration(days: 1));
+    DateTime last = lastDate ?? first.add(const Duration(days: 1));
     DatePickerMode mode = datePickerMode;
-    mapValue = Map<String, dynamic>();
+    mapValue = <String, dynamic>{};
     form.inputValidationForm.add(this);
     if (labelDisplay == LabelDisplay.none) {
       return DatePickerFormField(
@@ -148,16 +153,16 @@ class DateTimeTextFieldValidaion extends StatelessWidget
           onSave: (v) {
             var sDate = v.toString();
             DateTime date = DateTime.parse(sDate);
-            mapValue!["$keyData"] = date;
+            mapValue![keyData] = date;
           });
     } else if (labelDisplay == LabelDisplay.rowDisplay) {
       return Container(
-          padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
           child: Row(
         children: [
           Expanded(
               child: Text(labalText!,  style: labelStyle ??  textStyle ,)),
-            SizedBox(width: 5,),
+            const SizedBox(width: 5,),
             Expanded(flex:  10 ,
               child: DatePickerFormField(
                   entryMode: entryMode,
@@ -186,7 +191,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
                   onSave: (v) {
                     var sDate = v.toString();
                     DateTime date = DateTime.parse(sDate);
-                    mapValue!["$keyData"] = date;
+                    mapValue![keyData] = date;
                   }),
             ),
 
@@ -194,7 +199,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
       ));
     } else {
       return Container(
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(labalText!,    style: labelStyle?? textStyle ,),
@@ -226,7 +231,7 @@ class DateTimeTextFieldValidaion extends StatelessWidget
               onSave: (v) {
                 var sDate = v.toString();
                 DateTime date = DateTime.parse(sDate);
-                mapValue!["$keyData"] = date;
+                mapValue![keyData] = date;
               }),
         ),
       ]));

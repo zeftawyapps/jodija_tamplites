@@ -1,4 +1,3 @@
-import 'package:jodija_tamplites/util/navigations/web_route.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'animation_types.dart';
@@ -19,7 +18,7 @@ class GenerateAnimatedPageRoute extends PageRouteBuilder {
                 Animation<double> secondaryAnimation) {
               return screen!;
             },
-            transitionDuration: Duration(milliseconds: 300),
+            transitionDuration: const Duration(milliseconds: 300),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
@@ -28,7 +27,7 @@ class GenerateAnimatedPageRoute extends PageRouteBuilder {
                 NavigationAnimationType.slide: SlideTransition(
                   textDirection: TextDirection.ltr,
                   position: Tween<Offset>(
-                    begin: Offset(2.0, 0.0),
+                    begin: const Offset(2.0, 0.0),
                     end: Offset.zero,
                   ).animate(animation),
                   child: child,
@@ -63,7 +62,7 @@ class GenerateAnimatedPageRoute extends PageRouteBuilder {
                 ),
                 NavigationAnimationType.position: SlideTransition(
                   position: Tween<Offset>(
-                    begin: Offset(2.0, 0.0),
+                    begin: const Offset(2.0, 0.0),
                     end: Offset.zero,
                   ).animate(animation),
                   child: child,

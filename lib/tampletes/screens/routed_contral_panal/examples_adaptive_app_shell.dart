@@ -9,7 +9,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example1_DefaultLTR() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       // الخصائص الافتراضية:
       // languageCode: 'en' → layoutDirection: ltr (تلقائي)
       // animationDuration: Duration(milliseconds: 300),
@@ -22,7 +22,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example2_ArabicRTL() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ layoutDirection يُحسب تلقائياً → RTL
       
       // خصائص الحركة:
@@ -37,7 +37,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example3_FastAnimation() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 150),  // سريع جداً
@@ -50,7 +50,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example4_SmoothSlowAnimation() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 600),  // بطيء جداً
@@ -63,7 +63,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example5_BounceAnimation() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 500),
@@ -76,7 +76,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example6_ElasticAnimation() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 700),
@@ -89,7 +89,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example7_DarkThemeRTL() {
     return AdaptiveAppShell(
       isDarkMode: true,
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 350),
@@ -102,7 +102,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example8_LinearAnimation() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ RTL تلقائياً
       
       animationDuration: const Duration(milliseconds: 400),
@@ -115,7 +115,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example9_CompleteSetup() {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: 'ar',  // ✅ layoutDirection: RTL تلقائياً
       isSidbarInCulomn: false,
       
@@ -139,7 +139,7 @@ class AdaptiveAppShellUsageExamples {
   static Widget example10_DynamicLocale({required bool isArabic}) {
     return AdaptiveAppShell(
       // Using default light theme
-      loclizationLangs: {},
+      loclizationLangs: const {},
       languageCode: isArabic ? 'ar' : 'en',
       // ✅ layoutDirection يُحسب تلقائياً من اللغة
       

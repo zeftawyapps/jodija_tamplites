@@ -337,7 +337,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
 
             // 2. اذهب للرابط الجديد
             appShellProvider.handleItemTapByPath(
-                context, item.path!, item.resolvedPath);
+                context, item.path, item.resolvedPath);
 
             // Reset navigation flag after a short delay
             Future.delayed(const Duration(milliseconds: 300), () {
@@ -531,7 +531,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
               side: BorderSide(
-                color: theme.selectedBorderColor ?? Colors.transparent,
+                color: theme.selectedBorderColor,
               ),
             ),
             onSelected: (childItem) {

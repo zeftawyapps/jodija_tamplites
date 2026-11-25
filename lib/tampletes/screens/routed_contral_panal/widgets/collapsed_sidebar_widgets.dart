@@ -151,7 +151,7 @@ class _HoverablePopupMenuItemChildState
             Icon(
               widget.icon,
               color: widget.isSelected
-                  ? (theme.selectedTextColor ?? theme.selectedIconColor)
+                  ? theme.selectedTextColor
                   : (_isHovered ? theme.hoverTextColor : theme.iconColor),
               size: theme.iconSize * 0.8,
             ),
@@ -161,7 +161,7 @@ class _HoverablePopupMenuItemChildState
               style: TextStyle(
                 fontFamily: theme.fontFamily ?? 'Cairo',
                 color: widget.isSelected
-                    ? (theme.selectedTextColor ?? theme.selectedIconColor)
+                    ? theme.selectedTextColor
                     : (_isHovered ? theme.hoverTextColor : theme.textColor),
                 fontSize: theme.fontSize,
                 fontWeight: widget.isSelected

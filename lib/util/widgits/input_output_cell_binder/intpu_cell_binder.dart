@@ -5,6 +5,7 @@ abstract class InputFeildBinder extends InputValidationForm {
   InputFeildBinder(
       {required super.form, required super.keyData, required super.labalText});
   get nameCaption => super.labalText;
+  @override
   Widget build(BuildContext context);
 }
 

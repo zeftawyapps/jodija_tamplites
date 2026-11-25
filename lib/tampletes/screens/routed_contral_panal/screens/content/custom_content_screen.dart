@@ -17,7 +17,7 @@ class CustomContentScreen extends StatelessWidget
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.extension, size: 80, color: Colors.teal),
+          const Icon(Icons.extension, size: 80, color: Colors.teal),
           const SizedBox(height: 16),
           Text(title, style: const TextStyle(fontSize: 24)),
           const SizedBox(height: 8),

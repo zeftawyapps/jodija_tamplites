@@ -1,12 +1,10 @@
 import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// ويدجت تعرض البيانات في شبكة (GridView) مع دعم الحركات وزر للإضافة.
 /// A widget that displays data in a GridView with animation support and an optional add button.
 class GridViewModel<T extends BaseViewDataModel> extends StatefulWidget {
-  GridViewModel({
+  const GridViewModel({
     super.key,
     /// البيانات.
     /// The data.
@@ -90,7 +88,7 @@ class _GridViewModelState<T extends BaseViewDataModel> extends State<GridViewMod
     _controllers = List.generate(
       itemCount,
       (index) => AnimationController(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         vsync: this,
       )..forward(),
     );
@@ -123,7 +121,7 @@ class _GridViewModelState<T extends BaseViewDataModel> extends State<GridViewMod
 
     return GridView.builder(
       shrinkWrap: widget.shrinkWrap,
-      physics: widget.physics ?? AlwaysScrollableScrollPhysics(),
+      physics: widget.physics ?? const AlwaysScrollableScrollPhysics(),
       controller: widget.scrollController ?? ScrollController(),
       gridDelegate: widget.gridDelegate ??
           SliverGridDelegateWithFixedCrossAxisCount(
@@ -135,7 +133,7 @@ class _GridViewModelState<T extends BaseViewDataModel> extends State<GridViewMod
       itemCount: widget.canAdd ? widget.data.length + 1 : widget.data.length,
       itemBuilder: (context, index) {
         if (index >= _controllers.length) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         final animation = CurvedAnimation(
@@ -157,12 +155,12 @@ class _GridViewModelState<T extends BaseViewDataModel> extends State<GridViewMod
                   onTap: widget.onAdd,
                   child: widget.addWidget ??
                       AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.black.withOpacity(0.5),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Icon(
                             Icons.add,
                             size: 50,

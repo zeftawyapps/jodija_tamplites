@@ -1,5 +1,4 @@
 import 'package:jodija_tamplites/util/app_settings/settings_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../main-screen/screen-type.dart';

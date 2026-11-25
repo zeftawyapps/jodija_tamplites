@@ -35,7 +35,7 @@ class RowofCells<T extends CellModel> {
   }
 
   RowofCells.model(T model) {
-    this.modle = model;
+    modle = model;
     cells = model.cells!;
     cells.map((e) => {
       rowMap.addAll({e.name: e.value})

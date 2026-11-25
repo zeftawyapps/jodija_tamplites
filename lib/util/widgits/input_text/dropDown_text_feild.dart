@@ -40,9 +40,7 @@ class _DropDownInputTextFieldState extends State<DropDownInputTextField> {
         return DropdownMenuItem(
             value: category,
             child: Text(category,
-                style: widget.textStyle != null
-                    ? widget.textStyle
-                    : TextStyle(fontSize: 20, color: Colors.black)));
+                style: widget.textStyle ?? const TextStyle(fontSize: 20, color: Colors.black)));
       }).toList(),
       onChanged: (v) {
         setState(() {
@@ -50,12 +48,10 @@ class _DropDownInputTextFieldState extends State<DropDownInputTextField> {
           widget.onChange(v);
         });
       },
-      value: widget.val != null ? widget.val : widget.itemslsit[0],
+      initialValue: widget.val ?? widget.itemslsit[0],
       onSaved: widget.onsaved,
       validator: widget.validation,
-      style: widget.textStyle != null
-          ? widget.textStyle
-          : TextStyle(fontSize: 20, color: Colors.black),
+      style: widget.textStyle ?? const TextStyle(fontSize: 20, color: Colors.black),
       decoration: widget.decoration,
     );
   }

@@ -1,9 +1,8 @@
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 extension DateTimeExtensionToString on DateTime {
   String toDateString() {
-    return this.toIso8601String();
+    return toIso8601String();
   }
 
   // uset format dd/MM/yyyy
@@ -13,29 +12,29 @@ extension DateTimeExtensionToString on DateTime {
 
   // date deffrence
   int Daydifference({DateTime? date  }) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inDays;
+    date ??= DateTime.now();
+    return difference(date).inDays;
   }
   int Monthdifference({DateTime? date}) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inMinutes ~/ 30;
+    date ??= DateTime.now();
+    return difference(date).inMinutes ~/ 30;
   }
 
   int YearDifference({DateTime? date}) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inDays ~/ 365;
+    date ??= DateTime.now();
+    return difference(date).inDays ~/ 365;
   }
   int HourDifference({DateTime? date}) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inHours;
+    date ??= DateTime.now();
+    return difference(date).inHours;
   }
   int MinuteDifference({DateTime? date}) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inMinutes;
+    date ??= DateTime.now();
+    return difference(date).inMinutes;
   }
   int SecondDifference({DateTime? date}) {
-    if(date == null) date = DateTime.now();
-    return this.difference(date).inSeconds;
+    date ??= DateTime.now();
+    return difference(date).inSeconds;
   }
 
 }

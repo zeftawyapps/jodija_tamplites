@@ -19,7 +19,7 @@ class AppShellRouterProvider extends ChangeNotifier {
     this.errorConent,
     this.shouldShowSidebar,
   }) {
-    this.sidebarItems = sidebarItems;
+    sidebarItems = sidebarItems;
   }
 
   List<RouteItem> sidebarItems;
@@ -120,10 +120,10 @@ class AppShellRouterProvider extends ChangeNotifier {
   // التعامل مع النقر على عناصر الشريط الجانبي
   void handleItemTap(BuildContext context, RouteItem item, int index) {
     isAppInit = false;
-    if (item.isSideBarRouted && item.path != null) {
+    if (item.isSideBarRouted) {
       // التعامل مع العناصر المسارة
       setSelectedIndex(index);
-      context.go(item.path!);
+      context.go(item.path);
     } else {
       // // التعامل مع العناصر غير المسارة
       // if (item.onTap != null) {
@@ -143,20 +143,20 @@ class AppShellRouterProvider extends ChangeNotifier {
 
     final actualResolvedPath = resolvedPath ?? item.resolvedPath;
 
-    if (item.isSideBarRouted && item.path != null) {
+    if (item.isSideBarRouted) {
       // التعامل مع العناصر المسارة
       setSelectedIndex(index);
       if (item.prams != null) {
         Map<String, String> finalParams = {};
-        finalParams = extractParamsFromPath(item.path!, actualResolvedPath);
+        finalParams = extractParamsFromPath(item.path, actualResolvedPath);
 
-        String goPath = item.path!;
+        String goPath = item.path;
         finalParams.forEach((key, value) {
           goPath = goPath.replaceAll(':$key', value);
         });
         context.go(goPath);
       } else {
-        context.go(item.path!);
+        context.go(item.path);
       }
     } else {
       // التعامل مع العناصر غير المسارة
@@ -170,39 +170,8 @@ class AppShellRouterProvider extends ChangeNotifier {
     //     }
   }
 
-  // عرض المحتوى غير المسار
-  void _showNonRoutedContent(BuildContext context, RouteItem item) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(item.label),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: item.content,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('إغلاق'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // // تسجيل الخروج
-  // void logout(BuildContext context, AuthProvider authProvider) {
-  //   authProvider.logout();
-  //   context.go('/login');
-  // }
-  String? _initR;
   GoRouter createRouter(String? initRouter,
       {List<NavigatorObserver>? observers}) {
-    _initR = initRouter ?? '';
     String initR;
     if (initRouter != null) {
       initR = initRouter;
@@ -238,7 +207,7 @@ class AppShellRouterProvider extends ChangeNotifier {
         // إنشاء مسارات لكل عناصر الشريط الجانبي
         for (var i = 0; i < sidebarItems.length; i++)
           GoRoute(
-            path: sidebarItems[i].path!,
+            path: sidebarItems[i].path,
             pageBuilder: (context, state) {
               final item = sidebarItems[i];
 
@@ -298,9 +267,8 @@ class AppShellRouterProvider extends ChangeNotifier {
         // match the path with params and query
         final matchedPathWithParams = sidebarItems.any(
           (item) {
-            if (item.path == null) return false;
             final uri = Uri.parse(state.matchedLocation);
-            final itemUri = Uri.parse(item.path!);
+            final itemUri = Uri.parse(item.path);
             if (uri.pathSegments.length != itemUri.pathSegments.length) {
               return false;
             }

@@ -46,14 +46,12 @@ class ImagePickerModele extends Cubit<ImageState> {
         var imagefile = value;
 
         var image = Imagebytes;
-        String name = imagefile!.name;
+        String name = imagefile.name;
         String extention =
         name.substring(name.lastIndexOf(".") + 1);
         // rename file use date time micorsecond
         name =
-            DateTime.now().microsecondsSinceEpoch.toString() +
-                "." +
-                extention;
+            "${DateTime.now().microsecondsSinceEpoch}.$extention";
           multiFile = MultipartFile.fromBytes(
           image!,
           filename: name,

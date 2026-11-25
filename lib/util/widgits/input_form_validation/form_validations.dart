@@ -5,9 +5,7 @@ import 'input_validation_item.dart';
 /// فئة مساعدة لإدارة نماذج الإدخال والتحقق من صحتها بسهولة.
 /// A helper class to manage input forms and their validations easily.
 class ValidationsForm {
-  ValidationsForm(){
-
-  }
+  ValidationsForm();
   /// قائمة تحتوي على حقول الإدخال المرتبطة بهذا النموذج والتي تحتاج إلى تحقق.
   /// A list of input form fields associated with this form that need validation.
   List<InputValidationForm> inputValidationForm = [];
@@ -60,7 +58,7 @@ class ValidationsForm {
   /// يقوم بالتحقق من صحة المدخلات (Validate)، وإذا كانت صحيحة يقوم بحفظها وإرجاعها كخريطة (Map).
   /// Validates the inputs, and if valid, saves them and returns the data as a Map.
   Map<String, dynamic> getInputData() {
-    Map<String, dynamic> dataMap = Map();
+    Map<String, dynamic> dataMap = {};
     if (form.currentState!.validate()) {
       form.currentState!.save();
       inputValidationForm.map((e) {

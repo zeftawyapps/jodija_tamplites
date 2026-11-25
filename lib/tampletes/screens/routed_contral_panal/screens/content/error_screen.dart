@@ -11,13 +11,13 @@ class ErrorScreen extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.error, size: 80, color: Colors.red),
-          const SizedBox(height: 16),
-          const Text('404', style: TextStyle(fontSize: 30)),
+          SizedBox(height: 16),
+          Text('404', style: TextStyle(fontSize: 30)),
         ],
       ),
     );

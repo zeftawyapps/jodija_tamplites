@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class InputTextFormfield extends StatefulWidget {
-  final dynamic? mainValue;
+  final dynamic mainValue;
   final bool enabled;
   var saved;
   Function(String)? onChange;
@@ -31,7 +31,7 @@ class InputTextFormfield extends StatefulWidget {
   bool addTools;
   List<TextInputFormatter>? inputFormatters;
   InputDecoration decoration;
-  InputTextFormfield({
+  InputTextFormfield({super.key, 
     required this.decoration,
     this.addTools = false,
     this.onTap,

@@ -1,6 +1,4 @@
-import 'package:jodija_tamplites/util/main-screen/screen-type.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'items.dart';
 
@@ -13,7 +11,7 @@ class PopUpMenu extends StatelessWidget {
       this.iconColor,
       this.alignment = Alignment.topRight});
   List<pubMenuItems> items;
-  TextStyle? textStyle = TextStyle(fontSize: 10, color: Colors.black);
+  TextStyle? textStyle = const TextStyle(fontSize: 10, color: Colors.black);
   int? iconSize;
   Color? iconColor;
   Alignment alignment = Alignment.topRight;
@@ -21,12 +19,8 @@ class PopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     map = actions();
-    if (iconSize == null) {
-      iconSize = textStyle!.fontSize!.toInt();
-    }
-    if (iconColor == null) {
-      iconColor = textStyle!.color ?? Colors.black;
-    }
+    iconSize ??= textStyle!.fontSize!.toInt();
+    iconColor ??= textStyle!.color ?? Colors.black;
     return Align(
       alignment: alignment,
       child: PopupMenuButton(
@@ -62,6 +56,6 @@ class PopUpMenu extends StatelessWidget {
   Map<int, Function> actions() {
     Map<int, Function> maps =
         items.asMap().map((key, value) => MapEntry(value.value, value.onTap));
-    return maps as Map<int, Function>;
+    return maps;
   }
 }

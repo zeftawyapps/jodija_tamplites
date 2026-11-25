@@ -32,12 +32,12 @@ class DatePickerFormField extends StatefulWidget {
 }
 
 class _DatePickerFormFieldState extends State<DatePickerFormField> {
-  DateTime? value = null;
+  DateTime? value;
   TextEditingController controller = TextEditingController();
 
   DateTime init = DateTime.now();
   DateTime first = DateTime.now();
-  DateTime last = DateTime.now().add(Duration(days: 1));
+  DateTime last = DateTime.now().add(const Duration(days: 1));
   DateTime? dateSelected;
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
 
     init = widget.initDate ?? DateTime.now();
     first = widget.firestDate ?? DateTime.now();
-    last = widget.lastDate ?? first.add(Duration(days: 1));
+    last = widget.lastDate ?? first.add(const Duration(days: 1));
 
     return InputTextFormfield(
         addTools: true,
@@ -70,7 +70,7 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
                   initialDatePickerMode: widget.initialDatePickerMode)
               .then((value) {
             setState(() {
-              this.dateSelected = value;
+              dateSelected = value;
               // this.controller.text = value!.toStringFormat(formate: widget.formate);
               widget.onChange(value);
             });
@@ -79,8 +79,6 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
         decoration: widget.decoration,
         validate: widget.onvlaidate,
         saved: widget.onSave,
-        mainValue: this.value == null
-            ? null
-            : this.value!.toStringFormat(formate: widget.formate));
+        mainValue: value?.toStringFormat(formate: widget.formate));
   }
 }

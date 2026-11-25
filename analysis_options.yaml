@@ -1,4 +1,15 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude:
+    - "**/*.freezed.dart"
+    - "**/*.g.dart"
+  errors:
+    must_be_immutable: ignore
+
+linter:
+  rules:
+    file_names: false
+    non_constant_identifier_names: false
+    constant_identifier_names: false
+    camel_case_types: false

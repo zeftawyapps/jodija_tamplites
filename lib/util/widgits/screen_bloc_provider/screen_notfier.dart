@@ -7,7 +7,6 @@ abstract class ScreenStateBlocNotifier extends ChangeNotifier {
   late Function fuction;
   List<DataSourceBloc> blocs = [];
 
-  @override
   void createproviers(BuildContext contxt);
 
   List<BlocProvider> blocProviders = [];

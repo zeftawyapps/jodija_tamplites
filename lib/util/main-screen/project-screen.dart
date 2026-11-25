@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 /// Adaptive builder widget computing current screen breakpoints, viewport dimensions,
 /// and [ScreenType] classification, providing them to a responsive builder callback.
 class ProjectScreenBulder extends StatefulWidget {
-  ProjectScreenBulder({super.key, required this.screenBulder});
+  const ProjectScreenBulder({super.key, required this.screenBulder});
 
   /// دالة بناء الودجة التكيفية مع الأبعاد
   final Widget Function(

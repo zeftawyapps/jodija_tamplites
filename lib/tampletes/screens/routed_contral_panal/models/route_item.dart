@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utiles/side_bar_navigation_router.dart';
 
 /// نموذج عنصر ومسار التنقل في القالب التكيفي (Adaptive Navigation Route Item)
 ///
@@ -198,16 +197,16 @@ class RouteItem {
     // عمل نسخة من prams وليس مرجع
     constPrams = prams != null ? Map<String, dynamic>.from(prams!) : null;
     print(prams);
-    if (this.isSideBarRouted == false) {
+    if (isSideBarRouted == false) {
       // إذا لم يكن موجهًا، فلا حاجة إلى معلمات
       isInBottomNavBar = false;
     }
-    if (this.isInBottomNavBar == true) {
+    if (isInBottomNavBar == true) {
       // إذا كان في شريط التنقل السفلي، يجب أن يكون موجهًا
-      this.isSideBarRouted = true;
+      isSideBarRouted = true;
     }
-    if (this.parentName.isNotEmpty) {
-      this.isChildItem = true;
+    if (parentName.isNotEmpty) {
+      isChildItem = true;
     }
   }
 

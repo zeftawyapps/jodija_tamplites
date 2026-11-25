@@ -27,11 +27,12 @@ class NavigationService extends INavigationService {
 
   BuildContext get context => navigatorKey.currentContext!;
 
-  final removeAllOldRoutes = (Route<dynamic> route) => false;
+  bool removeAllOldRoutes(Route<dynamic> route) => false;
   NavigationAnimationType animationType = NavigationAnimationType.none;
   @override
   Future<Object?> navigateToPage({required String path, Object? data}) async {
     await navigatorKey.currentState!.pushNamed(path, arguments: data);
+    return null;
   }
 
   @override
@@ -42,18 +43,18 @@ class NavigationService extends INavigationService {
     String name = path;
     WebRouteUrlSplitter data = WebRouteUrlSplitter();
     if (pram != null) {
-      path = path + "/:";
+      path = "$path/:";
       pram.forEach((key, value) {
-        path = path + "$value/";
+        path = "$path$value/";
       });
       // remove last /
       path = path.substring(0, path.length - 1);
       data.pram = pram;
     }
     if (query != null) {
-      path = path + "?";
+      path = "$path?";
       query.forEach((key, value) {
-        path = path + "$key=$value&";
+        path = "$path$key=$value&";
       });
       // remove last &
       path = path.substring(0, path.length - 1);
@@ -178,8 +179,9 @@ class NavigationService extends INavigationService {
     return data;
   }
 
+  @override
   Widget getWidgetError() {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('404'),
       ),

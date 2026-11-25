@@ -1,7 +1,4 @@
-import 'dart:ui';
 
-import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
-import 'package:jodija_tamplites/util/widgits/input_text/input_text_field.dart';
 import 'package:flutter/material.dart';
 
 /// جدول لعرض البيانات (DataTable) مع إمكانيات التمرير الأفقي والعمودي.
@@ -63,7 +60,7 @@ class DataTableGridView extends StatefulWidget {
   
   /// تصميم الخط في العناوين.
   /// Text style for the header.
-  TextStyle headerStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  TextStyle headerStyle = const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   
   /// تفعيل إمكانية الإضافة/الحذف.
   /// Enable add/delete.
@@ -105,28 +102,30 @@ class _DataTableGridViewState extends State<DataTableGridView> {
           physics: widget.physics,
           controller: controller,
           child: DataTable(
-            headingRowColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected))
+            headingRowColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return widget.headerColor;
+              }
               return widget.headerColor;
             }),
-            dataRowColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected))
+            dataRowColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return widget.rowColor;
+              }
               return widget.rowColor;
             }),
             columns: List<DataColumn>.generate(
               widget.header.length,
               (index) {
-                if (widget.columnWidth.length == 0 ||
+                if (widget.columnWidth.isEmpty ||
                     widget.columnWidth.length < widget.header.length) {
                   widget.columnWidth.add(widget.width!);
                 }
 
                 return DataColumn(
-                  label: Container(
+                  label: SizedBox(
                     width: widget.columnWidth[index],
                     child: Text(
                       widget.header[index],
@@ -137,7 +136,7 @@ class _DataTableGridViewState extends State<DataTableGridView> {
               },
             ),
             rows: List<DataRow>.generate(widget.rowCount, (index) {
-              List<DataCell> cells = widget.rowWidgets!(index);
+              List<DataCell> cells = widget.rowWidgets(index);
               rowSelected.add(false);
               return DataRow(
                 onSelectChanged: (value) {

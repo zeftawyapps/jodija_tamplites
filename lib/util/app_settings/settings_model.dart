@@ -41,7 +41,10 @@ class BaseSetting extends IBaseSetting {
 }
 
 abstract class IBaseSetting {
+  @override
   String toString();
+  @override
   bool operator ==(Object other);
+  @override
   int get hashCode;
 }

@@ -30,5 +30,5 @@ class BaseViewDataModel {
     return BaseViewDataModel(id)..map = json;
   }
 
-  Map<String, dynamic>? map = Map();
+  Map<String, dynamic>? map = {};
 }

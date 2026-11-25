@@ -8,9 +8,7 @@ mixin SettingsManager {
 
   /// Setup settings manager - call this in initState or build
   void setupSettingsManager(BuildContext context) {
-    if (_settingsProvider == null) {
-      _settingsProvider = context.read<SettingsProvider>();
-    }
+    _settingsProvider ??= context.read<SettingsProvider>();
   }
 
   /// Get the settings provider

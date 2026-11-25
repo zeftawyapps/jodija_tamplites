@@ -11,13 +11,13 @@ class DashboardScreen extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.dashboard, size: 80, color: Colors.blue),
-          const SizedBox(height: 16),
-          const Text('لوحة التحكم', style: TextStyle(fontSize: 24)),
+          SizedBox(height: 16),
+          Text('لوحة التحكم', style: TextStyle(fontSize: 24)),
         ],
       ),
     );

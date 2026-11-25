@@ -1,7 +1,6 @@
 import 'package:jodija_tamplites/util/cell_models/data-operations.dart';
 import 'package:jodija_tamplites/util/cell_models/modul_screateor.dart';
 import 'package:jodija_tamplites/util/widgits/input_output_cell_binder/field_model_binder.dart';
-import 'package:jodija_tamplites/util/widgits/input_text/input_text_field.dart';
 import 'package:flutter/material.dart';
 
 class DataTableGrid<F extends FeildModelBinder, C extends CellModel>
@@ -36,22 +35,22 @@ class DataTableGrid<F extends FeildModelBinder, C extends CellModel>
 
   List<DataColumn> addHeaders() {
     List<DataColumn> columns = [];
-    dataModel.feilds.forEach((element) {
+    for (var element in dataModel.feilds) {
       columns.add(DataColumn(label: element.header));
-    });
+    }
     return columns;
   }
 
   List<DataRow> addRows() {
     List<DataRow> rows = [];
 
-    data.listOfRows.forEach((element) {
+    for (var element in data.listOfRows) {
       rows.add(DataRow(
         cells: element.cells
             .map((e) => DataCell(dataModel.getField(e.name).outputField))
             .toList(),
       ));
-    });
+    }
 
     return rows;
   }

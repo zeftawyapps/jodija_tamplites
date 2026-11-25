@@ -200,6 +200,6 @@ class SidebarHeaderConfig {
             Icon(Icons.broken_image, size:  logoHight  ),
       );
     }
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }

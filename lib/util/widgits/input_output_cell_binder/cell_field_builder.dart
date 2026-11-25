@@ -88,7 +88,6 @@ class CellFieldBuilder {
     Function(dynamic newValue)? onChanged,
   ) {
     final caption = cell.caption ?? cell.name;
-    final isDark = false; // سيتم توريث الثيم تلقائياً عبر context
 
     switch (cell.type) {
       // 1. الحقول النصية والرقمية (TextFormValidation)
@@ -229,7 +228,7 @@ class CellFieldBuilder {
                 vertical: 12,
               ),
             ),
-            textStyle: TextStyle(),
+            textStyle: const TextStyle(),
           ),
         );
 
@@ -287,7 +286,6 @@ class CellFieldBuilder {
   // بناء عناصر العرض للقراءة فقط (Output Field Renderer)
   // ===========================================================================
   static Widget _buildOutputField(Cell cell, Field field) {
-    final caption = cell.caption ?? cell.name;
     final val = cell.value;
 
     if (val == null || (val is String && val.trim().isEmpty)) {
@@ -338,11 +336,10 @@ class CellFieldBuilder {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              '#${idx + 1}: ' +
-                  cell.subCellsSchema
+              '#${idx + 1}: ${cell.subCellsSchema
                       .map((sc) =>
                           '${sc.caption ?? sc.name}: ${r[sc.name] ?? "—"}')
-                      .join(' | '),
+                      .join(' | ')}',
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             ),
           );
@@ -407,7 +404,7 @@ class _DynamicBooleanSwitchFieldState
             : null,
         secondary: Icon(widget.cell.type.icon, color: Colors.teal),
         value: _val,
-        activeColor: Colors.teal,
+        activeThumbColor: Colors.teal,
         onChanged: (newVal) {
           setState(() => _val = newVal);
           widget.cell.value = newVal;

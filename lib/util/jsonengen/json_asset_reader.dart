@@ -8,7 +8,7 @@ class JsonAssetReader {
   String _path = '';
   bool fileExists = false;
   JsonAssetReader({required String path})  {
-    this._path = path;
+    _path = path;
      }
   get data   async{
     _data = await _readFileFromAsset(_path) as Map<String, dynamic>;

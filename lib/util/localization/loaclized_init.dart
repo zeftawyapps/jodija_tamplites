@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart' as intl;
 
 /// الفئة الأساسية لتهيئة وإدارة الترجمة واللغات (Localization Foundation Initializer)
 ///
@@ -41,7 +40,7 @@ class AppLocalizationsDelegate
 
 AppLocalizationsInit _lookupAppLocalizations(Locale locale) {
   LocalizationConfig config = LocalizationConfig();
-  return config.localizedValues![locale.languageCode]!;
+  return config.localizedValues[locale.languageCode]!;
 }
 
 /// مدير إعدادات الترجمة الموحد بنمط Singleton
@@ -54,9 +53,9 @@ class LocalizationConfig {
   LocalizationConfig._internal();
   Map<String, AppLocalizationsInit> localizedValues = {};
 
-  List<Locale> _localList = [];
+  final List<Locale> _localList = [];
   // add a variable to hold the current locale
-  Locale _locale = Locale('en');
+  Locale _locale = const Locale('en');
   // add a getter to get the current locale
   Locale get locale => _locale;
   // add a method to set the locale
@@ -67,7 +66,7 @@ class LocalizationConfig {
   }
 
   List<LocalizationsDelegate<dynamic>> locliztionDelegates(Locale local ){
-    LocalizationsDelegate<AppLocalizationsInit> delegate = AppLocalizationsDelegate();
+    LocalizationsDelegate<AppLocalizationsInit> delegate = const AppLocalizationsDelegate();
    delegate.load(locale);
 
     return  [
@@ -75,17 +74,17 @@ class LocalizationConfig {
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
-    ];;
+    ];
   }
 
   List<String> _keys = [];
   get localcode => _keys;
   // add a method to get the supported locales
   List<Locale> get supportedLocales {
-    localizedValues!.forEach((key, value) {
+    localizedValues.forEach((key, value) {
       _localList.add(Locale(key));
     });
-    _keys = localizedValues!.keys.toList();
+    _keys = localizedValues.keys.toList();
     return _localList;
   }
 }

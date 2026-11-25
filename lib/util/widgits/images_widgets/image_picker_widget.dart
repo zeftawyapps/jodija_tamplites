@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'dart:typed_data';
 
 /// أنواع التحقق من أبعاد الصورة
 enum DimensionRule {
@@ -46,9 +45,10 @@ class ImageFileModel {
   /// نص مقروء لحجم الملف
   String get readableFileSize {
     if (fileSizeInBytes == null) return 'غير معروف';
-    if (fileSizeInBytes! < 1024) return '${fileSizeInBytes} بايت';
-    if (fileSizeInBytes! < 1024 * 1024)
+    if (fileSizeInBytes! < 1024) return '$fileSizeInBytes بايت';
+    if (fileSizeInBytes! < 1024 * 1024) {
       return '${fileSizeInKB!.toStringAsFixed(2)} كيلوبايت';
+    }
     return '${fileSizeInMB!.toStringAsFixed(2)} ميجابايت';
   }
 }
@@ -317,7 +317,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                   'الحد الأقصى ${widget.maxFileSizeMB} MB',
                 ),
                 backgroundColor: Colors.orange,
-                duration: Duration(seconds: 4),
+                duration: const Duration(seconds: 4),
               ),
             );
           }
@@ -361,24 +361,30 @@ class _ImagePeckerState extends State<ImagePecker> {
           switch (widget.dimensionRule) {
             case DimensionRule.min:
               ruleText = 'الحد الأدنى';
-              if (widget.requiredWidth != null && actualWidth < reqW)
+              if (widget.requiredWidth != null && actualWidth < reqW) {
                 wFailed = true;
-              if (widget.requiredHeight != null && actualHeight < reqH)
+              }
+              if (widget.requiredHeight != null && actualHeight < reqH) {
                 hFailed = true;
+              }
               break;
             case DimensionRule.max:
               ruleText = 'الحد الأقصى';
-              if (widget.requiredWidth != null && actualWidth > reqW)
+              if (widget.requiredWidth != null && actualWidth > reqW) {
                 wFailed = true;
-              if (widget.requiredHeight != null && actualHeight > reqH)
+              }
+              if (widget.requiredHeight != null && actualHeight > reqH) {
                 hFailed = true;
+              }
               break;
             case DimensionRule.exact:
               ruleText = 'المقاس المطلوب';
-              if (widget.requiredWidth != null && actualWidth != reqW)
+              if (widget.requiredWidth != null && actualWidth != reqW) {
                 wFailed = true;
-              if (widget.requiredHeight != null && actualHeight != reqH)
+              }
+              if (widget.requiredHeight != null && actualHeight != reqH) {
                 hFailed = true;
+              }
               break;
           }
 
@@ -400,7 +406,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Row(
+                    title: const Row(
                       children: [
                         Icon(Icons.error_outline, color: Colors.red),
                         SizedBox(width: 8),
@@ -413,7 +419,7 @@ class _ImagePeckerState extends State<ImagePecker> {
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('حسناً'),
+                        child: const Text('حسناً'),
                       ),
                     ],
                   ),
@@ -779,12 +785,15 @@ class _ImagePeckerState extends State<ImagePecker> {
                   Text(
                     () {
                       String prefix = 'المقاس المطلوب:';
-                      if (widget.dimensionRule == DimensionRule.min)
+                      if (widget.dimensionRule == DimensionRule.min) {
                         prefix = 'الحد الأدنى للمقاس:';
-                      if (widget.dimensionRule == DimensionRule.max)
+                      }
+                      if (widget.dimensionRule == DimensionRule.max) {
                         prefix = 'الحد الأقصى للمقاس:';
-                      if (widget.dimensionRule == DimensionRule.exact)
+                      }
+                      if (widget.dimensionRule == DimensionRule.exact) {
                         prefix = 'المقاس المطلوب تماماً:';
+                      }
                       return '$prefix ${widget.requiredWidth} × ${widget.requiredHeight}';
                     }(),
                     style: TextStyle(

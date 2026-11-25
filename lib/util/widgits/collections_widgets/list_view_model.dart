@@ -1,11 +1,10 @@
 import 'package:jodija_tamplites/util/view_data_model/base_data_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// ويدجت تعرض قائمة من البيانات (ListView) مع دعم الحركات (Animations) وزر للإضافة.
 /// A widget that displays a ListView of data with animation support and an optional add button.
 class ListViewModel<T extends BaseViewDataModel> extends StatefulWidget {
-  ListViewModel({
+  const ListViewModel({
     super.key,
     /// البيانات.
     /// The data.
@@ -68,7 +67,7 @@ class _ListViewModelState<T extends BaseViewDataModel> extends State<ListViewMod
     _controllers = List.generate(
       itemCount,
       (index) => AnimationController(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         vsync: this,
       )..forward(),
     );
@@ -102,7 +101,7 @@ class _ListViewModelState<T extends BaseViewDataModel> extends State<ListViewMod
       itemCount: widget.canAdd ? widget.data.length + 1 : widget.data.length,
       itemBuilder: (context, index) {
         if (index >= _controllers.length) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         final animation = CurvedAnimation(
@@ -126,12 +125,12 @@ class _ListViewModelState<T extends BaseViewDataModel> extends State<ListViewMod
                   onTap: widget.onAdd,
                   child: widget.addWidget ??
                       AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.black.withOpacity(0.5),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Icon(
                             Icons.add,
                             size: 50,
