@@ -1,28 +1,13 @@
-<div align="center">
+![JoDija Logo](https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/jodija_logo.png)
 
-<img src="doc/assets/jodija_logo.png" alt="شعار جوديجا - JoDija" width="180" style="border-radius: 20px; margin-bottom: 12px;" />
+# 🚀 قوالب جوديجا (`jodija_tamplites`) - النواة الشاملة للأنظمة والتطبيقات
 
-# 🚀 قوالب جوديجا (JoDija Templates) - النواة الشاملة للأنظمة والتطبيقات
-
-### *Simplifying Flutter Workflows And Universal Cross-Platform Solutions*
-
-**حزمة فلاتر متطورة لتأسيس لوحات التحكم، التطبيقات الأحادية، والمنصات متعددة الوحدات مع دعم كامل ومحلي للغة العربية ونظام RTL.**
+**حزمة فلاتر متطورة لتأسيس لوحات التحكم، التطبيقات الأحادية، والمنصات متعددة الوحدات مع دعم كامل ومحلي للغة العربية ونظام RTL على جميع المنصات (Android, iOS, Web, macOS, Windows, Linux).**
 
 [![pub package](https://img.shields.io/pub/v/jodija_tamplites.svg)](https://pub.dev/packages/jodija_tamplites)
-[![Version](https://img.shields.io/badge/الإصدار-3.1.0-success.svg)](pubspec.yaml)
-[![Flutter Version](https://img.shields.io/badge/Flutter-3.x%2B-02569B?logo=flutter)](https://flutter.dev)
-[![Dart Version](https://img.shields.io/badge/Dart-3.x%2B-0175C2?logo=dart)](https://dart.dev)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![RTL Support](https://img.shields.io/badge/RTL-مفعل%20تلقائياً-orange.svg)](#-دعم-اللغة-العربية-واتجاه-rtl-المدمج)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/zeftawyapps/jodija_tamplites/blob/master/LICENSE)
 
----
-
-### 🌐 اللغة / Language
-[🇺🇸 **English Documentation (README.md)**](README.md) • [📚 **بوابة التوثيق الكاملة (doc/README.md)**](doc/README.md)
-
----
-
-</div>
+🌐 **اللغة / Language:** [🇺🇸 English Documentation (README.md)](https://github.com/zeftawyapps/jodija_tamplites/blob/master/README.md) • [📚 بوابة التوثيق الكاملة (doc/README.md)](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/README.md)
 
 ---
 
@@ -31,12 +16,12 @@
 نماذج حية تم بناؤها باستخدام `JoDija Templates` مثل نظام **Delta Mager Pro**:
 
 <div align="center">
-  <img src="doc/assets/products_dashboard.jpg" alt="Delta Mager Pro لوحة إدارة المنتجات" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 20px;" />
+  <img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/products_dashboard.jpg" alt="Delta Mager Pro لوحة إدارة المنتجات" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 20px;" />
   <p><strong>لوحة تحكم المنتجات (Products Dashboard)</strong>: القائمة الجانبية (Sidebar) بنظام RTL مع كبسولات التصفية وشبكة البطاقات المتجاوبة وبادجات (الأكثر مبيعاً وخصم كبير).</p>
 </div>
 
 <div align="center">
-  <img src="doc/assets/categories_dashboard.jpg" alt="Delta Mager Pro لوحة إدارة الفئات" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 10px;" />
+  <img src="https://raw.githubusercontent.com/zeftawyapps/jodija_tamplites/master/doc/assets/categories_dashboard.jpg" alt="Delta Mager Pro لوحة إدارة الفئات" width="85%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 10px;" />
   <p><strong>لوحة إدارة الفئات والكتالوج (Categories Dashboard)</strong>: إبراز العنصر النشط في القائمة الجانبية، شريط البحث، وزر الإضافة بالثيم الزيتي المخصص.</p>
 </div>
 
@@ -46,25 +31,18 @@
 
 تعتمد الحزمة على ركيزة معمارية أساسية تدعم نمطين من التطبيقات مع إعادة استخدام الكود بنسبة 100%:
 
-```mermaid
-graph TD
-    Templates["📦 jodija_tamplites\n(القوالب المشتركة، البلوك، الثيمات، والإعدادات)"]
-    Express["🚀 matger-express\n(الباك إند المركزي لتوفير عقود الـ API والإعدادات)"]
-    
-    subgraph MultiSolution ["🏢 أنظمة وحلول متعددة (Multi-Solution Ecosystems)"]
-        Management["🖥️ matger-management-app\n(لوحة تحكم إدارية متكاملة + وحدات فرعية + جداول إحصائية)"]
-        FontLogic["🔤 font logic\n(منصة معالجة وتحكم متقدمة بالخطوط)"]
-    end
-    
-    subgraph SingleSolution ["📱 تطبيقات أحادية الحلول (Single-Solution Apps)"]
-        Client["🛒 matger-client-app\n(واجهة تسوق مخصصة للعميل / شريط سفلي)"]
-        Specialized["🎯 تطبيقات متخصصة لغرض محدد"]
-    end
-    
-    Templates --> MultiSolution
-    Templates --> SingleSolution
-    Express -->|عقود الـ API والإعدادات المركزية| MultiSolution
-    Express -->|نقاط الـ API وإعدادات المتجر| SingleSolution
+```text
++-------------------------------------------------------------------+
+|                        jodija_tamplites                           |
+|  AdaptiveAppShell | DataSourceBloc | CellFieldBuilder | Themes    |
++-----------------+-------------------------------+-----------------+
+                  |                               |
+                  v                               v
++---------------------------------+ +-------------------------------+
+|    أنظمة وحلول متعددة (Admin)   | |     تطبيقات أحادية الحلول     |
+| - قائمة جانبية متجاوبة وجداول   | | - تطبيقات الجوال والويب       |
+| - موديولات فرعية وتقارير        | | - دعم RTL وخطوط عربية مدمجة   |
++---------------------------------+ +-------------------------------+
 ```
 
 ### 1. التطبيقات أحادية الحلول (Single-Solution Apps)
@@ -131,7 +109,7 @@ flutter pub add jodija_tamplites
 dependencies:
   flutter:
     sdk: flutter
-  jodija_tamplites: ^3.1.0
+  jodija_tamplites: ^3.1.2
 ```
 
 ### 2. إعداد كلاس الـ Configuration
@@ -227,15 +205,15 @@ class MyApp extends StatelessWidget {
 
 | الدليل | الموضوع الرئيسي | الرابط |
 | :--- | :--- | :--- |
-| **🚀 دليل الاستخدام الشامل** | شرح تطبيقي خطوة بخطوة من الصفر وحتى بناء تطبيق متكامل | [HOW_TO_USE.ar.md](doc/HOW_TO_USE.ar.md) |
-| **الفلسفة والمعمارية** | معمارية الحلول الأحادية والمتعددة ودور matger-express | [PHILOSOPHY_AND_ARCHITECTURE.ar.md](doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.ar.md) |
-| **دليل الـ Configuration** | شرح DataViewConfigraion وموصل الشبكة AppHttpConnector | [CONFIGURATION_GUIDE.ar.md](doc/01_architecture/CONFIGURATION_GUIDE.ar.md) |
-| **دليل Adaptive App Shell** | الدليل الكامل لتخصيص القوالب والـ Sidebar والأنيميشن | [ADAPTIVE_APP_SHELL_GUIDE.ar.md](doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.ar.md) |
-| **دليل الأدوات المشتركة** | توثيق الـ Bloc، الجداول، التخزين، والتحقق | [SHARED_UTILS_GUIDE.ar.md](doc/03_utils/SHARED_UTILS_GUIDE.ar.md) |
-| **دليل تكامل منظومة المتجر** | ربط Matger Management + Client مع Express | [MATGER_ECOSYSTEM_INTEGRATION.ar.md](doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.ar.md) |
-| **📖 فهرس الـ API الشامل** | مرجع مفصل يوثق كافة الأقسام والكلاسات المصدّرة | [API_REFERENCE.ar.md](doc/API_REFERENCE.ar.md) |
+| **🚀 دليل الاستخدام الشامل** | شرح تطبيقي خطوة بخطوة من الصفر وحتى بناء تطبيق متكامل | [HOW_TO_USE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/HOW_TO_USE.ar.md) |
+| **الفلسفة والمعمارية** | معمارية الحلول الأحادية والمتعددة ودور matger-express | [PHILOSOPHY_AND_ARCHITECTURE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/01_architecture/PHILOSOPHY_AND_ARCHITECTURE.ar.md) |
+| **دليل الـ Configuration** | شرح DataViewConfigraion وموصل الشبكة AppHttpConnector | [CONFIGURATION_GUIDE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/01_architecture/CONFIGURATION_GUIDE.ar.md) |
+| **دليل Adaptive App Shell** | الدليل الكامل لتخصيص القوالب والـ Sidebar والأنيميشن | [ADAPTIVE_APP_SHELL_GUIDE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/02_templates/ADAPTIVE_APP_SHELL_GUIDE.ar.md) |
+| **دليل الأدوات المشتركة** | توثيق الـ Bloc، الجداول، التخزين، والتحقق | [SHARED_UTILS_GUIDE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/03_utils/SHARED_UTILS_GUIDE.ar.md) |
+| **دليل تكامل منظومة المتجر** | ربط Matger Management + Client مع Express | [MATGER_ECOSYSTEM_INTEGRATION.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/04_integrations/MATGER_ECOSYSTEM_INTEGRATION.ar.md) |
+| **📖 فهرس الـ API الشامل** | مرجع مفصل يوثق كافة الأقسام والكلاسات المصدّرة | [API_REFERENCE.ar.md](https://github.com/zeftawyapps/jodija_tamplites/blob/master/doc/API_REFERENCE.ar.md) |
 
 ---
 
 ## 📄 الترخيص (License)
-هذا المشروع مرخص بموجب رخصة MIT - راجع ملف [LICENSE](LICENSE) لمزيد من التفاصيل.
+هذا المشروع مرخص بموجب رخصة MIT - راجع ملف [LICENSE](https://github.com/zeftawyapps/jodija_tamplites/blob/master/LICENSE) لمزيد من التفاصيل.

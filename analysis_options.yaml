@@ -4,6 +4,11 @@ analyzer:
   exclude:
     - "**/*.freezed.dart"
     - "**/*.g.dart"
+    - build/**
+    - android/**
+    - ios/**
+    - macos/**
+    - linux/**
   errors:
     must_be_immutable: ignore
 
